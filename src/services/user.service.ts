@@ -1,4 +1,4 @@
-import repository from "../database/prisma.database";
+import prisma from "../database/prisma.database";
 import { ResponseDto } from "../dto/response.dto";
 import { CreateUserDto, UpdateUserDto } from "../dto/user.dto";
 import { User } from "../models/user.model";
@@ -7,7 +7,7 @@ import { User as UserPrisma } from "@prisma/client"
 class UserService {
 
     public async listAllUsers(): Promise<ResponseDto> {
-        const data = await repository.user.findMany()
+        const data = await prisma.user.findMany()
 
         const listUserModel = data.map((item) => this.mapToModel(item))
 
@@ -19,13 +19,21 @@ class UserService {
         }
     }
 
-    public async getByUser(name: string, username: string, email: string, password: string) {
-        const user = await repository.user.findUnique({
+    public async getByUser(username: string, email: string, password: string) {
+        const user = await prisma.user.findUnique({
             where: {
-                name: name,
                 username: username,
-                password: password,
-                email: email
+                email: email,
+                password: password
+            }
+        })
+        return user
+    }
+
+    public async getByToken(token: string) {
+        const user = await prisma.user.findUnique({
+            where: {
+                token: token
             }
         })
         return user
@@ -33,40 +41,43 @@ class UserService {
 
     public async createUser(data: CreateUserDto): Promise<ResponseDto> {
 
-        const findUser = await repository.user.findUnique({
+        const findUser = await prisma.user.findFirst({
             where: {
-                username: data.username,
-                email: data.email
+                OR: [
+                    { username: data.username },
+                    { email: data.email }
+                ]
             }
-        })
+        });
 
-        if (!findUser) {
-            const createUser = await repository.user.create({
-                data: {
-                    name: data.name,
-                    username: data.username,
-                    email: data.email,
-                    password: data.password
-                }
-            })
+        if (findUser) {
             return {
-                ok: true,
-                code: 201,
-                message: "Usuario cadastrado com sucesso",
-                data: this.mapToModel(createUser).detailUser()
+                ok: false,
+                code: 400,
+                message: "username ou email já cadastrado"
             }
         }
 
+        const createUser = await prisma.user.create({
+            data: {
+                name: data.name,
+                username: data.username,
+                email: data.email,
+                password: data.password
+            }
+        })
         return {
-            ok: false,
-            code: 400,
-            message: "username ou email já cadastrado"
+            ok: true,
+            code: 201,
+            message: "Usuario cadastrado com sucesso",
+            data: this.mapToModel(createUser).detailUser()
         }
     }
 
+
     public async updateUser(data: UpdateUserDto): Promise<ResponseDto> {
 
-        const user = await repository.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {
                 id: data.id
             }
@@ -80,7 +91,7 @@ class UserService {
             }
         }
 
-        const atualizaUsuario = await repository.user.update({
+        const atualizaUsuario = await prisma.user.update({
             where: {
                 id: data.id
             },
@@ -88,7 +99,8 @@ class UserService {
                 name: data.name,
                 username: data.username,
                 email: data.email,
-                password: data.password
+                password: data.password,
+                token: data.token
             }
         })
 
@@ -101,7 +113,7 @@ class UserService {
     }
 
     public async deleteUser(id: string): Promise<ResponseDto> {
-        const user = await repository.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {
                 id
             }
@@ -115,7 +127,7 @@ class UserService {
             }
         }
 
-        await repository.user.delete({
+        await prisma.user.delete({
             where: {
                 id
             }
