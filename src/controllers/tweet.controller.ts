@@ -1,8 +1,6 @@
-
 import { Request, Response } from "express";
 import repository from "../database/prisma.database";
 import tweetService from "../services/tweet.service";
-
 class TweetController {
     public async create(req: Request, res: Response) {
         try {
