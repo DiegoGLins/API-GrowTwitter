@@ -1,4 +1,4 @@
-import repository from "../database/prisma.database";
+import prisma from "../database/prisma.database";
 import { ResponseDto } from "../dto/response.dto";
 import { TweetDto } from "../dto/tweet.dto";
 import { Reply } from "../models/reply.model";
@@ -8,7 +8,7 @@ import { ReTweet as ReTweetPrisma, Tweet as TweetPrisma } from '@prisma/client'
 class TweetService {
     public async listTweetFromUser(idUser: string, idUserReply: string | undefined): Promise<ResponseDto> {
 
-        const user = await repository.user.findUnique({
+        const user = await prisma.user.findUnique({
             where: {
                 id: idUser
             }
@@ -22,13 +22,13 @@ class TweetService {
             }
         }
 
-        const tweets = await repository.tweet.findMany({
+        const tweets = await prisma.tweet.findMany({
             where: {
                 idUser
             }
         })
 
-        const replies = await repository.reTweet.findMany({
+        const replies = await prisma.reTweet.findMany({
             where: {
                 idUserReply
             }
@@ -50,7 +50,7 @@ class TweetService {
 
     public async createTweet(data: TweetDto): Promise<ResponseDto> {
 
-        const createTweet = await repository.tweet.create({
+        const createTweet = await prisma.tweet.create({
             data: {
                 idUser: data.content,
                 content: data.content
