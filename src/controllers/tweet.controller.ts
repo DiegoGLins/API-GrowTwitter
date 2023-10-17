@@ -1,24 +1,16 @@
 import { Request, Response } from "express";
-import repository from "../database/prisma.database";
 import tweetService from "../services/tweet.service";
+import Tweet from "../models/tweet.model";
 class TweetController {
     public async create(req: Request, res: Response) {
         try {
-            const { idUser } = req.params
-            const { content } = req.body
-            const checkLogged = repository.user.findUnique({
-                where: {
-                    id: idUser
-                }
-            })
 
-            if (!checkLogged) {
-                return res.status(401).send({ message: "Não autorizado. Faça login pra criar um tweet" })
-            }
+            const { idUser, content, authorTweet } = req.body
 
             const result = await tweetService.createTweet({
-                content,
-                idUser: idUser
+                content: content,
+                idUser: idUser,
+                authorTweet
             })
 
             return res.status(result.code).send(result)
@@ -31,16 +23,59 @@ class TweetController {
         }
     }
 
-    public listTweets() {
+    public async listTweets(req: Request, res: Response) {
+        try {
+            const { idUser } = req.body
 
+            const result = await tweetService.listTweetFromUser(idUser)
+
+            return res.status(result.code).send(result)
+        }
+        catch (error: any) {
+            res.status(500).send({
+                ok: false,
+                message: error.toString()
+            })
+        }
     }
 
-    public updateTweet() {
+    public async updateTweet(req: Request, res: Response) {
+        try {
+            const { idTweet } = req.params
+            const { idUser, content } = req.body
 
+            const result = await tweetService.updateTweet({
+                idUser: idUser,
+                idTweet: idTweet,
+                content: content
+            })
+
+            return res.status(result.code).send(result)
+        }
+        catch (error: any) {
+            res.status(500).send({
+                ok: false,
+                message: error.toString()
+            })
+        }
     }
 
-    public deleteTweet() {
+    public async delete(req: Request, res: Response) {
+        try {
+            const { idUser } = req.body
+            const { idTweet } = req.params
 
+            const response = await tweetService.deleteTweet({
+                idUser: idUser, idTweet: idTweet
+            })
+
+            return res.status(response.code).send(response)
+        } catch (error: any) {
+            res.status(500).send({
+                ok: false,
+                message: error.toString(),
+            });
+        }
     }
 
     // // public feedTweet(tweet: string, user: Follow) {
@@ -114,6 +149,6 @@ class TweetController {
 }
 
 
-export default new TweetController()
+export default TweetController
 
 

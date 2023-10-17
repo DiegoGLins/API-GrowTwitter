@@ -7,5 +7,6 @@ export const authRoutes = () => {
     const controller = new AuthController()
 
     router.post("/login", validateUserMiddleware, controller.login)
+    router.get("/logout", controller.logout)
     return router
 }

@@ -36,11 +36,11 @@ export class UserController {
             const { name, username, email, password } = req.body
 
             const result = await userService.updateUser({
-                id,
-                name,
-                username,
-                email,
-                password,
+                id: id,
+                name: name,
+                username: username,
+                email: email,
+                password: password
             })
 
             return res.status(result.code).send(result)

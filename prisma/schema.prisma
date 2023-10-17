@@ -13,32 +13,33 @@ datasource db {
 model User {
 id String  @id @db.Uuid @default(uuid())
 name String @db.VarChar(200)
-email String @db.VarChar(200) @unique
 username String @db.VarChar(200) @unique
+email String @db.VarChar(200) @unique
 password String @db.VarChar(15)
 token String? @unique
 following Follow[] @relation("user_following")
 followers Follow[] @relation("user_followers")
 tweets Tweet[]
-reply ReTweet[]
+reTweet ReTweet[]
 @@map("user")
 }
 
 model Tweet {
-  idTweet String @id @db.Uuid @default(uuid()) @map("id_Tweet")
+  id String @id @db.Uuid @default(uuid()) @map("id_tweet") @unique
+  content String @db.Text
   idUser String @db.Uuid @map("id_user")
-  content String @db.VarBit()
-  reply ReTweet[]
+  authorTweet String
+  reTweet ReTweet[]
   likes Liker[]
   user User @relation(fields: [idUser], references: [id])
   @@map("tweet")
-  @@unique([idTweet, idUser])
+  @@unique([id, idUser])
 }
 
 model Follow {
   id String @db.Uuid @default(uuid())
-  idUserFollowing String @db.Uuid @map("id_user_Following")
-  idUserFollower String @db.Uuid @map("id_user_Follower")
+  idUserFollowing String @db.Uuid @map("id_user_following")
+  idUserFollower String @db.Uuid @map("id_user_follower")
   following User @relation("user_following", fields: [idUserFollowing],references: [id])
   followers User @relation("user_followers",fields: [idUserFollower],references: [id])
 
@@ -47,23 +48,24 @@ model Follow {
 }
 
 model ReTweet {
-  idReTweet String @id @db.Uuid  @default(uuid()) @map("id_ReTweet")
-  idUserReply String @db.Uuid @map("id_user_reply")
-  idUserTweetOriginal String @db.Uuid @map("id_user_TweetOriginal")
-  idTweetOriginal String @db.Uuid @map("id_TweetOriginal")
-  contentReplay String @db.VarBit()
+  idTweetOriginal String @db.Uuid @map("id_tweetOriginal")
+  contentTweetOriginal String @db.Text
+  idReTweet String @id @db.Uuid  @default(uuid()) @map("id_reTweet")
+  idUserReTweet String @db.Uuid @map("id_user_reTweet")
+  contentReTweet String @db.Text @map("content_retweet")
   likes Liker[]
-  tweet Tweet @relation(fields: [idTweetOriginal, idUserTweetOriginal], references: [idTweet, idUser])
-  user User @relation(fields: [idUserReply],references: [id])
+  tweet Tweet @relation(fields: [idTweetOriginal], references: [id])
+  user User @relation(fields: [idUserReTweet],references: [id])
+  @@unique([idReTweet,idUserReTweet])
   @@map("reTweet")
 }
 
 model Liker {
   idLike String @id @db.Uuid @default(uuid()) @map("id_like")
   idUser String @db.Uuid @map("id_user")
-  idTweet String @db.Uuid @map("id_Tweet") 
-  idReply String @db.Uuid
-  tweet Tweet @relation(fields: [idTweet,idUser ],references: [idTweet, idUser])
-  reTweet ReTweet @relation(fields: [idReply],references: [idReTweet])
+  idTweet String @db.Uuid @map("id_tweet") 
+  idReTweet String @db.Uuid @map("id_retweet")
+  tweet Tweet @relation(fields: [idTweet,idUser ],references: [id, idUser])
+  reTweet ReTweet @relation(fields: [idReTweet],references: [idReTweet])
   @@map("liker")
 }

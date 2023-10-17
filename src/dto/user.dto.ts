@@ -7,9 +7,9 @@ export interface CreateUserDto {
 
 export interface UpdateUserDto {
     id: string;
-    name: string;
-    username: string;
-    email: string;
-    password: string;
+    name?: string;
+    username?: string;
+    email?: string;
+    password?: string;
     token?: string | null
 }

@@ -1,0 +1,10 @@
+POST http://localhost:3333/reTweets HTTP/1.1
+content-type: application/json
+Authorization: bf9e5dea-826e-4047-826d-0fc8463dc9f2
+
+{
+"idTweetOriginal":"3dc364de-80ff-46de-a53c-3f9c2383546d",
+"contentReTweet": "E ai Mateus. Blz cara? Gostando da plataforma nova ?"
+}
+
+//bf9e5dea-826e-4047-826d-0fc8463dc9f2

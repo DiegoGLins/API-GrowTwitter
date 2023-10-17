@@ -13,7 +13,11 @@ class AuthController {
         )
 
         if (!user) {
-            return res.status(401).send({ message: "Usuario ou senha incorretos" })
+            return res.status(401).send({
+                ok: false,
+                code: 401,
+                message: "Usuario ou senha incorretos"
+            })
         }
 
         const token = createToken()
@@ -33,6 +37,32 @@ class AuthController {
         if (update.code === 200) {
             return res.status(result.code).send(result)
         }
+    }
+
+    public async logout(req: Request, res: Response) {
+        const token = req.headers.authorization
+
+        const userLogged = await userService.getByToken(token as string)
+
+        if (userLogged) {
+            const response: ResponseDto = {
+                ok: true,
+                code: 200,
+                message: "Logout realizado com sucesso"
+            }
+
+            await userService.updateUser({ ...userLogged, token: null })
+
+            return res.status(response.code).send(response)
+        }
+
+        const response: ResponseDto = {
+            ok: false,
+            code: 404,
+            message: "Logout não encontrado"
+        }
+
+        return res.status(response.code).send(response)
     }
 }
 

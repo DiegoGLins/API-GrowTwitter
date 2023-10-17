@@ -1,12 +1,12 @@
 import prisma from "../database/prisma.database";
 import { ResponseDto } from "../dto/response.dto";
-import { TweetDto } from "../dto/tweet.dto";
-import { Reply } from "../models/reply.model";
+import { FoundTweetDto, TweetDto, UpdateTweetDto } from "../dto/tweet.dto";
+import { ReTweet } from "../models/reTweet.model"
 import Tweet from "../models/tweet.model";
 import { ReTweet as ReTweetPrisma, Tweet as TweetPrisma } from '@prisma/client'
 
 class TweetService {
-    public async listTweetFromUser(idUser: string, idUserReply: string | undefined): Promise<ResponseDto> {
+    public async listTweetFromUser(idUser: string): Promise<ResponseDto> {
 
         const user = await prisma.user.findUnique({
             where: {
@@ -28,14 +28,14 @@ class TweetService {
             }
         })
 
-        const replies = await prisma.reTweet.findMany({
+        const reTweets = await prisma.reTweet.findMany({
             where: {
-                idUserReply
+                idUserReTweet: idUser
             }
         })
 
         const tweetModel = tweets.map((item) => this.tweetMapToModel(item))
-        const replieModel = replies.map((item) => this.replieMapToModel(item))
+        const reTweetModel = reTweets.map((item) => this.reTweetMapToModel(item))
 
         return {
             ok: true,
@@ -43,19 +43,21 @@ class TweetService {
             message: "Tweets listados com sucesso",
             data: {
                 tweets: tweetModel.map((item) => item.detailTweet()),
-                replies: replieModel.map((item) => item.detailReplie())
+                repTweets: reTweetModel.map((item) => item.detailReTweet())
             }
         }
     }
 
     public async createTweet(data: TweetDto): Promise<ResponseDto> {
-
         const createTweet = await prisma.tweet.create({
             data: {
-                idUser: data.content,
-                content: data.content
+                idUser: data.idUser,
+                content: data.content,
+                authorTweet: data.authorTweet
             }
         })
+
+
         return {
             ok: true,
             code: 200,
@@ -66,25 +68,89 @@ class TweetService {
 
     public tweetMapToModel(tweet: TweetPrisma): Tweet {
         const model = new Tweet(
-            tweet.idTweet,
+            tweet.id,
+            tweet.content,
             tweet.idUser,
-            tweet.content
+            tweet.authorTweet
         )
         return model
     }
 
-    public replieMapToModel(reply: ReTweetPrisma): Reply {
-        const model = new Reply(
-            reply.idTweetOriginal,
-            reply.idUserTweetOriginal,
-            reply.idUserReply,
-            reply.contentReplay
+    public reTweetMapToModel(reTweet: ReTweetPrisma): ReTweet {
+        const model = new ReTweet(
+            reTweet.idTweetOriginal,
+            reTweet.contentTweetOriginal,
+            reTweet.idUserReTweet,
+            reTweet.contentReTweet,
+            reTweet.idReTweet,
         )
         return model
     }
 
-    public async updateTweet() {
+    public async updateTweet(data: UpdateTweetDto): Promise<ResponseDto> {
 
+        const tweetFind = await prisma.tweet.findUnique({
+            where: {
+                id: data.idTweet,
+                idUser: data.idUser
+            }
+        })
+
+        if (!tweetFind) {
+            return {
+                ok: false,
+                code: 404,
+                message: "Tweet não encontrado"
+            }
+        }
+
+        const updated = await prisma.tweet.update({
+            where: {
+                id: data.idTweet,
+                idUser: data.idUser
+            },
+            data: {
+                id: data.idTweet,
+                content: data.content
+            }
+        })
+
+        return {
+            ok: true,
+            code: 200,
+            message: "Tweet atualizado com sucesso",
+            data: this.tweetMapToModel(updated).detailTweet()
+        }
+    }
+
+    public async deleteTweet(data: FoundTweetDto): Promise<ResponseDto> {
+
+        const findTweet = await prisma.tweet.findUnique({
+            where: {
+                id: data.idTweet,
+                idUser: data.idUser
+            }
+        })
+
+        if (!findTweet) {
+            return {
+                ok: false,
+                code: 404,
+                message: "Tweet não encontrado"
+            }
+        }
+
+        await prisma.tweet.delete({
+            where: {
+                id: data.idTweet, idUser: data.idUser
+            },
+        })
+
+        return {
+            ok: true,
+            code: 200,
+            message: `Tweet id: "${findTweet.id}" deletado com sucesso`,
+        }
     }
 }
 

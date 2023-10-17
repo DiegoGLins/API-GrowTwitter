@@ -1,11 +1,11 @@
 import Tweet from "./tweet.model";
-import { Reply } from "./reply.model";
 import { Follow } from "../types/FollowUserType";
+import { ReTweet } from "@prisma/client";
 
 export class User implements Follow {
     public following: Follow[];
     public tweets: Tweet[]
-    public replie: Reply[]
+    public reTweet: ReTweet[]
 
     constructor(
         private _id: string,
@@ -18,7 +18,7 @@ export class User implements Follow {
         this._password = _password;
         this.following = [];
         this.tweets = []
-        this.replie = []
+        this.reTweet = []
     }
 
     //------ getters------
@@ -27,13 +27,13 @@ export class User implements Follow {
         return this._id;
     }
 
-    public getPassword(): string {
+    public get password(): string {
         return this._password;
     }
 
     //------ setters --------
 
-    public setId(id: string) {
+    public set id(id: string) {
         this._id = id;
     }
 
@@ -61,8 +61,7 @@ export class User implements Follow {
             username: this.username,
             email: this.email,
             following: this.following,
-            tweets: [...this.tweets],
-            replie: this.replie
+            tweets: [...this.tweets]
         };
     }
 

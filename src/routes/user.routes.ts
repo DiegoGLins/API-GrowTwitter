@@ -8,6 +8,7 @@ export const userRoutes = () => {
     const controller = new UserController()
 
     router.post("/", validateUserMiddleware, controller.register)
+
     router.get("/", controller.list)
     router.delete("/:id", authMiddleware, controller.delete)
     router.put("/:id", authMiddleware, controller.update)

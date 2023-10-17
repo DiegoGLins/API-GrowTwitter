@@ -1,0 +1,10 @@
+PUT http://localhost:3333/users/7625003d-0471-43ca-b4c3-fe1f63f53870 HTTP/1.1
+content-type:  application/json
+Authorization: 2d9586aa-f2f5-4bbc-a6af-545b5ff0d969
+
+{
+    "name": "Fernando Gomes Almeida",
+    "username": "FeAlmeida",
+    "email": "fg.nando@gmail.com",
+    "password": "12345"
+}

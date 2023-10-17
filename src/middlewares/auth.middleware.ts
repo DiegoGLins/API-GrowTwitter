@@ -21,7 +21,7 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction) {
             })
         }
 
-        req.body.userID = user.id
+        req.body.idUser = user.id
 
         next()
     } catch (error: any) {

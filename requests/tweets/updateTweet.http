@@ -1,0 +1,11 @@
+PUT http://localhost:3333/tweets/e8294680-c322-4771-80ac-97d8c51b90a0 HTTP/1.1
+content-type: application/json
+Authorization: bf9e5dea-826e-4047-826d-0fc8463dc9f2
+
+{
+"content": "Gostei dessa nova rede social"
+}
+
+
+
+

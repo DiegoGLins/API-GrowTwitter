@@ -1,21 +1,22 @@
 import { Liker } from "./liker.model";
-import { Reply } from "./reply.model";
-
+import { ReTweet } from "./reTweet.model";
 class Tweet {
     public idUser: string;
     public likes: Liker[];
-    public replies: Reply[];
-    public content: string
+    public reTweets: ReTweet[];
+    public content: string;
+    public authorTweet: string
 
-    constructor(private id: string, content: string, idUser: string) {
-        this.idUser = idUser;
+    constructor(private _id: string, content: string, idUser: string, authorTweet: string) {
+        this.authorTweet = authorTweet
         this.content = content
+        this.idUser = idUser;
         this.likes = [];
-        this.replies = [];
+        this.reTweets = [];
     }
 
-    public getId() {
-        return this.id;
+    public get id() {
+        return this._id;
     }
 
     //----- Inclui e remove e likes ------
@@ -24,8 +25,8 @@ class Tweet {
         this.likes.push(tweet)
     }
 
-    public removeLike(likeId: Liker) {
-        const index = this.likes.findIndex(item => item.likedId === likeId.likedId)
+    public removeLike(like: Liker) {
+        const index = this.likes.findIndex(item => item.idLike === like.idLike)
         if (index !== -1) {
             this.likes.splice(index, 1)
         }
@@ -33,18 +34,20 @@ class Tweet {
 
     detailTweet() {
         return {
-            author: this.idUser,
+            idTweet: this._id,
             content: this.content,
+            idUser: this.idUser,
             likes: this.likes.length,
-            reply: this.replies.length
+            reTweet: this.reTweets.length
         }
     }
 
     detailTweetCreate() {
         return {
-            idTweet: this.getId(),
-            author: this.idUser,
+            idTweet: this._id,
             content: this.content,
+            idUser: this.idUser,
+            authorTweet: this.authorTweet
         }
     }
 }

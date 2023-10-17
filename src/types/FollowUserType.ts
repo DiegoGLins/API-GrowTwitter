@@ -1,4 +1,4 @@
-import { Reply } from "../models/reply.model";
+import { ReTweet } from "@prisma/client";
 import Tweet from "../models/tweet.model";
 export interface Follow {
     id: string;
@@ -6,5 +6,5 @@ export interface Follow {
     username: string;
     email: string;
     tweets: Tweet[]
-    replie: Reply[]
+    reTweet: ReTweet[]
 }

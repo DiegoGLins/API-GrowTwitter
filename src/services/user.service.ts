@@ -74,16 +74,15 @@ class UserService {
         }
     }
 
-
     public async updateUser(data: UpdateUserDto): Promise<ResponseDto> {
 
-        const user = await prisma.user.findUnique({
+        const userFind = await prisma.user.findUnique({
             where: {
                 id: data.id
             }
         })
 
-        if (!user) {
+        if (!userFind) {
             return {
                 ok: false,
                 code: 404,
@@ -91,7 +90,7 @@ class UserService {
             }
         }
 
-        const atualizaUsuario = await prisma.user.update({
+        const updated = await prisma.user.update({
             where: {
                 id: data.id
             },
@@ -108,14 +107,14 @@ class UserService {
             ok: true,
             code: 200,
             message: "Usuario atualizado com sucesso",
-            data: atualizaUsuario
+            data: this.mapToModel(updated).detailUser()
         }
     }
 
     public async deleteUser(id: string): Promise<ResponseDto> {
         const user = await prisma.user.findUnique({
             where: {
-                id
+                id: id,
             }
         })
 
@@ -127,16 +126,17 @@ class UserService {
             }
         }
 
-        await prisma.user.delete({
+        const deleted = await prisma.user.delete({
             where: {
-                id
+                id: id
             }
         })
 
         return {
             ok: true,
             code: 200,
-            message: "usuario excluido com sucesso"
+            message: "usuario excluido com sucesso",
+            data: this.mapToModel(deleted).detailUser()
         }
     }
 
