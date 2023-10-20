@@ -6,11 +6,11 @@ export const reTweetsRoutes = () => {
     const router = Router()
     const controller = new ReTweetController()
 
-    router.post("/", authMiddleware, controller.create)
+    router.post("/", authMiddleware, controller.createReTweet)
 
-    // router.get("/", authMiddleware, controller.listTweets)
-    // router.put("/:idReTweet", authMiddleware, controller.updateTweet)
-    // router.delete("/:idReTweet", authMiddleware, controller.delete)
+    router.get("/", authMiddleware, controller.listReTweets)
+    router.put("/:idReTweet", authMiddleware, controller.updateReTweet)
+    router.delete("/:idReTweet", authMiddleware, controller.deleteReTweet)
 
     return router
 }

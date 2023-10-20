@@ -7,11 +7,11 @@ export const tweetsRoutes = () => {
     const router = Router()
     const controller = new tweetController()
 
-    router.post("/", authMiddleware, controller.create)
+    router.post("/", authMiddleware, controller.createTweet)
 
     router.get("/", authMiddleware, controller.listTweets)
     router.put("/:idTweet", authMiddleware, controller.updateTweet)
-    router.delete("/:idTweet", authMiddleware, controller.delete)
+    router.delete("/:idTweet", authMiddleware, controller.deleteTweet)
 
     return router
 }
