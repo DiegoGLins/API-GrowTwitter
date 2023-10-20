@@ -1,8 +1,9 @@
 import prisma from "../database/prisma.database"
-import { CreateReTweetDto } from "../dto/reTweet.dto"
+import { CreateReTweetDto, FoundReTweetDto, UpdateReTweetDto } from "../dto/reTweet.dto"
 import { ResponseDto } from "../dto/response.dto"
 import { ReTweet } from "../models/reTweet.model"
-import { ReTweet as ReTweetPrisma } from "@prisma/client"
+import Tweet from "../models/tweet.model";
+import { ReTweet as ReTweetPrisma, Tweet as TweetPrisma } from '@prisma/client'
 
 class ReTweetService {
     public async listReTweetsFromUser(idUser: string): Promise<ResponseDto> {
@@ -34,8 +35,27 @@ class ReTweetService {
             code: 200,
             message: "ReTweets listados com sucesso",
             data: {
-                repTweets: reTweetModel.map((item) => item.detailReTweet())
+                reTweets: reTweetModel.map((item) => item.detailReTweet())
             }
+        }
+    }
+
+    public async listReTweetById(idReTweet: string) {
+        const findReTweet = await prisma.reTweet.findUnique({
+            where: {
+                idReTweet: idReTweet
+            }
+        })
+        if (!findReTweet) {
+            return {
+                ok: false,
+                code: 404,
+                message: "ReTweet não encontrado"
+            }
+        }
+
+        return {
+            data: this.reTweetMapToModel(findReTweet).detailReTweet()
         }
     }
 
@@ -43,7 +63,7 @@ class ReTweetService {
 
         const findTweet = await prisma.tweet.findUnique({
             where: {
-                id: data.idTweetOriginal
+                id: data.idTweetOriginal,
             }
         })
 
@@ -56,100 +76,127 @@ class ReTweetService {
         }
 
         const findContentTweet = findTweet.content
+        const findAuthorTweet = findTweet.authorTweet
         const createReTweet = await prisma.reTweet.create({
             data: {
                 idTweetOriginal: data.idTweetOriginal,
                 contentTweetOriginal: findContentTweet,
+                authorTweetOriginal: findAuthorTweet,
                 idUserReTweet: data.idUserReTweet,
                 contentReTweet: data.contentReTweet,
+                authorReTweet: data.authorReTweet
+            }
+        })
+
+        const createTweet = await prisma.tweet.create({
+            data: {
+                idUser: data.idUserReTweet,
+                content: data.contentReTweet,
+                authorTweet: data.authorReTweet
+            }
+        })
+
+        return {
+            ok: true,
+            code: 201,
+            message: "ReTweet criado com sucesso",
+            data: {
+                reTweet: this.reTweetMapToModel(createReTweet).detailReTweet(),
+                newTweet: this.tweetMapToModel(createTweet).detailTweetCreate()
+            }
+        }
+    }
+
+    public async updateReTweet(data: UpdateReTweetDto): Promise<ResponseDto> {
+
+        const reTweetFind = await prisma.reTweet.findUnique({
+            where: {
+                idReTweet: data.idReTweet,
+                idUserReTweet: data.idUserReTweet
+            }
+        })
+
+        if (!reTweetFind) {
+            return {
+                ok: false,
+                code: 404,
+                message: "reTweet não encontrado"
+            }
+        }
+
+        const updated = await prisma.reTweet.update({
+            where: {
+                idReTweet: data.idReTweet,
+                idUserReTweet: data.idUserReTweet
+            },
+            data: {
+                idReTweet: data.idReTweet,
+                contentReTweet: data.contentReTweet
             }
         })
 
         return {
             ok: true,
             code: 200,
-            message: "ReTweet criado com sucesso",
-            data: this.reTweetMapToModel(createReTweet).detailReTweet()
+            message: "ReTweet atualizado com sucesso",
+            data: this.reTweetMapToModel(updated).detailReTweet()
         }
     }
 
+    public async deleteReTweet(data: FoundReTweetDto): Promise<ResponseDto> {
+
+        const findReTweet = await prisma.reTweet.findUnique({
+            where: {
+                idReTweet: data.idReTweet,
+                idUserReTweet: data.idUserReTweet
+            }
+        })
+
+        if (!findReTweet) {
+            return {
+                ok: false,
+                code: 404,
+                message: "ReTweet não encontrado"
+            }
+        }
+
+        await prisma.reTweet.delete({
+            where: {
+                idReTweet: data.idReTweet,
+                idUserReTweet: data.idUserReTweet
+            },
+        })
+
+        return {
+            ok: true,
+            code: 200,
+            message: `ReTweet id: ${findReTweet.idReTweet} deletado com sucesso`,
+        }
+    }
 
     public reTweetMapToModel(reTweet: ReTweetPrisma): ReTweet {
         const model = new ReTweet(
             reTweet.idTweetOriginal,
             reTweet.contentTweetOriginal,
+            reTweet.authorTweetOriginal,
             reTweet.idUserReTweet,
             reTweet.contentReTweet,
+            reTweet.authorReTweet,
             reTweet.idReTweet,
+
         )
         return model
     }
 
-    // public async updateReTweet(data: UpdateTweetDto): Promise<ResponseDto> {
-
-    //     const tweetFind = await prisma.tweet.findUnique({
-    //         where: {
-    //             id: data.idTweet,
-    //             idUser: data.idUser
-    //         }
-    //     })
-
-    //     if (!tweetFind) {
-    //         return {
-    //             ok: false,
-    //             code: 404,
-    //             message: "Tweet não encontrado"
-    //         }
-    //     }
-
-    //     const updated = await prisma.tweet.update({
-    //         where: {
-    //             id: data.idTweet,
-    //             idUser: data.idUser
-    //         },
-    //         data: {
-    //             id: data.idTweet,
-    //             content: data.content
-    //         }
-    //     })
-
-    //     return {
-    //         ok: true,
-    //         code: 200,
-    //         message: "Tweet atualizado com sucesso",
-    //         data: this.tweetMapToModel(updated).detailTweet()
-    //     }
-    // }
-
-    // public async deleteTweet(data: FoundTweetDto): Promise<ResponseDto> {
-
-    //     const findTweet = await prisma.tweet.findUnique({
-    //         where: {
-    //             id: data.idTweet,
-    //             idUser: data.idUser
-    //         }
-    //     })
-
-    //     if (!findTweet) {
-    //         return {
-    //             ok: false,
-    //             code: 404,
-    //             message: "Tweet não encontrado"
-    //         }
-    //     }
-
-    //     await prisma.tweet.delete({
-    //         where: {
-    //             id: data.idTweet, idUser: data.idUser
-    //         },
-    //     })
-
-    //     return {
-    //         ok: true,
-    //         code: 200,
-    //         message: `Tweet id: "${findTweet.id}" deletado com sucesso`,
-    //     }
-    // }
+    public tweetMapToModel(tweet: TweetPrisma): Tweet {
+        const model = new Tweet(
+            tweet.id,
+            tweet.content,
+            tweet.idUser,
+            tweet.authorTweet
+        )
+        return model
+    }
 }
 
 export default new ReTweetService()

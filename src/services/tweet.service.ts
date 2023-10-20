@@ -48,6 +48,25 @@ class TweetService {
         }
     }
 
+    public async listTweetById(idTweet: string) {
+        const findTweet = await prisma.tweet.findUnique({
+            where: {
+                id: idTweet
+            }
+        })
+        if (!findTweet) {
+            return {
+                ok: false,
+                code: 404,
+                message: "Tweet não encontrado"
+            }
+        }
+
+        return {
+            data: this.tweetMapToModel(findTweet).detailTweet()
+        }
+    }
+
     public async createTweet(data: TweetDto): Promise<ResponseDto> {
         const createTweet = await prisma.tweet.create({
             data: {
@@ -57,10 +76,9 @@ class TweetService {
             }
         })
 
-
         return {
             ok: true,
-            code: 200,
+            code: 201,
             message: "Tweet criado com sucesso",
             data: this.tweetMapToModel(createTweet).detailTweetCreate()
         }
@@ -80,8 +98,10 @@ class TweetService {
         const model = new ReTweet(
             reTweet.idTweetOriginal,
             reTweet.contentTweetOriginal,
+            reTweet.authorTweetOriginal,
             reTweet.idUserReTweet,
             reTweet.contentReTweet,
+            reTweet.authorReTweet,
             reTweet.idReTweet,
         )
         return model
@@ -149,7 +169,7 @@ class TweetService {
         return {
             ok: true,
             code: 200,
-            message: `Tweet id: "${findTweet.id}" deletado com sucesso`,
+            message: `Tweet id: ${findTweet.id} deletado com sucesso`,
         }
     }
 }
