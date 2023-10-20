@@ -3,12 +3,11 @@ export interface CreateReTweetDto {
     contentTweetOriginal: string,
     idUserReTweet: string,
     contentReTweet: string,
+    authorReTweet: string
 }
-
-
 export interface UpdateReTweetDto {
     idUserReTweet: string;
-    idReTweet: string;
+    idReTweet: string
     contentReTweet?: string
 }
 
