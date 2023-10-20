@@ -2,15 +2,16 @@ import { Request, Response } from "express";
 import reTweetService from "../services/reTweet.service";
 
 class ReTweetController {
-    public async create(req: Request, res: Response) {
+    public async createReTweet(req: Request, res: Response) {
         try {
-            const { idTweetOriginal, idUser, contentReTweet } = req.body
+            const { idTweetOriginal, idUser, contentReTweet, username } = req.body
 
             const result = await reTweetService.createReTweet({
                 idTweetOriginal: idTweetOriginal,
                 contentTweetOriginal: "",
                 idUserReTweet: idUser,
-                contentReTweet: contentReTweet
+                contentReTweet: contentReTweet,
+                authorReTweet: username
             })
 
             return res.status(result.code).send(result)
@@ -23,60 +24,61 @@ class ReTweetController {
         }
     }
 
-    // public async listTweets(req: Request, res: Response) {
-    //     try {
-    //         const { idUser } = req.body
+    public async listReTweets(req: Request, res: Response) {
+        try {
+            const { idUser } = req.body
 
-    //         const result = await tweetService.listTweetFromUser(idUser)
+            const result = await reTweetService.listReTweetsFromUser(idUser)
 
-    //         return res.status(result.code).send(result)
-    //     }
-    //     catch (error: any) {
-    //         res.status(500).send({
-    //             ok: false,
-    //             message: error.toString()
-    //         })
-    //     }
-    // }
+            return res.status(result.code).send(result)
+        }
+        catch (error: any) {
+            res.status(500).send({
+                ok: false,
+                message: error.toString()
+            })
+        }
+    }
 
-    // public async updateTweet(req: Request, res: Response) {
-    //     try {
-    //         const { idTweet } = req.params
-    //         const { idUser, content } = req.body
+    public async updateReTweet(req: Request, res: Response) {
+        try {
+            const { idReTweet } = req.params
+            const { idUser, contentReTweet } = req.body
 
-    //         const result = await tweetService.updateTweet({
-    //             idUser: idUser,
-    //             idTweet: idTweet,
-    //             content: content
-    //         })
+            const result = await reTweetService.updateReTweet({
+                idReTweet: idReTweet,
+                contentReTweet: contentReTweet,
+                idUserReTweet: idUser
+            })
 
-    //         return res.status(result.code).send(result)
-    //     }
-    //     catch (error: any) {
-    //         res.status(500).send({
-    //             ok: false,
-    //             message: error.toString()
-    //         })
-    //     }
-    // }
+            return res.status(result.code).send(result)
+        }
+        catch (error: any) {
+            res.status(500).send({
+                ok: false,
+                message: error.toString()
+            })
+        }
+    }
 
-    // public async delete(req: Request, res: Response) {
-    //     try {
-    //         const { idUser } = req.body
-    //         const { idTweet } = req.params
+    public async deleteReTweet(req: Request, res: Response) {
+        try {
+            const { idUserReTweet } = req.body
+            const { idReTweet } = req.params
 
-    //         const response = await tweetService.deleteTweet({
-    //             idUser: idUser, idTweet: idTweet
-    //         })
+            const response = await reTweetService.deleteReTweet({
+                idReTweet: idReTweet,
+                idUserReTweet: idUserReTweet
+            })
 
-    //         return res.status(response.code).send(response)
-    //     } catch (error: any) {
-    //         res.status(500).send({
-    //             ok: false,
-    //             message: error.toString(),
-    //         });
-    //     }
-    // }
+            return res.status(response.code).send(response)
+        } catch (error: any) {
+            res.status(500).send({
+                ok: false,
+                message: error.toString(),
+            });
+        }
+    }
 }
 
 
