@@ -1,0 +1,3 @@
+GET http://localhost:3333/reTweets HTTP/1.1
+content-type: application/json
+Authorization: c61dcf24-f35f-4408-9ca6-956ee7fb3f9d

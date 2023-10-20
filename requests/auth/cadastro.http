@@ -1,9 +1,23 @@
 POST http://localhost:3333/users HTTP/1.1
 content-type: application/json
 
-{
-"name": "Mateus Cunha",
-"username": "cunha@mateus",
-"email":"mcunha.teus@gmail.com",
-"password": "12345"
-}
+# {
+# "name": "Henrique Gonçalves",
+# "username": "hg@goncalves",
+# "email":"hgonsalves@gmail.com",
+# "password": "12345"
+# }
+
+# {
+# "name": "Paula Campos Sales",
+# "username": "p@sales.paxeco",
+# "email":"pcampossales@gmail.com",
+# "password": "12345"
+# }
+
+# {
+# "name": "Marcia Paxeco",
+# "username": "ma.paxeco",
+# "email":"marcinha.paxeco@gmail.com",
+# "password": "12345"
+# }

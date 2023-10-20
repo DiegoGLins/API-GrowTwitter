@@ -1,11 +1,27 @@
 POST http://localhost:3333/auth/login HTTP/1.1
 content-type: application/json
 
-{
-"name": "Julia Caroline",
-"username": "juju@Carol",
-"email":"jujuca@gmail.com",
-"password": "12345"
-}
+# {
+# "name": "Paula Campos Sales",
+# "username": "p@sales.paxeco",
+# "email":"pcampossales@gmail.com",
+# "password": "12345"
+# }
+//50ff6e9e-f3cc-4340-8a19-122a25105c5d
 
-//687ec7d0-edae-409b-9246-156a32cda3ea
+# {
+# "name": "Henrique Gonçalves",
+# "username": "hg@goncalves",
+# "email":"hgonsalves@gmail.com",
+# "password": "12345"
+# }
+//318ccfa6-6176-40d7-b5ab-72ba09e33c67
+
+
+# {
+# "name": "Marcia Paxeco",
+# "username": "ma.paxeco",
+# "email":"marcinha.paxeco@gmail.com",
+# "password": "12345"
+# }
+//b27c8dc2-79f2-4689-9b3e-5edc126381a1

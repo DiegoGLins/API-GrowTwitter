@@ -1,0 +1,3 @@
+DELETE http://localhost:3333/likes/3ea81196-98be-4f55-9b81-bd8b949f279f HTTP/1.1
+content-type: application/json
+Authorization: 318ccfa6-6176-40d7-b5ab-72ba09e33c67
