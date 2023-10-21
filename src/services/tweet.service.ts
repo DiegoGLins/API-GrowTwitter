@@ -43,7 +43,7 @@ class TweetService {
             message: "Tweets listados com sucesso",
             data: {
                 tweets: tweetModel.map((item) => item.detailTweet()),
-                repTweets: reTweetModel.map((item) => item.detailReTweet())
+                reTweets: reTweetModel.map((item) => item.detailReTweet())
             }
         }
     }
@@ -89,7 +89,7 @@ class TweetService {
             tweet.id,
             tweet.content,
             tweet.idUser,
-            tweet.authorTweet
+            tweet.authorTweet,
         )
         return model
     }
