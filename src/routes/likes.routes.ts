@@ -9,7 +9,6 @@ export const likesRoutes = () => {
     router.get("/:idTweet", authMiddleware, controller.createLike)
     router.get("/reTweet/:idReTweet", authMiddleware, controller.createLikeR)
     router.get("/", authMiddleware, controller.listLike)
-    router.delete("/:idLike", authMiddleware, controller.removeLike)
 
     return router
 }
