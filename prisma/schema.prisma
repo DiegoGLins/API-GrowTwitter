@@ -15,7 +15,7 @@ id String  @id @db.Uuid @default(uuid())
 name String @db.VarChar(200)
 username String @db.VarChar(200) @unique
 email String @db.VarChar(200) @unique
-password String @db.VarChar(15)
+password String @db.VarChar(64)
 token String? @unique
 following Follow[] @relation("user_following")
 followers Follow[] @relation("user_followers")
@@ -51,9 +51,11 @@ model ReTweet {
 }
 
 model Follow {
-  id String @ id @db.Uuid @default(uuid())
-  idUserFollowing String @db.Uuid @map("id_user_following")
+  id String @id @db.Uuid @default(uuid())
+  idUserFollowing String @db.Uuid @map("id_user_following") @unique
+  usernameFollowing String @map("username_following") @unique
   idUserFollower String @db.Uuid @map("id_user_follower")
+  usernameFollower String @map("username_follower")
   following User @relation("user_following", fields: [idUserFollowing],references: [id])
   followers User @relation("user_followers",fields: [idUserFollower],references: [id])
 
@@ -63,9 +65,9 @@ model Follow {
 
 model Liker {
   idLike String @id @db.Uuid @default(uuid()) @map("id_like")
-  idTweet String? @db.Uuid @map("id_tweet")
+  idTweet String? @db.Uuid @map("id_tweet") @unique
   idAuthorTweet String? @db.Uuid @map("id_author_Tweet")
-  idReTweet String? @db.Uuid @map("id_retweet")
+  idReTweet String? @db.Uuid @map("id_retweet") @unique
   idAuthorReTweet String? @db.Uuid @map("id_author_ReTweet")
   idAuthorLike String @db.Uuid @map("id_author_like")
   authorLike String @map("username_author_like")
