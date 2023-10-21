@@ -6,6 +6,7 @@ import { authRoutes } from "./routes/auth.routes";
 import { tweetsRoutes } from "./routes/tweets.routes";
 import { reTweetsRoutes } from "./routes/reTweets.routes";
 import { likesRoutes } from "./routes/likes.routes";
+import { followRoutes } from "./routes/follow.routes";
 
 dotenv.config()
 const app = express();
@@ -16,6 +17,7 @@ app.use("/users", userRoutes())
 app.use("/tweets", tweetsRoutes())
 app.use("/reTweets", reTweetsRoutes())
 app.use("/likes", likesRoutes())
+app.use("/follows", followRoutes())
 
 const port = process.env.PORT
 
