@@ -1,0 +1,3 @@
+GET http://localhost:3333/likes/reTweet/2c49209e-fb06-4621-bdd9-6e2077090511 HTTP/1.1
+content-type: application/json
+Authorization: 147abc4d-77ea-4cd8-af4e-c540b79f7ffb

@@ -1,0 +1,8 @@
+DELETE  http://localhost:3333/follows/5173206b-e5c4-456b-9059-b94f1f277b69 HTTP/1.1
+content-type: application/json
+Authorization: f598ee1e-49a6-4d6d-95ad-550ab487375d 
+
+
+{
+    "usernameFollowing":"hg@goncalves"
+}

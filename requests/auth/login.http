@@ -7,7 +7,7 @@ content-type: application/json
 # "email":"pcampossales@gmail.com",
 # "password": "12345"
 # }
-//50ff6e9e-f3cc-4340-8a19-122a25105c5d
+//3e72367d-b4bc-4081-b3da-6f510f62204a
 
 # {
 # "name": "Henrique Gonçalves",
@@ -15,8 +15,7 @@ content-type: application/json
 # "email":"hgonsalves@gmail.com",
 # "password": "12345"
 # }
-//318ccfa6-6176-40d7-b5ab-72ba09e33c67
-
+//2b5234e7-a6a1-46e3-af31-d8ac47154f6a
 
 # {
 # "name": "Marcia Paxeco",
@@ -24,4 +23,12 @@ content-type: application/json
 # "email":"marcinha.paxeco@gmail.com",
 # "password": "12345"
 # }
-//b27c8dc2-79f2-4689-9b3e-5edc126381a1
+//147abc4d-77ea-4cd8-af4e-c540b79f7ffb
+
+# {
+# "name": "Estefani Santos",
+# "username": "estef.santos",
+# "email":"estefinha@gmail.com",
+# "password": "12345"
+# }
+//f598ee1e-49a6-4d6d-95ad-550ab487375d
