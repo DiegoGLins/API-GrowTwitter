@@ -5,7 +5,6 @@ import { User } from "../models/user.model";
 import { User as UserPrisma } from "@prisma/client"
 
 class UserService {
-
     public async listAllUsers(): Promise<ResponseDto> {
         const data = await prisma.user.findMany()
 
@@ -29,6 +28,16 @@ class UserService {
         })
         return user
     }
+
+    public async getUserByUsername(username: string) {
+        const user = await prisma.user.findUnique({
+            where: {
+                username: username,
+            }
+        })
+        return user
+    }
+
 
     public async getByToken(token: string) {
         const user = await prisma.user.findUnique({
@@ -150,6 +159,8 @@ class UserService {
         )
         return model
     }
+
 }
+
 
 export default new UserService()
