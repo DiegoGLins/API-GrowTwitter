@@ -1,5 +1,5 @@
 export interface CreateLikeDto {
-    idTweet?: string;
+    idTweet?: string | null | undefined
     idAuthorTweet?: string;
     idAuthorLike: string;
     authorLike: string;
@@ -7,17 +7,12 @@ export interface CreateLikeDto {
 }
 
 export interface CreateLikeReTweetDto {
-    idReTweet?: string;
+    idLike?: string
+    idReTweet?: string | null | undefined
     idAuthorReTweet?: string
     idAuthorLike: string;
     authorLike: string;
     contentReTweet?: string
 }
 
-export interface RemoveLikeDto {
-    idLike: string;
-    idTweet?: string;
-    idReTweet?: string;
-    idUser: string
-}
 
