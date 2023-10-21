@@ -1,15 +1,12 @@
 import prisma from "../database/prisma.database"
-import { CreateLikeDto, CreateLikeReTweetDto, RemoveLikeDto } from "../dto/create.like.dto";
+import { CreateLikeDto, CreateLikeReTweetDto } from "../dto/create.like.dto";
 import { ResponseDto } from "../dto/response.dto"
-import { Liker } from "../models/liker.model";
-import { Liker as LikerPrisma } from '@prisma/client'
 
-class likerService {
+class LikerService {
     public async listLikesFromUser(idUser: string): Promise<ResponseDto> {
-
-        const user = await prisma.user.findUnique({
+        const user = await prisma.liker.findFirst({
             where: {
-                id: idUser
+                idAuthorTweet: idUser,
             }
         })
 
@@ -17,44 +14,54 @@ class likerService {
             return {
                 ok: false,
                 code: 404,
-                message: "Usuario não encontrado"
+                message: "Likes ou usuario não encontrados"
             }
         }
 
-        const likes = await prisma.liker.findMany({
+        const likedTweets = await prisma.liker.findMany({
             where: {
                 idAuthorTweet: idUser
             }
         })
 
-        const likeModel = likes.map((item) => this.likeMapToModel(item))
-
+        const likesNumber = likedTweets.map((likedTweet) => {
+            return {
+                contentTweetLiked: likedTweet.contentTweetLiked,
+                likes: likedTweets.filter((item) => item.idTweet === likedTweet.idTweet).length
+            }
+        })
         return {
             ok: true,
             code: 200,
             message: "likes listados com sucesso",
             data: {
-                likes: likeModel.map((item) => item.detailLike())
+                likes: likesNumber
             }
         }
     }
 
+
     public async createLike(data: CreateLikeDto): Promise<ResponseDto> {
 
-        const checkLikeUser = await prisma.liker.findFirst({
+        const checkLikeUser = await prisma.liker.findUnique({
             where: {
-                AND: [
-                    { idTweet: data.idTweet },
-                    { idAuthorLike: data.idAuthorLike }
-                ]
+                idTweet: data.idTweet!,
+                idAuthorLike: data.idAuthorLike,
             }
         })
 
         if (checkLikeUser) {
+            await prisma.liker.delete({
+                where: {
+                    idTweet: data.idTweet!,
+                    idAuthorLike: data.idAuthorLike,
+                },
+            })
+
             return {
                 ok: false,
-                code: 404,
-                message: "Você já curtiu esse tweet"
+                code: 200,
+                message: "Curtida removida com sucesso"
             }
         }
 
@@ -70,7 +77,7 @@ class likerService {
         })
         return {
             ok: true,
-            code: 201,
+            code: 200,
             message: "Tweet curtido com sucesso",
             data: {
                 like: {
@@ -85,20 +92,25 @@ class likerService {
 
     public async createLikeR(data: CreateLikeReTweetDto): Promise<ResponseDto> {
 
-        const checkLikeUser = await prisma.liker.findFirst({
+        const checkLikeUser = await prisma.liker.findUnique({
             where: {
-                AND: [
-                    { idReTweet: data.idReTweet },
-                    { idAuthorLike: data.idAuthorLike }
-                ]
+                idReTweet: data.idReTweet!,
+                idAuthorLike: data.idAuthorLike!,
             }
         })
 
         if (checkLikeUser) {
+            await prisma.liker.delete({
+                where: {
+                    idReTweet: data.idReTweet!,
+                    idAuthorLike: data.idAuthorLike!,
+                },
+            })
+
             return {
                 ok: false,
-                code: 404,
-                message: "Você já curtiu esse tweet"
+                code: 200,
+                message: "Curtida removida com sucesso"
             }
         }
 
@@ -108,7 +120,8 @@ class likerService {
                 idAuthorLike: data.idAuthorLike,
                 authorLike: data.authorLike,
                 contentReTweet: data.contentReTweet,
-                idReTweet: data.idReTweet,
+                contentTweetLiked: '',
+                idReTweet: data.idReTweet!,
             }
         })
         return {
@@ -127,49 +140,6 @@ class likerService {
             }
         }
     }
-
-    public async removeLike(data: RemoveLikeDto): Promise<ResponseDto> {
-
-        const findTweetLiked = await prisma.liker.findFirst({
-            where: {
-                idLike: data.idLike,
-                idAuthorLike: data.idUser
-            }
-        })
-
-        if (!findTweetLiked) {
-            return {
-                ok: false,
-                code: 404,
-                message: "Curtida não encontrada"
-            }
-        }
-
-        await prisma.liker.delete({
-            where: {
-                idLike: data.idLike,
-                idAuthorLike: data.idUser
-            },
-        })
-
-        return {
-            ok: true,
-            code: 200,
-            message: 'Curtida removida com sucesso',
-        }
-    }
-
-    public likeMapToModel(like: LikerPrisma): Liker {
-        const model = new Liker(
-            like.idLike,
-            like.idTweet!,
-            like.idAuthorTweet!,
-            like.idAuthorLike,
-            like.authorLike,
-            like.contentTweetLiked!,
-        )
-        return model
-    }
 }
 
-export default new likerService()
+export default new LikerService()
