@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import likerService from "../services/liker.service";
 import tweetService from "../services/tweet.service";
 import reTweetService from "../services/reTweet.service";
-
 class LikerController {
     public async createLike(req: Request, res: Response) {
         try {
@@ -11,7 +10,7 @@ class LikerController {
             const findTweet = await tweetService.listTweetById(idTweet)
 
             if (!findTweet) {
-                return res.status(findTweet).send({ message: "Tweet não encontrado" })
+                return res.status(404).send({ message: "Tweet não encontrado" })
             }
             const response = await likerService.createLike({
                 idTweet: findTweet.data?.idTweet!,
@@ -38,7 +37,7 @@ class LikerController {
             const findReTweet = await reTweetService.listReTweetById(idReTweet)
 
             if (!findReTweet) {
-                return res.status(findReTweet).send({ message: "ReTweet não encontrado" })
+                return res.status(404).send({ message: "ReTweet não encontrado" })
             }
             const response = await likerService.createLikeR({
                 idReTweet: findReTweet.data?.idReTweet!,
@@ -62,26 +61,6 @@ class LikerController {
             const { idUser } = req.body
 
             const result = await likerService.listLikesFromUser(idUser)
-
-            return res.status(result.code).send(result)
-        }
-        catch (error: any) {
-            res.status(500).send({
-                ok: false,
-                message: error.toString()
-            })
-        }
-    }
-
-    public async removeLike(req: Request, res: Response) {
-        try {
-            const { idLike } = req.params
-            const { idUser } = req.body
-
-            const result = await likerService.removeLike({
-                idLike: idLike,
-                idUser: idUser
-            })
 
             return res.status(result.code).send(result)
         }
