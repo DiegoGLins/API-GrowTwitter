@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
 import tweetService from "../services/tweet.service";
-import Tweet from "../models/tweet.model";
-import userService from "../services/user.service";
 class TweetController {
     public async createTweet(req: Request, res: Response) {
         try {
-
             const { idUser, content, username } = req.body
 
             const result = await tweetService.createTweet({
@@ -27,7 +24,6 @@ class TweetController {
     public async listTweets(req: Request, res: Response) {
         try {
             const { idUser } = req.body
-
             const result = await tweetService.listTweetFromUser(idUser)
 
             return res.status(result.code).send(result)
