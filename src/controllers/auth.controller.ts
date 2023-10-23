@@ -4,11 +4,10 @@ import { ResponseDto } from '../dto/response.dto'
 import { v4 as createToken } from 'uuid'
 class AuthController {
     public async login(req: Request, res: Response) {
-        const { username, email, password } = req.body
+        const { username, password } = req.body
 
         const user = await userService.getByUser(
             username,
-            email,
             password
         )
 
