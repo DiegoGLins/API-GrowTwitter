@@ -1,13 +1,11 @@
 POST http://localhost:3333/auth/login HTTP/1.1
 content-type: application/json
 
-# {
-# "name": "Paula Campos Sales",
-# "username": "p@sales.paxeco",
-# "email":"pcampossales@gmail.com",
-# "password": "12345"
-# }
-//3e72367d-b4bc-4081-b3da-6f510f62204a
+{
+"username": "p@sales.paxeco",
+"password": "12345"
+}
+//ec9606f2-9610-452f-aace-af3ffa2dedbd
 
 # {
 # "name": "Henrique Gonçalves",
