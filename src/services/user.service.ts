@@ -18,11 +18,10 @@ class UserService {
         }
     }
 
-    public async getByUser(username: string, email: string, password: string) {
+    public async getByUser(username: string, password: string) {
         const user = await prisma.user.findUnique({
             where: {
                 username: username,
-                email: email,
                 password: password
             }
         })
