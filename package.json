@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./build",
+    "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts"
   },
   "keywords": [],
@@ -12,7 +14,7 @@
   "devDependencies": {
     "@types/node": "^20.8.5",
     "@types/uuid": "^9.0.5",
-    "prisma": "^5.4.2",
+    "prisma": "^5.5.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"
   },

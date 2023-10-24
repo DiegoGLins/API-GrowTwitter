@@ -2,7 +2,6 @@ import { Liker } from "./liker.model";
 import { ReTweet } from "./reTweet.model";
 class Tweet {
     public idUser: string;
-    public likes: Liker[];
     public reTweets: ReTweet[];
     public content: string;
     public authorTweet: string
@@ -11,7 +10,6 @@ class Tweet {
         this.authorTweet = authorTweet
         this.content = content
         this.idUser = idUser;
-        this.likes = [];
         this.reTweets = [];
     }
 

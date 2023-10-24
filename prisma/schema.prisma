@@ -30,7 +30,7 @@ model Tweet {
   idUser String @db.Uuid @map("id_user")
   authorTweet String
   reTweet ReTweet[]
-  likes Liker[]
+  like Liker[]
   user User @relation(fields: [idUser], references: [id])
   @@map("tweet")
   @@unique([id, idUser])
@@ -65,11 +65,11 @@ model Follow {
 
 model Liker {
   idLike String @id @db.Uuid @default(uuid()) @map("id_like")
-  idTweet String? @db.Uuid @map("id_tweet") @unique
+  idTweet String? @db.Uuid @map("id_tweet")
   idAuthorTweet String? @db.Uuid @map("id_author_Tweet")
-  idReTweet String? @db.Uuid @map("id_retweet") @unique
+  idReTweet String? @db.Uuid @map("id_retweet")
   idAuthorReTweet String? @db.Uuid @map("id_author_ReTweet")
-  idAuthorLike String @db.Uuid @map("id_author_like")
+  idAuthorLike String @db.Uuid @map("id_author_like") @unique
   authorLike String @map("username_author_like")
   contentTweetLiked String? @db.Text
   contentReTweet String? @db.Text

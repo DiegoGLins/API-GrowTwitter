@@ -24,18 +24,20 @@ class LikerService {
             }
         })
 
-        const likesNumber = likedTweets.map((likedTweet) => {
+        const likeslist = likedTweets.map((likedTweet) => {
             return {
                 contentTweetLiked: likedTweet.contentTweetLiked,
                 likes: likedTweets.filter((item) => item.idTweet === likedTweet.idTweet).length
             }
+
         })
+
         return {
             ok: true,
             code: 200,
             message: "likes listados com sucesso",
             data: {
-                likes: likesNumber
+                likes: likeslist
             }
         }
     }
