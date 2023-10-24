@@ -1,32 +1,26 @@
 POST http://localhost:3333/auth/login HTTP/1.1
 content-type: application/json
 
+# {
+# "username": "p@sales.paxeco",
+# "password": "12345"
+# }
+//66d69b04-2afd-47fa-ae67-3a479a5fc17e
+
 {
-"username": "p@sales.paxeco",
+"username": "hg@goncalves",
 "password": "12345"
 }
-//ec9606f2-9610-452f-aace-af3ffa2dedbd
+//179fa31c-1fb5-4c87-99a5-cbf62d2fc295
 
 # {
-# "name": "Henrique Gonçalves",
-# "username": "hg@goncalves",
-# "email":"hgonsalves@gmail.com",
-# "password": "12345"
-# }
-//2b5234e7-a6a1-46e3-af31-d8ac47154f6a
-
-# {
-# "name": "Marcia Paxeco",
 # "username": "ma.paxeco",
-# "email":"marcinha.paxeco@gmail.com",
 # "password": "12345"
 # }
-//147abc4d-77ea-4cd8-af4e-c540b79f7ffb
+//37dad322-2dc9-49be-ad5c-994cc7b039d4
 
 # {
-# "name": "Estefani Santos",
 # "username": "estef.santos",
-# "email":"estefinha@gmail.com",
 # "password": "12345"
 # }
 //f598ee1e-49a6-4d6d-95ad-550ab487375d

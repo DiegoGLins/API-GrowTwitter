@@ -1,3 +1,3 @@
-GET http://localhost:3333/likes/d8488807-61af-44fb-9a66-e7bb22889cd3 HTTP/1.1
+GET http://localhost:3333/likes/eecd0c42-3124-4c2b-8312-b5aedd78572c HTTP/1.1
 content-type: application/json
-Authorization: 147abc4d-77ea-4cd8-af4e-c540b79f7ffb
+Authorization: 66d69b04-2afd-47fa-ae67-3a479a5fc17e
