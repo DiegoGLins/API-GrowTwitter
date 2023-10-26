@@ -4,9 +4,9 @@ import * as dotenv from "dotenv";
 import { userRoutes } from "./routes/user.routes";
 import { authRoutes } from "./routes/auth.routes";
 import { tweetsRoutes } from "./routes/tweets.routes";
-import { reTweetsRoutes } from "./routes/reTweets.routes";
 import { likesRoutes } from "./routes/likes.routes";
 import { followRoutes } from "./routes/follow.routes";
+import { reTweetsRoutes } from "./routes/reTweets.routes";
 
 dotenv.config()
 const app = express();
