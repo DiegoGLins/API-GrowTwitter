@@ -5,22 +5,23 @@ content-type: application/json
 # "username": "p@sales.paxeco",
 # "password": "12345"
 # }
-//66d69b04-2afd-47fa-ae67-3a479a5fc17e
+//ff5ab7f6-1b00-40ad-aa34-d84f02aad3cb
 
-# {
-# "username": "hg@goncalves",
-# "password": "12345"
-# }
-//179fa31c-1fb5-4c87-99a5-cbf62d2fc295
 
 # {
 # "username": "ma.paxeco",
 # "password": "12345"
 # }
-//37dad322-2dc9-49be-ad5c-994cc7b039d4
+//2257567e-ea8e-44b4-b6db-ebbe933bc2e1
 
 # {
 # "username": "estef.santos",
 # "password": "12345"
 # }
-//f598ee1e-49a6-4d6d-95ad-550ab487375d
+//67b9e577-fa3b-4a7c-8b54-6996324f02aa
+
+# {
+# "username": "guga@lima",
+# "password": "12345"
+# }
+//e7379d80-164e-48ad-a0d6-9e2368d0ef70

@@ -1,10 +1,10 @@
 POST http://localhost:3333/tweets HTTP/1.1
 content-type: application/json
-Authorization: 66d69b04-2afd-47fa-ae67-3a479a5fc17e
+Authorization: 2257567e-ea8e-44b4-b6db-ebbe933bc2e1
 
-{
-"content": "Adorei os recursos dessa plataforma"
-}
+# {
+# "content": "Adorei os recursos dessa plataforma"
+# }
 
 # {
 # "content": "Muito massa essa rede social nova"
@@ -16,7 +16,7 @@ Authorization: 66d69b04-2afd-47fa-ae67-3a479a5fc17e
 # }
 
 # {
-# "content": "Oi Paula. Legal te ver aqui na rede. Me adiciona ai. Valeu"
+# "content": "Oi Paula. Legal te ver aqui na rede também. Me adiciona ai. Valeu"
 # }
 
 # {
