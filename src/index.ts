@@ -21,10 +21,10 @@ app.use("/follows", followRoutes())
 
 const port = process.env.PORT
 
-app.listen(port, () => {
-    console.log(`API está rodando na porta ${port} `);
-});
-
 app.get("/", (req: Request, res: Response) => {
     return res.status(200).send({ sucess: true, mesage: "API - GrowTwiter" })
+});
+
+app.listen(port, () => {
+    console.log(`API está rodando na porta ${port} `);
 });
