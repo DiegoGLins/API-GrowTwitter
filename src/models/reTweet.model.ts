@@ -2,14 +2,14 @@ import { Liker } from "./liker.model";
 
 export class ReTweet {
     public likes: Liker[];
-    public idUserReTweet: string;
+    public idUserReTweet?: string;
     public idTweetOriginal: string;
     public authorTweetOriginal: string
     public contentReTweet: string;
     public contentTweetOriginal: string;
     public authorReTweet: string
 
-    constructor(idTweetOriginal: string, contentTweetOriginal: string, authorTweetOriginal: string, idUserReTweet: string, contentReTweet: string, authorReTweet: string, private _idReTweet: string) {
+    constructor(idTweetOriginal: string, contentTweetOriginal: string, authorTweetOriginal: string, contentReTweet: string, authorReTweet: string, idUserReTweet?: string, private _idReTweet?: string) {
         this.idTweetOriginal = idTweetOriginal;
         this.contentTweetOriginal = contentTweetOriginal
         this.authorTweetOriginal = authorTweetOriginal
