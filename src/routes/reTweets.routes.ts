@@ -1,6 +1,7 @@
 import { Router } from "express"
-import ReTweetController from "../controllers/reTweet.controller"
 import authMiddleware from "../middlewares/auth.middleware"
+import ReTweetController from "../controllers/reTweet.controller"
+
 
 export const reTweetsRoutes = () => {
     const router = Router()
