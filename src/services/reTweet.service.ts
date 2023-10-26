@@ -1,3 +1,4 @@
+
 import prisma from "../database/prisma.database"
 import { CreateReTweetDto, FoundReTweetDto, UpdateReTweetDto } from "../dto/reTweet.dto"
 import { ResponseDto } from "../dto/response.dto"
@@ -67,43 +68,80 @@ class ReTweetService {
             }
         })
 
-        if (!findTweet) {
+        const findReTweet = await prisma.reTweet.findFirst({
+            where: {
+                idReTweet: data.idTweetOriginal
+            }
+
+        })
+
+        if (findTweet) {
+            const findContentTweet = findTweet!.content
+            const findAuthorTweet = findTweet!.authorTweet
+            const createReTweet = await prisma.reTweet.create({
+                data: {
+                    idTweetOriginal: data.idTweetOriginal,
+                    contentTweetOriginal: findContentTweet,
+                    authorTweetOriginal: findAuthorTweet,
+                    idUserReTweet: data.idUserReTweet!,
+                    contentReTweet: data.contentReTweet!,
+                    authorReTweet: data.authorReTweet
+                }
+            })
+
+            // const createTweet = await prisma.tweet.create({
+            //     data: {
+            //         idUser: data.idUserReTweet,
+            //         content: data.contentReTweet,
+            //         authorTweet: data.authorReTweet
+            //     }
+            // })
             return {
-                ok: false,
-                code: 404,
-                message: "Tweet para responder não encontrado"
+                ok: true,
+                code: 201,
+                message: "ReTweet criado com sucesso",
+                data: {
+                    reTweet: this.reTweetMapToModel(createReTweet).detailReTweet(),
+                    // newTweet: this.tweetMapToModel(createTweet).detailTweetCreate()
+                }
+            }
+        }
+        if (findReTweet) {
+            const findContentReTweet = findReTweet?.contentReTweet!
+            const findAuthorReTweet = findReTweet?.authorReTweet!
+            const createReTweet = await prisma.reTweet.create({
+                data: {
+                    idTweetOriginal: data.idTweetOriginal,
+                    contentTweetOriginal: findContentReTweet,
+                    authorTweetOriginal: findAuthorReTweet,
+                    idUserReTweet: data.idUserReTweet!,
+                    contentReTweet: data.contentReTweet!,
+                    authorReTweet: data.authorReTweet
+                }
+            })
+
+            // const createTweet = await prisma.tweet.create({
+            //     data: {
+            //         idUser: data.idUserReTweet,
+            //         content: data.contentReTweet,
+            //         authorTweet: data.authorReTweet
+            //     }
+            // })
+            return {
+                ok: true,
+                code: 201,
+                message: "ReTweet criado com sucesso",
+                data: {
+                    reTweet: this.reTweetMapToModel(createReTweet).detailReTweet(),
+                    // newTweet: this.tweetMapToModel(createTweet).detailTweetCreate()
+                }
             }
         }
 
-        const findContentTweet = findTweet.content
-        const findAuthorTweet = findTweet.authorTweet
-        const createReTweet = await prisma.reTweet.create({
-            data: {
-                idTweetOriginal: data.idTweetOriginal,
-                contentTweetOriginal: findContentTweet,
-                authorTweetOriginal: findAuthorTweet,
-                idUserReTweet: data.idUserReTweet,
-                contentReTweet: data.contentReTweet,
-                authorReTweet: data.authorReTweet
-            }
-        })
-
-        const createTweet = await prisma.tweet.create({
-            data: {
-                idUser: data.idUserReTweet,
-                content: data.contentReTweet,
-                authorTweet: data.authorReTweet
-            }
-        })
-
         return {
-            ok: true,
-            code: 201,
-            message: "ReTweet criado com sucesso",
-            data: {
-                reTweet: this.reTweetMapToModel(createReTweet).detailReTweet(),
-                newTweet: this.tweetMapToModel(createTweet).detailTweetCreate()
-            }
+            ok: false,
+            code: 404,
+            message: "Tweet para responder não encontrado"
         }
     }
 
@@ -176,7 +214,7 @@ class ReTweetService {
 
     public reTweetMapToModel(reTweet: ReTweetPrisma): ReTweet {
         const model = new ReTweet(
-            reTweet.idTweetOriginal,
+            reTweet.idTweetOriginal!,
             reTweet.contentTweetOriginal,
             reTweet.authorTweetOriginal,
             reTweet.idUserReTweet,

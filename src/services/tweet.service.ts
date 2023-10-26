@@ -1,3 +1,4 @@
+
 import prisma from "../database/prisma.database";
 import { ResponseDto } from "../dto/response.dto";
 import { FoundTweetDto, TweetDto, UpdateTweetDto } from "../dto/tweet.dto";
@@ -98,7 +99,7 @@ class TweetService {
 
     public reTweetMapToModel(reTweet: ReTweetPrisma): ReTweet {
         const model = new ReTweet(
-            reTweet.idTweetOriginal,
+            reTweet.idTweetOriginal!,
             reTweet.contentTweetOriginal,
             reTweet.authorTweetOriginal,
             reTweet.idUserReTweet,

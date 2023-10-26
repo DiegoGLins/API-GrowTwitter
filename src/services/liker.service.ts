@@ -96,7 +96,7 @@ class LikerService {
 
         const checkLikeUser = await prisma.liker.findUnique({
             where: {
-                idReTweet: data.idReTweet!,
+                idTweet: data.idReTweet!,
                 idAuthorLike: data.idAuthorLike!,
             }
         })
@@ -104,7 +104,7 @@ class LikerService {
         if (checkLikeUser) {
             await prisma.liker.delete({
                 where: {
-                    idReTweet: data.idReTweet!,
+                    idTweet: data.idReTweet!,
                     idAuthorLike: data.idAuthorLike!,
                 },
             })
@@ -118,12 +118,12 @@ class LikerService {
 
         const createLike = await prisma.liker.create({
             data: {
-                idAuthorReTweet: data.idAuthorReTweet,
+                idTweet: data.idReTweet!,
                 idAuthorLike: data.idAuthorLike,
                 authorLike: data.authorLike,
                 contentReTweet: data.contentReTweet,
                 contentTweetLiked: '',
-                idReTweet: data.idReTweet!,
+                idAuthorTweet: data.idAuthorReTweet!
             }
         })
         return {
@@ -133,8 +133,8 @@ class LikerService {
             data: {
                 like: {
                     idLike: createLike.idLike,
-                    idReTweet: createLike.idReTweet,
-                    idAuthorReTweet: createLike.idAuthorReTweet,
+                    idReTweet: createLike.idTweet,
+                    idAuthorReTweet: createLike.idAuthorTweet,
                     idAuthorLike: createLike.idAuthorLike,
                     authorLike: createLike.authorLike,
                     contentReTweet: createLike.contentReTweet
