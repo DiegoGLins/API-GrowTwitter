@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import reTweetService from "../services/reTweet.service";
+import tweetService from "../services/tweet.service";
 
 class ReTweetController {
     public async createReTweet(req: Request, res: Response) {
@@ -7,8 +8,8 @@ class ReTweetController {
             const { idTweetOriginal, idUser, contentReTweet, username } = req.body
 
             const result = await reTweetService.createReTweet({
-                idTweetOriginal: idTweetOriginal,
-                contentTweetOriginal: "",
+                idTweetOriginal: idTweetOriginal!,
+                contentTweetOriginal: '',
                 idUserReTweet: idUser,
                 contentReTweet: contentReTweet,
                 authorReTweet: username
