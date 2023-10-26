@@ -1,3 +1,4 @@
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -36,18 +37,18 @@ model Tweet {
   @@unique([id, idUser])
 }
 model ReTweet {
-  idTweetOriginal String @db.Uuid @map("id_tweetOriginal")
-  contentTweetOriginal String @db.Text
-  authorTweetOriginal String
-  idReTweet String @id @db.Uuid  @default(uuid()) @map("id_reTweet")
-  idUserReTweet String @db.Uuid @map("id_user_reTweet")
+  idTweetOriginal String @db.Uuid @map("id_tweet_original")
+  contentTweetOriginal String @db.Text @map("content_tweet_original")
+  authorTweetOriginal String @map("author_tweet_original")
+  idReTweet String @db.Uuid  @default(uuid()) @map("id_retweet")
+  idUserReTweet String @db.Uuid @map("id_user_retweet")
   contentReTweet String @db.Text @map("content_retweet")
-  authorReTweet String
+  authorReTweet String @map("author_reTweet")
   likes Liker[]
-  tweet Tweet @relation(fields: [idTweetOriginal], references: [id])
+  tweet Tweet? @relation(fields: [idTweetOriginal], references: [id])
   user User @relation(fields: [idUserReTweet],references: [id])
   @@unique([idReTweet])
-  @@map("reTweet")
+  @@map("retweet")
 }
 
 model Follow {
@@ -68,12 +69,13 @@ model Liker {
   idTweet String? @db.Uuid @map("id_tweet")
   idAuthorTweet String? @db.Uuid @map("id_author_Tweet")
   idReTweet String? @db.Uuid @map("id_retweet")
-  idAuthorReTweet String? @db.Uuid @map("id_author_ReTweet")
+  idAuthorReTweet String? @db.Uuid @map("id_author_retweet")
   idAuthorLike String @db.Uuid @map("id_author_like") @unique
   authorLike String @map("username_author_like")
-  contentTweetLiked String? @db.Text
-  contentReTweet String? @db.Text
+  contentTweetLiked String? @db.Text @map("content_tweet_liked")
+  contentReTweet String? @db.Text @map("content_retweet_liked")
   tweet Tweet? @relation(fields: [idTweet],references: [id])
   reTweet ReTweet? @relation(fields: [idReTweet],references: [idReTweet])
   @@map("liker")
 }
+
