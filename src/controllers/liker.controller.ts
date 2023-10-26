@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import likerService from "../services/liker.service";
 import tweetService from "../services/tweet.service";
-import reTweetService from "../services/reTweet.service";
 class LikerController {
     public async createLike(req: Request, res: Response) {
         try {
@@ -13,7 +12,7 @@ class LikerController {
                 return res.status(404).send({ message: "Tweet não encontrado" })
             }
             const response = await likerService.createLike({
-                idTweet: findTweet.data?.idTweet!,
+                idTweet: findTweet.data?.id!,
                 idAuthorTweet: findTweet.data?.idUser!,
                 idAuthorLike: idUser,
                 authorLike: username,
@@ -34,17 +33,17 @@ class LikerController {
         try {
             const { idReTweet } = req.params
             const { idUser, username } = req.body
-            const findReTweet = await reTweetService.listReTweetById(idReTweet)
+            const findReTweet = await tweetService.listTweetById(idReTweet)
 
             if (!findReTweet) {
                 return res.status(404).send({ message: "ReTweet não encontrado" })
             }
             const response = await likerService.createLikeR({
-                idReTweet: findReTweet.data?.idReTweet!,
-                idAuthorReTweet: findReTweet.data?.idUserReTweet!,
+                idReTweet: findReTweet.data?.id!,
+                idAuthorReTweet: findReTweet.data?.authorTweet!,
                 idAuthorLike: idUser,
                 authorLike: username,
-                contentReTweet: findReTweet.data?.contentReTweet!,
+                contentReTweet: findReTweet.data?.content!
             })
             return res.status(response.code).send(response)
         }
