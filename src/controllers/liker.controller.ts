@@ -12,7 +12,7 @@ class LikerController {
                 return res.status(404).send({ message: "Tweet não encontrado" })
             }
             const response = await likerService.createLike({
-                idTweet: findTweet.data?.id!,
+                idTweet: findTweet.data?.idTweet!,
                 idAuthorTweet: findTweet.data?.idUser!,
                 idAuthorLike: idUser,
                 authorLike: username,
@@ -39,7 +39,7 @@ class LikerController {
                 return res.status(404).send({ message: "ReTweet não encontrado" })
             }
             const response = await likerService.createLikeR({
-                idReTweet: findReTweet.data?.id!,
+                idReTweet: findReTweet.data?.idTweet!,
                 idAuthorReTweet: findReTweet.data?.authorTweet!,
                 idAuthorLike: idUser,
                 authorLike: username,
