@@ -51,6 +51,16 @@ class TweetService {
         }
     }
 
+    public async listAllTweets() {
+        const allTweets = await prisma.tweet.findMany()
+        return {
+            ok: true,
+            code: 200,
+            message: "Tweets listados com sucesso",
+            data: allTweets
+        }
+    }
+
     public async listTweetById(idTweet: string) {
         const findTweet = await prisma.tweet.findUnique({
             where: {
