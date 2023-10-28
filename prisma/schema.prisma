@@ -31,7 +31,7 @@ model Tweet {
   idUser String @db.Uuid @map("id_user")
   authorTweet String
   reTweet ReTweet[]
-  like Liker[]
+  likes Liker[]
   user User @relation(fields: [idUser], references: [id])
   @@map("tweet")
   @@unique([id, idUser])
