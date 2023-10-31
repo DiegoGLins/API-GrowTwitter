@@ -34,6 +34,9 @@ class TweetService {
         const reTweets = await prisma.reTweet.findMany({
             where: {
                 idUserReTweet: idUser
+            },
+            include: {
+                likes: true
             }
         })
 
@@ -51,13 +54,21 @@ class TweetService {
         }
     }
 
-    public async listAllTweets() {
+    public async listAllTweets(): Promise<ResponseDto> {
         const allTweets = await prisma.tweet.findMany()
+        const reTweets = await prisma.reTweet.findMany()
+
+        const tweetsModel = allTweets.map((item) => this.tweetMapToModel(item))
+        const reTweetModel = reTweets.map((item) => this.reTweetMapToModel(item))
+
         return {
             ok: true,
             code: 200,
             message: "Tweets listados com sucesso",
-            data: allTweets
+            data: {
+                allTweets: tweetsModel.map((item) => item.detailTweet()),
+                reTweets: reTweetModel.map((item) => item.detailReTweet())
+            }
         }
     }
 
