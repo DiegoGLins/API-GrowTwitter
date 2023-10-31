@@ -10,6 +10,7 @@ export const userRoutes = () => {
     router.post("/", validateUserMiddleware, controller.register)
 
     router.get("/", authMiddleware, controller.list)
+    router.get("/byToken", authMiddleware, controller.listUserByToken)
     router.delete("/:id", authMiddleware, controller.delete)
     router.put("/:id", authMiddleware, controller.update)
 
