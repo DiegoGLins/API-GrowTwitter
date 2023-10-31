@@ -72,10 +72,11 @@ class TweetService {
         }
     }
 
-    public async listTweetById(idTweet: string) {
+    public async listTweetById(data: FoundTweetDto) {
         const findTweet = await prisma.tweet.findUnique({
             where: {
-                id: idTweet
+                id: data.idTweet,
+                idUser: data.idUser
             }
         })
         if (!findTweet) {
@@ -87,6 +88,9 @@ class TweetService {
         }
 
         return {
+            ok: true,
+            code: 200,
+            message: "Tweet listado com sucesso",
             data: this.tweetMapToModel(findTweet).detailTweet()
         }
     }
