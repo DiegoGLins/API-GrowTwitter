@@ -9,7 +9,7 @@ export const userRoutes = () => {
 
     router.post("/", validateUserMiddleware, controller.register)
 
-    router.get("/", controller.list)
+    router.get("/", authMiddleware, controller.list)
     router.delete("/:id", authMiddleware, controller.delete)
     router.put("/:id", authMiddleware, controller.update)
 
