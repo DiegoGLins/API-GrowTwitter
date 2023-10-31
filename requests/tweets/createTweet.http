@@ -1,6 +1,23 @@
 POST http://localhost:3333/tweets HTTP/1.1
 content-type: application/json
-Authorization: 2257567e-ea8e-44b4-b6db-ebbe933bc2e1
+Authorization: 117113b7-b1bb-4e9f-af27-c684e2e69187
+
+
+
+# {
+# "content": "Essa nova rede social é muito massa"
+# }
+
+# {
+# "content": "Oi Gustavo qu legal te encontrar aqui na rede. Me add ai. Valeu"
+# }
+
+
+
+# {
+# "content": "Final de semana. Só na goodVibes. Passeando com meu dog"
+# }
+
 
 # {
 # "content": "Adorei os recursos dessa plataforma"
