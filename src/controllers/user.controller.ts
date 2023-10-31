@@ -7,6 +7,25 @@ export class UserController {
         return res.status(result.code).send(result)
     }
 
+    public async listUserByToken(req: Request, res: Response) {
+        try {
+            const { token } = req.body
+            const result = await userService.getByToken(token)
+            return res.status(200).send({
+                ok: true,
+                code: 200,
+                message: "Usuario listado com sucesso",
+                data: result
+            })
+        }
+        catch (error: any) {
+            res.status(500).send({
+                ok: false,
+                message: error.toString()
+            })
+        }
+    }
+
     public async register(req: Request, res: Response) {
         try {
             const { name, username, email, password } = req.body
