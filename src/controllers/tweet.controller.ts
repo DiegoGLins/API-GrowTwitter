@@ -36,6 +36,22 @@ class TweetController {
         }
     }
 
+    public async listTweetByID(req: Request, res: Response) {
+        try {
+            const { idUser } = req.body;
+            const { idTweet } = req.params;
+
+            const response = await tweetService.listTweetById({ idTweet, idUser: idUser });
+
+            return res.status(response.code).send(response)
+        } catch (error: any) {
+            res.status(500).send({
+                ok: false,
+                message: error.toString(),
+            });
+        }
+    }
+
     public async listAllTweets(req: Request, res: Response) {
         try {
             const result = await tweetService.listAllTweets()
