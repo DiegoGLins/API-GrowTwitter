@@ -8,8 +8,8 @@ export const tweetsRoutes = () => {
     const controller = new tweetController()
 
     router.post("/", authMiddleware, controller.createTweet)
-
-    router.get("/", authMiddleware, controller.listTweets)
+    router.get('/', authMiddleware, controller.listAllTweets)
+    router.get("/fromUser", authMiddleware, controller.listTweetsFromUser)
     router.put("/:idTweet", authMiddleware, controller.updateTweet)
     router.delete("/:idTweet", authMiddleware, controller.deleteTweet)
 
