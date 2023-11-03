@@ -2,9 +2,7 @@
 import prisma from "../database/prisma.database";
 import { ResponseDto } from "../dto/response.dto";
 import { FoundTweetDto, TweetDto, UpdateTweetDto } from "../dto/tweet.dto";
-import { ReTweet } from "../models/reTweet.model"
-import Tweet from "../models/tweet.model";
-import { ReTweet as ReTweetPrisma, Tweet as TweetPrisma } from '@prisma/client'
+import { TweetType } from "../types/TweetType";
 
 class TweetService {
     public async listTweetFromUser(idUser: string): Promise<ResponseDto> {
@@ -25,49 +23,42 @@ class TweetService {
 
         const tweets = await prisma.tweet.findMany({
             where: {
-                idUser
+                idUser,
+                authorTweet: user.username,
             },
             include: {
-                like: true
-            }
-        })
-        const reTweets = await prisma.reTweet.findMany({
-            where: {
-                idUserReTweet: idUser
-            },
-            include: {
-                likes: true
+                likes: true,
+                reTweet: true,
+                tweetOriginal: true
             }
         })
 
-        const tweetModel = tweets.map((item) => this.tweetMapToModel(item))
-        const reTweetModel = reTweets.map((item) => this.reTweetMapToModel(item))
 
         return {
             ok: true,
             code: 200,
             message: "Tweets listados com sucesso",
             data: {
-                tweets: tweetModel.map((item) => item.detailTweet()),
-                reTweets: reTweetModel.map((item) => item.detailReTweet())
+                tweets
             }
         }
     }
 
     public async listAllTweets(): Promise<ResponseDto> {
-        const allTweets = await prisma.tweet.findMany()
-        const reTweets = await prisma.reTweet.findMany()
-
-        const tweetsModel = allTweets.map((item) => this.tweetMapToModel(item))
-        const reTweetModel = reTweets.map((item) => this.reTweetMapToModel(item))
+        const allTweets = await prisma.tweet.findMany({
+            include: {
+                likes: true,
+                reTweet: true,
+                tweetOriginal: true
+            }
+        })
 
         return {
             ok: true,
             code: 200,
             message: "Tweets listados com sucesso",
             data: {
-                allTweets: tweetsModel.map((item) => item.detailTweet()),
-                reTweets: reTweetModel.map((item) => item.detailReTweet())
+                allTweets
             }
         }
     }
@@ -77,6 +68,9 @@ class TweetService {
             where: {
                 id: data.idTweet,
                 idUser: data.idUser
+            },
+            include: {
+                likes: true,
             }
         })
         if (!findTweet) {
@@ -91,49 +85,62 @@ class TweetService {
             ok: true,
             code: 200,
             message: "Tweet listado com sucesso",
-            data: this.tweetMapToModel(findTweet).detailTweet()
+            data: findTweet
         }
     }
 
     public async createTweet(data: TweetDto): Promise<ResponseDto> {
+        const typeN = TweetType.normal
         const createTweet = await prisma.tweet.create({
             data: {
-                idUser: data.idUser,
                 content: data.content,
-                authorTweet: data.authorTweet
+                idUser: data.idUser,
+                authorTweet: data.authorTweet,
+                type: typeN,
             }
         })
-
         return {
             ok: true,
             code: 201,
             message: "Tweet criado com sucesso",
-            data: this.tweetMapToModel(createTweet).detailTweetCreate()
+            data: createTweet
         }
     }
 
-    public tweetMapToModel(tweet: TweetPrisma): Tweet {
-        const model = new Tweet(
-            tweet.id,
-            tweet.content,
-            tweet.idUser,
-            tweet.authorTweet,
-        )
-        return model
+    public async createReTweet(data: TweetDto): Promise<ResponseDto> {
+        const typeR = TweetType.reTweet
+
+        const findTweet = await prisma.tweet.findUnique({
+            where: {
+                id: data.idTweetOriginal
+            }
+        })
+
+        if (!findTweet) {
+            return {
+                ok: false,
+                code: 404,
+                message: "Tweet para responder não encontrado"
+            }
+        }
+
+        const createReTweet = await prisma.tweet.create({
+            data: {
+                content: data.content,
+                idUser: data.idUser,
+                authorTweet: data.authorTweet,
+                type: typeR,
+                idTweetOriginal: data.idTweetOriginal,
+            }
+        })
+        return {
+            ok: true,
+            code: 201,
+            message: "Tweet criado com sucesso",
+            data: createReTweet
+        }
     }
 
-    public reTweetMapToModel(reTweet: ReTweetPrisma): ReTweet {
-        const model = new ReTweet(
-            reTweet.idTweetOriginal!,
-            reTweet.contentTweetOriginal,
-            reTweet.authorTweetOriginal,
-            reTweet.idUserReTweet,
-            reTweet.contentReTweet,
-            reTweet.authorReTweet,
-            reTweet.idReTweet,
-        )
-        return model
-    }
 
     public async updateTweet(data: UpdateTweetDto): Promise<ResponseDto> {
 
@@ -167,7 +174,7 @@ class TweetService {
             ok: true,
             code: 200,
             message: "Tweet atualizado com sucesso",
-            data: this.tweetMapToModel(updated).detailTweet()
+            data: updated
         }
     }
 
