@@ -8,9 +8,7 @@ export const reTweetsRoutes = () => {
     const controller = new TweetController()
 
     router.post("/", authMiddleware, controller.createReTweet)
-    // router.get("/", authMiddleware, controller.listReTweets)
-    // router.put("/:idReTweet", authMiddleware, controller.updateReTweet)
-    // router.delete("/:idReTweet", authMiddleware, controller.deleteReTweet)
+
 
     return router
 }

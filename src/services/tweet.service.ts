@@ -63,11 +63,10 @@ class TweetService {
         }
     }
 
-    public async listTweetById(data: FoundTweetDto) {
+    public async listTweetById(idTweet: string) {
         const findTweet = await prisma.tweet.findUnique({
             where: {
-                id: data.idTweet,
-                idUser: data.idUser
+                id: idTweet,
             },
             include: {
                 likes: true,
@@ -144,28 +143,33 @@ class TweetService {
 
     public async updateTweet(data: UpdateTweetDto): Promise<ResponseDto> {
 
-        const tweetFind = await prisma.tweet.findUnique({
+        const findTweet = await prisma.tweet.findUnique({
             where: {
                 id: data.idTweet,
-                idUser: data.idUser
             }
         })
 
-        if (!tweetFind) {
+        if (findTweet?.idUser !== data.idUser) {
+            return {
+                ok: false,
+                code: 403,
+                message: "Você não tem permissão para editar esse tweet"
+            }
+        }
+
+        if (!findTweet) {
             return {
                 ok: false,
                 code: 404,
-                message: "Tweet não encontrado"
+                message: "Tweet para editar não encontrado"
             }
         }
 
         const updated = await prisma.tweet.update({
             where: {
                 id: data.idTweet,
-                idUser: data.idUser
             },
             data: {
-                id: data.idTweet,
                 content: data.content
             }
         })
@@ -186,6 +190,14 @@ class TweetService {
                 idUser: data.idUser
             }
         })
+
+        if (findTweet?.idUser !== data.idUser) {
+            return {
+                ok: false,
+                code: 403,
+                message: "Você não tem permissão para deletar esse tweet"
+            }
+        }
 
         if (!findTweet) {
             return {

@@ -12,8 +12,8 @@ class LikerController {
                 return res.status(404).send({ message: "Tweet não encontrado" })
             }
             const response = await likerService.createLike({
-                idTweet: findTweet.data?.idTweet!,
-                idAuthorTweet: findTweet.data?.idUser!,
+                idTweet: findTweet?.data!.id,
+                idAuthorTweet: findTweet?.data!.idUser,
                 idAuthorLike: idUser,
                 authorLike: username,
                 contentTweetLiked: findTweet.data?.content!,
@@ -29,31 +29,6 @@ class LikerController {
         }
     }
 
-    public async createLikeR(req: Request, res: Response) {
-        try {
-            const { idReTweet } = req.params
-            const { idUser, username } = req.body
-            const findReTweet = await tweetService.listTweetById(idReTweet)
-
-            if (!findReTweet) {
-                return res.status(404).send({ message: "ReTweet não encontrado" })
-            }
-            const response = await likerService.createLikeR({
-                idReTweet: findReTweet.data?.idTweet!,
-                idAuthorReTweet: findReTweet.data?.authorTweet!,
-                idAuthorLike: idUser,
-                authorLike: username,
-                contentReTweet: findReTweet.data?.content!
-            })
-            return res.status(response.code).send(response)
-        }
-        catch (error: any) {
-            res.status(500).send({
-                ok: false,
-                message: error.toString()
-            })
-        }
-    }
 
     public async listLike(req: Request, res: Response) {
         try {

@@ -1,6 +1,6 @@
 POST http://localhost:3333/follows/03d09dd0-4aa5-46b0-bff0-9f7014ad6d1c HTTP/1.1
 content-type: application/json
-Authorization: 2b5234e7-a6a1-46e3-af31-d8ac47154f6a
+Authorization: b8d635f5-a15f-4784-a504-bd9540a5b69a
 
 {
     "usernameFollowing":"estef.santos"

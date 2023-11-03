@@ -1,2 +1,2 @@
-GET http://localhost:3333/tweets/bcee713b-0933-440c-b84a-b44f62ba58df HTTP/1.1
-Authorization: 954ab5f0-4e9d-4214-9782-1c609cff03b5
+GET http://localhost:3333/tweets/24920733-50dd-4121-90b5-7a93411a5573 HTTP/1.1
+Authorization: b8d635f5-a15f-4784-a504-bd9540a5b69a

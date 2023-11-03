@@ -27,7 +27,6 @@ userLiker Liker[]
 @@map("user")
 }
 
-
 model Tweet {
   id String @id @db.Uuid @default(uuid()) @map("id_tweet") @unique
   content String @db.Text
@@ -43,19 +42,6 @@ model Tweet {
   @@unique([id, idUser])
 }
 
-// model ReTweet {
-// idTweetOriginal String? @db.Uuid @map("id_tweet_original")
-// contentTweetOriginal String? @db.Text @map("content_tweet_original")
-// authorTweetOriginal String? @map("author_tweet_original")  
-// idReTweet String @id @db.Uuid @default(uuid()) @map("id_retweet") @unique
-// idUserReTweet String @db.Uuid @map("id_user_retweet")
-// authorReTweet String @map("author_reTweet")
-// contentReTweet String @db.Text @map("content_retweet")
-// likes Liker[]
-// tweet Tweet? @relation(fields: [idTweetOriginal], references: [id])
-// user User @relation(fields: [idUserReTweet],references: [id])
-// @@map("retweet")
-// }
 
 model Follow {
   id String @id @db.Uuid @default(uuid())
@@ -63,8 +49,8 @@ model Follow {
   usernameFollowing String @map("username_following") @unique
   idUserFollower String @db.Uuid @map("id_user_follower")
   usernameFollower String @map("username_follower")
-  following User @relation("user_following", fields: [idUserFollowing],references: [id])
-  followers User @relation("user_followers",fields: [idUserFollower],references: [id])
+  following User @relation("user_following", fields: [idUserFollowing],references: [id], onDelete: Cascade)
+  followers User @relation("user_followers",fields: [idUserFollower],references: [id], onDelete: Cascade)
 
   @@unique([idUserFollowing, idUserFollower], name: "follow_pkey")
   @@map("follows")
@@ -79,23 +65,9 @@ model Liker {
   authorLike String @map("username_author_like")
   contentTweetLiked String? @db.Text @map("content_tweet_liked")
 
-  tweet Tweet? @relation(fields: [idTweet],references: [id])
-  user User @relation(fields: [idAuthorLike], references: [id])
+  tweet Tweet? @relation(fields: [idTweet],references: [id], onDelete: Cascade, onUpdate: SetNull)
+  user User @relation(fields: [idAuthorLike], references: [id], onDelete: Cascade)
   @@map("liker")
 }
 
-// model Liker {
-//   idLike String @id @db.Uuid @default(uuid()) @map("id_like")
-//   idTweet String? @db.Uuid @map("id_tweet")
-//   idAuthorTweet String? @db.Uuid @map("id_author_Tweet")
-//   idReTweet String? @db.Uuid @map("id_retweet")
-//   idAuthorReTweet String? @db.Uuid @map("id_author_retweet")
-//   idAuthorLike String @db.Uuid @map("id_author_like") @unique
-//   authorLike String @map("username_author_like")
-//   contentTweetLiked String? @db.Text @map("content_tweet_liked")
-//   contentReTweet String? @db.Text @map("content_retweet_liked")
-//   tweet Tweet? @relation(fields: [idTweet],references: [id])
-//   reTweet ReTweet? @relation(fields: [idReTweet],references: [idReTweet])
-//   @@map("liker")
-// }
 

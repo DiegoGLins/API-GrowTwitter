@@ -1,7 +1,0 @@
-PUT http://localhost:3333/reTweets/b468ca70-2132-440e-a907-b039bee9c687 HTTP/1.1
-content-type: application/json
-Authorization: c61dcf24-f35f-4408-9ca6-956ee7fb3f9d
-
-{
-"contentReTweet": "Oi Paula. Td bem ? Te adicionei aqui também. Valeu"
-}

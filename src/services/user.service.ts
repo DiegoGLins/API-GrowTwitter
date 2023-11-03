@@ -122,40 +122,6 @@ class UserService {
         };
     }
 
-    // public async createUser(data: CreateUserDto): Promise<ResponseDto> {
-
-    //     const findUser = await prisma.user.findFirst({
-    //         where: {
-    //             OR: [
-    //                 { username: data.username },
-    //                 { email: data.email }
-    //             ]
-    //         }
-    //     });
-
-    //     if (findUser) {
-    //         return {
-    //             ok: false,
-    //             code: 400,
-    //             message: "username ou email já cadastrado"
-    //         }
-    //     }
-
-    //     const createUser = await prisma.user.create({
-    //         data: {
-    //             name: data.name,
-    //             username: data.username,
-    //             email: data.email,
-    //             password: data.password
-    //         }
-    //     })
-    //     return {
-    //         ok: true,
-    //         code: 201,
-    //         message: "Usuario cadastrado com sucesso",
-    //         data: this.mapToModel(createUser).detailUser()
-    //     }
-    // }
 
     public async updateUser(data: UpdateUserDto) {
 

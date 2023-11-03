@@ -1,5 +1,5 @@
 import prisma from "../database/prisma.database"
-import { CreateLikeDto, CreateLikeReTweetDto } from "../dto/create.like.dto";
+import { CreateLikeDto } from "../dto/create.like.dto";
 import { ResponseDto } from "../dto/response.dto"
 
 class LikerService {
@@ -73,7 +73,6 @@ class LikerService {
                 idAuthorLike: data.idAuthorLike!,
                 authorLike: data.authorLike!,
                 contentTweetLiked: data.contentTweetLiked!,
-                contentReTweet: '',
                 idTweet: data.idTweet!,
             }
         })
@@ -92,56 +91,6 @@ class LikerService {
         }
     }
 
-    public async createLikeR(data: CreateLikeReTweetDto): Promise<ResponseDto> {
-
-        const checkLikeUser = await prisma.liker.findUnique({
-            where: {
-                idTweet: data.idReTweet!,
-                idAuthorLike: data.idAuthorLike!,
-            }
-        })
-
-        if (checkLikeUser) {
-            await prisma.liker.delete({
-                where: {
-                    idTweet: data.idReTweet!,
-                    idAuthorLike: data.idAuthorLike!,
-                },
-            })
-
-            return {
-                ok: false,
-                code: 200,
-                message: "Curtida removida com sucesso"
-            }
-        }
-
-        const createLike = await prisma.liker.create({
-            data: {
-                idTweet: data.idReTweet!,
-                idAuthorLike: data.idAuthorLike,
-                authorLike: data.authorLike,
-                contentReTweet: data.contentReTweet,
-                contentTweetLiked: '',
-                idAuthorTweet: data.idAuthorReTweet!
-            }
-        })
-        return {
-            ok: true,
-            code: 201,
-            message: "Tweet curtido com sucesso",
-            data: {
-                like: {
-                    idLike: createLike.idLike,
-                    idReTweet: createLike.idTweet,
-                    idAuthorReTweet: createLike.idAuthorTweet,
-                    idAuthorLike: createLike.idAuthorLike,
-                    authorLike: createLike.authorLike,
-                    contentReTweet: createLike.contentReTweet
-                }
-            }
-        }
-    }
 }
 
 export default new LikerService()

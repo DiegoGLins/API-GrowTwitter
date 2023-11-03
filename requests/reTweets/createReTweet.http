@@ -1,10 +1,10 @@
 POST http://localhost:3333/reTweets HTTP/1.1
 content-type: application/json
-Authorization: 974cfaf0-928c-42cd-aca4-09d3d71a01b0
+Authorization: 6c9307b4-3d2a-444d-b6b3-55aa7926e873
 
 {
-"idTweetOriginal": "24920733-50dd-4121-90b5-7a93411a5573",
-"content": "kkkkkk"
+"idTweetOriginal": "8dc2c68e-2fd4-4a5e-868a-ffc1a65533c0",
+"content": "Oi Paula td bem ?"
 }
 
 
