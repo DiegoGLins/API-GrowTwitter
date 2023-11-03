@@ -1,11 +1,10 @@
 POST http://localhost:3333/reTweets HTTP/1.1
 content-type: application/json
-Authorization: 2257567e-ea8e-44b4-b6db-ebbe933bc2e1
-
+Authorization: 974cfaf0-928c-42cd-aca4-09d3d71a01b0
 
 {
-"idTweetOriginal": "fa45a29e-fee8-4cb6-b8da-2002e9db67e1",
-"contentReTweet": "Claro Guga. Já estavamos pensando em chamar vc "
+"idTweetOriginal": "24920733-50dd-4121-90b5-7a93411a5573",
+"content": "kkkkkk"
 }
 
 
