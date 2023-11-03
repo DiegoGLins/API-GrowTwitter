@@ -1,4 +1,4 @@
-// export enum TweetType {
-//     normal = "N",
-//     reTweet = "R"
-// }
+export enum TweetType {
+    normal = "N",
+    reTweet = "R"
+}
