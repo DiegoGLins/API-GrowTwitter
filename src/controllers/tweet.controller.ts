@@ -7,11 +7,32 @@ class TweetController {
             const { idUser, content, username } = req.body
 
             const result = await tweetService.createTweet({
-                content: content,
                 idUser: idUser,
+                type: '',
+                content: content,
                 authorTweet: username
             })
+            return res.status(result.code).send(result)
+        }
+        catch (error: any) {
+            res.status(500).send({
+                ok: false,
+                message: error.toString()
+            })
+        }
+    }
 
+    public async createReTweet(req: Request, res: Response) {
+        try {
+            const { idUser, content, username, idTweetOriginal } = req.body
+
+            const result = await tweetService.createReTweet({
+                idUser: idUser,
+                type: '',
+                content: content,
+                authorTweet: username,
+                idTweetOriginal: idTweetOriginal
+            })
             return res.status(result.code).send(result)
         }
         catch (error: any) {
@@ -24,8 +45,9 @@ class TweetController {
 
     public async listTweetsFromUser(req: Request, res: Response) {
         try {
-            const { idUser } = req.body
+            const { idUser } = req.params
             const result = await tweetService.listTweetFromUser(idUser)
+
             return res.status(result.code).send(result)
         }
         catch (error: any) {
