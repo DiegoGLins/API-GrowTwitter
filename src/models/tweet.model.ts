@@ -7,12 +7,6 @@ class Tweet {
     public idTweetOriginal?: string;
     public avatar: string;
     public type: TweetType
-    //  id?: string,
-    //content: string,
-    //idUser: string,
-    //authorTweet: string,
-    //type: string;
-    //idTweetOriginal?: string
 
     constructor(private _id: string, content: string, idUser: string, authorTweet: string, type: TweetType, idTweetOriginal?: string) {
         this.avatar = ''
@@ -22,12 +16,6 @@ class Tweet {
         this.idUser = idUser;
         this.type = type
     }
-    // "idTweet": "221a641b-cb17-4777-850d-a4a80d601e8b",
-    //"content": "N",
-    //"type": "N",
-    //"idUser": "Essa nova rede social é muito massa",
-    //"authorTweet": "e5c2f752-290f-4e7f-b2c3-80b2b4278eef"
-
     public get id() {
         return this._id;
     }

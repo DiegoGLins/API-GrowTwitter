@@ -65,7 +65,7 @@ model Liker {
   authorLike String @map("username_author_like")
   contentTweetLiked String? @db.Text @map("content_tweet_liked")
 
-  tweet Tweet? @relation(fields: [idTweet],references: [id], onDelete: Cascade, onUpdate: SetNull)
+  tweet Tweet? @relation(fields: [idTweet],references: [id], onDelete: Cascade, onUpdate: SetNull )
   user User @relation(fields: [idAuthorLike], references: [id], onDelete: Cascade)
   @@map("liker")
 }

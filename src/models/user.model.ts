@@ -1,11 +1,10 @@
 import Tweet from "./tweet.model";
 import { Follow } from "../types/FollowUserType";
-import { ReTweet } from "@prisma/client";
 
 export class User implements Follow {
     public following: Follow[];
     public tweets: Tweet[]
-    public reTweet: ReTweet[]
+
 
     constructor(
         private _id: string,
@@ -18,7 +17,6 @@ export class User implements Follow {
         this._password = _password;
         this.following = [];
         this.tweets = []
-        this.reTweet = []
     }
 
     //------ getters------
