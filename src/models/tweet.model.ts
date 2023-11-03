@@ -19,26 +19,6 @@ class Tweet {
     public get id() {
         return this._id;
     }
-
-    detailReTweet() {
-        return {
-            idTweet: this._id,
-            content: this.content,
-            idUser: this.idUser,
-            authorTweet: this.authorTweet,
-            idTweetOriginal: this.idTweetOriginal
-        }
-    }
-
-    detailTweet() {
-        return {
-            idTweet: this._id,
-            content: this.content,
-            type: this.type,
-            idUser: this.idUser,
-            authorTweet: this.authorTweet
-        }
-    }
 }
 
 export default Tweet
