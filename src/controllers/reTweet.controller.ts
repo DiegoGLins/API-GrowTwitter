@@ -12,7 +12,8 @@ class ReTweetController {
                 contentTweetOriginal: '',
                 idUserReTweet: idUser,
                 contentReTweet: contentReTweet,
-                authorReTweet: username
+                authorReTweet: username,
+                idReTweet: ""
             })
 
             return res.status(result.code).send(result)
@@ -28,6 +29,14 @@ class ReTweetController {
     public async listReTweets(req: Request, res: Response) {
         try {
             const { idUser } = req.body
+
+            if (!idUser) {
+                return {
+                    ok: false,
+                    code: 404,
+                    message: "Usuario não encontrado"
+                }
+            }
 
             const result = await reTweetService.listReTweetsFromUser(idUser)
 
