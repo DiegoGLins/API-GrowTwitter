@@ -28,8 +28,8 @@ class AuthController {
             code: 200,
             message: "Login efetuado com sucesso",
             data: {
-                logged: logged,
-                token: token
+                logged,
+                token
             }
         }
 
@@ -50,7 +50,9 @@ class AuthController {
                 message: "Logout realizado com sucesso"
             }
 
-            await userService.updateUser({ ...userLogged, token: null })
+            await userService.updateUser({
+                ...userLogged, token: null,
+            })
 
             return res.status(response.code).send(response)
         }
