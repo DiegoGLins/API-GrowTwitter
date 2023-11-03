@@ -1,7 +1,7 @@
 
 export interface CreateReTweetDto {
     idTweetOriginal: string,
-    idReTweet?: string;
+    idReTweet: string;
     contentTweetOriginal?: string,
     idUserReTweet: string,
     contentReTweet: string,
