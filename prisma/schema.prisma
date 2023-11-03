@@ -13,43 +13,49 @@ datasource db {
 
 model User {
 id String  @id @db.Uuid @default(uuid())
-name String @db.VarChar(200)
-username String @db.VarChar(200) @unique
-email String @db.VarChar(200) @unique
+name String @db.VarChar(18)
+username String @db.VarChar(16) @unique
+email String @db.VarChar(100) @unique
 password String @db.VarChar(64)
 token String? @unique
 following Follow[] @relation("user_following")
 followers Follow[] @relation("user_followers")
 tweets Tweet[]
-reTweet ReTweet[]
+
+userLiker Liker[]
+
 @@map("user")
 }
+
 
 model Tweet {
   id String @id @db.Uuid @default(uuid()) @map("id_tweet") @unique
   content String @db.Text
   idUser String @db.Uuid @map("id_user")
-  authorTweet String
-  reTweet ReTweet[]
+  authorTweet String @map("author_Tweet")
+  type String @db.VarChar(2)
+  idTweetOriginal String? @db.Uuid @map("id_tweet_original")
+  tweetOriginal Tweet? @relation("reTweet", fields: [idTweetOriginal], references: [id])
+  reTweet Tweet[] @relation("reTweet")
   likes Liker[]
   user User @relation(fields: [idUser], references: [id])
   @@map("tweet")
   @@unique([id, idUser])
 }
-model ReTweet {
-  idTweetOriginal String @db.Uuid @map("id_tweet_original")
-  contentTweetOriginal String @db.Text @map("content_tweet_original")
-  authorTweetOriginal String @map("author_tweet_original")
-  idReTweet String @db.Uuid  @default(uuid()) @map("id_retweet")
-  idUserReTweet String @db.Uuid @map("id_user_retweet")
-  contentReTweet String @db.Text @map("content_retweet")
-  authorReTweet String @map("author_reTweet")
-  likes Liker[]
-  tweet Tweet? @relation(fields: [idTweetOriginal], references: [id])
-  user User @relation(fields: [idUserReTweet],references: [id])
-  @@unique([idReTweet])
-  @@map("retweet")
-}
+
+// model ReTweet {
+// idTweetOriginal String? @db.Uuid @map("id_tweet_original")
+// contentTweetOriginal String? @db.Text @map("content_tweet_original")
+// authorTweetOriginal String? @map("author_tweet_original")  
+// idReTweet String @id @db.Uuid @default(uuid()) @map("id_retweet") @unique
+// idUserReTweet String @db.Uuid @map("id_user_retweet")
+// authorReTweet String @map("author_reTweet")
+// contentReTweet String @db.Text @map("content_retweet")
+// likes Liker[]
+// tweet Tweet? @relation(fields: [idTweetOriginal], references: [id])
+// user User @relation(fields: [idUserReTweet],references: [id])
+// @@map("retweet")
+// }
 
 model Follow {
   id String @id @db.Uuid @default(uuid())
@@ -68,14 +74,28 @@ model Liker {
   idLike String @id @db.Uuid @default(uuid()) @map("id_like")
   idTweet String? @db.Uuid @map("id_tweet")
   idAuthorTweet String? @db.Uuid @map("id_author_Tweet")
-  idReTweet String? @db.Uuid @map("id_retweet")
-  idAuthorReTweet String? @db.Uuid @map("id_author_retweet")
+
   idAuthorLike String @db.Uuid @map("id_author_like") @unique
   authorLike String @map("username_author_like")
   contentTweetLiked String? @db.Text @map("content_tweet_liked")
-  contentReTweet String? @db.Text @map("content_retweet_liked")
+
   tweet Tweet? @relation(fields: [idTweet],references: [id])
-  reTweet ReTweet? @relation(fields: [idReTweet],references: [idReTweet])
+  user User @relation(fields: [idAuthorLike], references: [id])
   @@map("liker")
 }
+
+// model Liker {
+//   idLike String @id @db.Uuid @default(uuid()) @map("id_like")
+//   idTweet String? @db.Uuid @map("id_tweet")
+//   idAuthorTweet String? @db.Uuid @map("id_author_Tweet")
+//   idReTweet String? @db.Uuid @map("id_retweet")
+//   idAuthorReTweet String? @db.Uuid @map("id_author_retweet")
+//   idAuthorLike String @db.Uuid @map("id_author_like") @unique
+//   authorLike String @map("username_author_like")
+//   contentTweetLiked String? @db.Text @map("content_tweet_liked")
+//   contentReTweet String? @db.Text @map("content_retweet_liked")
+//   tweet Tweet? @relation(fields: [idTweet],references: [id])
+//   reTweet ReTweet? @relation(fields: [idReTweet],references: [idReTweet])
+//   @@map("liker")
+// }
 
