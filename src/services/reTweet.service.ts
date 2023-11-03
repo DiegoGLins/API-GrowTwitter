@@ -5,13 +5,14 @@ import { ResponseDto } from "../dto/response.dto"
 import { ReTweet } from "../models/reTweet.model"
 import Tweet from "../models/tweet.model";
 import { ReTweet as ReTweetPrisma, Tweet as TweetPrisma } from '@prisma/client'
+import { v4 as uuidv4 } from 'uuid'
 
 class ReTweetService {
     public async listReTweetsFromUser(idUser: string): Promise<ResponseDto> {
 
         const user = await prisma.user.findUnique({
             where: {
-                id: idUser
+                id: idUser,
             }
         })
 
@@ -68,76 +69,57 @@ class ReTweetService {
             }
         })
 
-        const findReTweet = await prisma.reTweet.findFirst({
-            where: {
-                idReTweet: data.idTweetOriginal
-            }
-
-        })
-
         if (findTweet) {
-            const findContentTweet = findTweet!.content
-            const findAuthorTweet = findTweet!.authorTweet
+            const findContentTweet = findTweet?.content!
+            const findAuthorTweet = findTweet?.authorTweet!
             const createReTweet = await prisma.reTweet.create({
                 data: {
-                    idTweetOriginal: data.idTweetOriginal,
-                    contentTweetOriginal: findContentTweet,
-                    authorTweetOriginal: findAuthorTweet,
+                    idTweetOriginal: findTweet.id!,
+                    contentTweetOriginal: findContentTweet!,
+                    authorTweetOriginal: findAuthorTweet!,
                     idUserReTweet: data.idUserReTweet!,
+                    authorReTweet: data.authorReTweet,
                     contentReTweet: data.contentReTweet!,
-                    authorReTweet: data.authorReTweet
                 }
             })
-
-            // const createTweet = await prisma.tweet.create({
-            //     data: {
-            //         idUser: data.idUserReTweet,
-            //         content: data.contentReTweet,
-            //         authorTweet: data.authorReTweet
-            //     }
-            // })
             return {
                 ok: true,
                 code: 201,
                 message: "ReTweet criado com sucesso",
                 data: {
                     reTweet: this.reTweetMapToModel(createReTweet).detailReTweet(),
-                    // newTweet: this.tweetMapToModel(createTweet).detailTweetCreate()
                 }
             }
         }
-        if (findReTweet) {
-            const findContentReTweet = findReTweet?.contentReTweet!
-            const findAuthorReTweet = findReTweet?.authorReTweet!
-            const createReTweet = await prisma.reTweet.create({
-                data: {
-                    idTweetOriginal: data.idTweetOriginal,
-                    contentTweetOriginal: findContentReTweet,
-                    authorTweetOriginal: findAuthorReTweet,
-                    idUserReTweet: data.idUserReTweet!,
-                    contentReTweet: data.contentReTweet!,
-                    authorReTweet: data.authorReTweet
+        if (!findTweet) {
+            const findReTweet = await prisma.reTweet.findFirst({
+                where: {
+                    idReTweet: data.idReTweet,
                 }
             })
-
-            // const createTweet = await prisma.tweet.create({
-            //     data: {
-            //         idUser: data.idUserReTweet,
-            //         content: data.contentReTweet,
-            //         authorTweet: data.authorReTweet
-            //     }
-            // })
-            return {
-                ok: true,
-                code: 201,
-                message: "ReTweet criado com sucesso",
-                data: {
-                    reTweet: this.reTweetMapToModel(createReTweet).detailReTweet(),
-                    // newTweet: this.tweetMapToModel(createTweet).detailTweetCreate()
+            if (findReTweet) {
+                const findContentReTweet = findReTweet?.contentReTweet!
+                const findAuthorReTweet = findReTweet?.authorReTweet!
+                const createReTweet = await prisma.reTweet.create({
+                    data: {
+                        idTweetOriginal: findReTweet.idTweetOriginal,
+                        contentTweetOriginal: findContentReTweet!,
+                        authorTweetOriginal: findAuthorReTweet!,
+                        idUserReTweet: data.idUserReTweet!,
+                        contentReTweet: data.contentReTweet!,
+                        authorReTweet: data.authorReTweet,
+                    }
+                })
+                return {
+                    ok: true,
+                    code: 201,
+                    message: "ReTweet criado com sucesso",
+                    data: {
+                        reTweet: this.reTweetMapToModel(createReTweet).detailReTweet(),
+                    }
                 }
             }
         }
-
         return {
             ok: false,
             code: 404,
@@ -214,27 +196,27 @@ class ReTweetService {
 
     public reTweetMapToModel(reTweet: ReTweetPrisma): ReTweet {
         const model = new ReTweet(
+            reTweet.idReTweet,
             reTweet.idTweetOriginal!,
             reTweet.contentTweetOriginal,
             reTweet.authorTweetOriginal,
             reTweet.idUserReTweet,
-            reTweet.contentReTweet,
             reTweet.authorReTweet,
-            reTweet.idReTweet,
-
+            reTweet.contentReTweet,
         )
         return model
     }
 
-    public tweetMapToModel(tweet: TweetPrisma): Tweet {
-        const model = new Tweet(
-            tweet.id,
-            tweet.content,
-            tweet.idUser,
-            tweet.authorTweet
-        )
-        return model
-    }
+    // public tweetMapToModel(tweet: TweetPrisma): Tweet {
+    //     const model = new Tweet(
+    //         tweet.id,
+    //         tweet.content,
+    //         tweet.idUser,
+    //         tweet.authorTweet
+    //     )
+    //     return model
+    // }
 }
 
 export default new ReTweetService()
+
