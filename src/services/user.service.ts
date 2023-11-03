@@ -28,13 +28,32 @@ class UserService {
         return user
     }
 
-    public async getUserByUsername(username: string) {
+    public async getById(id: string): Promise<ResponseDto> {
+        const user = await prisma.user.findUnique({
+            where: {
+                id
+            }
+        })
+        return {
+            ok: true,
+            code: 200,
+            message: "Usuario listado com sucesso",
+            data: this.mapToModel(user!).detailUser()
+        }
+    }
+
+    public async getUserByUsername(username: string): Promise<ResponseDto> {
         const user = await prisma.user.findUnique({
             where: {
                 username: username,
             }
         })
-        return user
+        return {
+            ok: true,
+            code: 200,
+            message: 'Usuario listado com sucesso',
+            data: user
+        }
     }
 
 
@@ -44,10 +63,30 @@ class UserService {
                 token: token
             }
         })
-        return user
+        return {
+            ok: true,
+            code: 200,
+            message: "Usuario listado com sucesso",
+            data: user
+        }
     }
 
     public async createUser(data: CreateUserDto): Promise<ResponseDto> {
+        if (data.name.length > 18) {
+            return {
+                ok: false,
+                code: 400,
+                message: "nome deve ter no máximo 18 caracteres."
+            };
+        }
+
+        if (data.username.length > 16) {
+            return {
+                ok: false,
+                code: 400,
+                message: "username deve ter no máximo 16 caracteres."
+            };
+        }
 
         const findUser = await prisma.user.findFirst({
             where: {
@@ -62,7 +101,7 @@ class UserService {
             return {
                 ok: false,
                 code: 400,
-                message: "username ou email já cadastrado"
+                message: "Username ou email já cadastrado."
             }
         }
 
@@ -73,16 +112,52 @@ class UserService {
                 email: data.email,
                 password: data.password
             }
-        })
+        });
+
         return {
             ok: true,
             code: 201,
-            message: "Usuario cadastrado com sucesso",
+            message: "Usuário cadastrado com sucesso",
             data: this.mapToModel(createUser).detailUser()
-        }
+        };
     }
 
-    public async updateUser(data: UpdateUserDto): Promise<ResponseDto> {
+    // public async createUser(data: CreateUserDto): Promise<ResponseDto> {
+
+    //     const findUser = await prisma.user.findFirst({
+    //         where: {
+    //             OR: [
+    //                 { username: data.username },
+    //                 { email: data.email }
+    //             ]
+    //         }
+    //     });
+
+    //     if (findUser) {
+    //         return {
+    //             ok: false,
+    //             code: 400,
+    //             message: "username ou email já cadastrado"
+    //         }
+    //     }
+
+    //     const createUser = await prisma.user.create({
+    //         data: {
+    //             name: data.name,
+    //             username: data.username,
+    //             email: data.email,
+    //             password: data.password
+    //         }
+    //     })
+    //     return {
+    //         ok: true,
+    //         code: 201,
+    //         message: "Usuario cadastrado com sucesso",
+    //         data: this.mapToModel(createUser).detailUser()
+    //     }
+    // }
+
+    public async updateUser(data: UpdateUserDto) {
 
         const userFind = await prisma.user.findUnique({
             where: {
