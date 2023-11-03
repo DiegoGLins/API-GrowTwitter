@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import userService from '../services/user.service'
+import { ResponseDto } from '../dto/response.dto'
 export class UserController {
 
     public async list(req: Request, res: Response) {
@@ -57,6 +58,22 @@ export class UserController {
         try {
             const { id } = req.params
             const result = await userService.deleteUser(id)
+
+            return res.status(result.code).send(result)
+
+        } catch (error: any) {
+            return {
+                ok: true,
+                code: 500,
+                message: error.toString()
+            }
+        }
+    }
+
+    public async listById(req: Request, res: Response) {
+        try {
+            const { idUser } = req.body
+            const result = await userService.getById(idUser)
 
             return res.status(result.code).send(result)
 
