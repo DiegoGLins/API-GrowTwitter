@@ -6,7 +6,7 @@ import authMiddleware from "../middlewares/auth.middleware"
 export const userRoutes = () => {
     const router = Router()
     const controller = new UserController()
-
+    router.get('/byId', authMiddleware, controller.listById)
     router.post("/", validateUserMiddleware, controller.register)
 
     router.get("/", authMiddleware, controller.list)
