@@ -9,7 +9,7 @@ export class ReTweet {
     public contentTweetOriginal: string;
     public authorReTweet: string
 
-    constructor(idTweetOriginal: string, contentTweetOriginal: string, authorTweetOriginal: string, contentReTweet: string, authorReTweet: string, idUserReTweet?: string, private _idReTweet?: string) {
+    constructor(private _idReTweet: string, idTweetOriginal: string, contentTweetOriginal: string, authorTweetOriginal: string, contentReTweet: string, authorReTweet: string, idUserReTweet: string) {
         this.idTweetOriginal = idTweetOriginal;
         this.contentTweetOriginal = contentTweetOriginal
         this.authorTweetOriginal = authorTweetOriginal
@@ -19,7 +19,7 @@ export class ReTweet {
         this.likes = [];
     }
 
-    public get idReTweet() {
+    public get id() {
         return this._idReTweet
     }
 
@@ -30,8 +30,9 @@ export class ReTweet {
             authorTweetOriginal: this.authorTweetOriginal,
             idReTweet: this._idReTweet,
             idUserReTweet: this.idUserReTweet,
-            contentReTweet: this.contentReTweet,
             authorReTweet: this.authorReTweet,
+            contentReTweet: this.contentReTweet,
+
         }
     }
 }
