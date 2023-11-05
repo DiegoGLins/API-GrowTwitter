@@ -1,7 +1,7 @@
 
 import prisma from "../database/prisma.database";
 import { ResponseDto } from "../dto/response.dto";
-import { FoundTweetDto, TweetDto, UpdateTweetDto } from "../dto/tweet.dto";
+import { CreateTweetDto, FoundTweetDto, UpdateTweetDto } from "../dto/tweet.dto";
 import { TweetType } from "../types/TweetType";
 
 class TweetService {
@@ -27,9 +27,14 @@ class TweetService {
                 authorTweet: user.username,
             },
             include: {
+                user: true,
                 likes: true,
                 reTweet: true,
-                tweetOriginal: true
+                tweetOriginal: {
+                    include: {
+                        user: true
+                    }
+                }
             }
         })
 
@@ -55,6 +60,8 @@ class TweetService {
                         user: true
                     }
                 }
+            }, orderBy: {
+                type: "asc"
             }
         })
 
@@ -93,7 +100,7 @@ class TweetService {
         }
     }
 
-    public async createTweet(data: TweetDto): Promise<ResponseDto> {
+    public async createTweet(data: CreateTweetDto): Promise<ResponseDto> {
         const typeN = TweetType.normal
         const createTweet = await prisma.tweet.create({
             data: {
@@ -101,6 +108,7 @@ class TweetService {
                 idUser: data.idUser,
                 authorTweet: data.authorTweet,
                 type: typeN,
+                idTweetOriginal: data.idTweetOriginal
             }
         })
         return {
@@ -111,7 +119,7 @@ class TweetService {
         }
     }
 
-    public async createReTweet(data: TweetDto): Promise<ResponseDto> {
+    public async createReTweet(data: CreateTweetDto): Promise<ResponseDto> {
         const typeR = TweetType.reTweet
 
         const findTweet = await prisma.tweet.findUnique({

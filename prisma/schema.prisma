@@ -33,11 +33,11 @@ model Tweet {
   content String @db.Text
   idUser String @db.Uuid @map("id_user")
   authorTweet String @map("author_Tweet")
+  likes Liker[]
   type String @db.VarChar(2)
   idTweetOriginal String? @db.Uuid @map("id_tweet_original")
   tweetOriginal Tweet? @relation("reTweet", fields: [idTweetOriginal], references: [id])
   reTweet Tweet[] @relation("reTweet")
-  likes Liker[]
   user User @relation(fields: [idUser], references: [id])
   @@map("tweet")
   @@unique([id, idUser])

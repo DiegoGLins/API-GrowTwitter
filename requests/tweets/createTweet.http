@@ -1,6 +1,6 @@
 POST http://localhost:3333/tweets HTTP/1.1
 content-type: application/json
-Authorization: b8d635f5-a15f-4784-a504-bd9540a5b69a
+Authorization: 38bc0f83-c320-4e7a-a263-8fc77d7d9a67
 
 
 # {
@@ -32,3 +32,8 @@ Authorization: b8d635f5-a15f-4784-a504-bd9540a5b69a
 # {
 # "content": "Sabado de sol. Passeando com a nega no poise. #sabadou"
 # }
+
+# {
+# "content": "Curtindo o final de semana com uma cervejinha"
+# }
+

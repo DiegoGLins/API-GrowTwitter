@@ -38,7 +38,7 @@ class UserService {
             ok: true,
             code: 200,
             message: "Usuario listado com sucesso",
-            data: this.mapToModel(user!).detailUser()
+            data: user
         }
     }
 
@@ -108,6 +108,7 @@ class UserService {
         const createUser = await prisma.user.create({
             data: {
                 name: data.name,
+                avatar: data.avatar,
                 username: data.username,
                 email: data.email,
                 password: data.password
@@ -118,7 +119,7 @@ class UserService {
             ok: true,
             code: 201,
             message: "Usuário cadastrado com sucesso",
-            data: this.mapToModel(createUser).detailUser()
+            data: createUser
         };
     }
 

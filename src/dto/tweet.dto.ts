@@ -9,7 +9,7 @@ export interface FoundTweetDto {
     idTweet: string
 }
 
-export interface TweetDto {
+export interface CreateTweetDto {
     id?: string,
     content: string,
     idUser: string,

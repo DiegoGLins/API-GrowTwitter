@@ -5,13 +5,12 @@ export class User implements Follow {
     public following: Follow[];
     public tweets: Tweet[]
 
-
     constructor(
         private _id: string,
         public name: string,
         public username: string,
         public email: string,
-        private _password: string
+        private _password: string,
     ) {
         this.username = username;
         this._password = _password;
@@ -50,3 +49,5 @@ export class User implements Follow {
         }
     }
 }
+
+
