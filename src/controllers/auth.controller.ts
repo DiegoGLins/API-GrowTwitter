@@ -40,30 +40,27 @@ class AuthController {
 
     public async logout(req: Request, res: Response) {
         const token = req.headers.authorization
-
         const userLogged = await userService.getByToken(token as string)
+        try {
+            if (userLogged) {
+                const response: ResponseDto = {
+                    ok: true,
+                    code: 200,
+                    message: "Logout realizado com sucesso"
+                }
 
-        if (userLogged) {
-            const response: ResponseDto = {
-                ok: true,
-                code: 200,
-                message: "Logout realizado com sucesso"
+                await userService.updateUser({ ...userLogged, token: null })
+                return res.status(response.code).send(response)
             }
-
-            await userService.updateUser({
-                ...userLogged, token: null,
-            })
+        } catch (error) {
+            const response: ResponseDto = {
+                ok: false,
+                code: 404,
+                message: "Logout não encontrado"
+            }
 
             return res.status(response.code).send(response)
         }
-
-        const response: ResponseDto = {
-            ok: false,
-            code: 404,
-            message: "Logout não encontrado"
-        }
-
-        return res.status(response.code).send(response)
     }
 }
 
