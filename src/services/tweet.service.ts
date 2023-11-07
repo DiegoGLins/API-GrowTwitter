@@ -105,7 +105,16 @@ class TweetService {
                 authorTweet: data.authorTweet,
                 type: typeN,
                 idTweetOriginal: data.idTweetOriginal
-            },
+            }, include: {
+                user: true,
+                likes: true,
+                reTweet: true,
+                tweetOriginal: {
+                    include: {
+                        user: true,
+                    }
+                }
+            }
         })
         return {
             ok: true,
@@ -139,6 +148,15 @@ class TweetService {
                 authorTweet: data.authorTweet,
                 type: typeR,
                 idTweetOriginal: data.idTweetOriginal,
+            }, include: {
+                user: true,
+                likes: true,
+                reTweet: true,
+                tweetOriginal: {
+                    include: {
+                        user: true
+                    }
+                }
             }
         })
         return {
