@@ -7,10 +7,10 @@ class TweetController {
             const { idUser, content, username } = req.body
 
             const result = await tweetService.createTweet({
+                content: content,
+                authorTweet: username,
                 idUser: idUser,
                 type: '',
-                content: content,
-                authorTweet: username
             })
             return res.status(result.code).send(result)
         }
