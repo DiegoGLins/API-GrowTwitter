@@ -27,12 +27,13 @@ class TweetController {
             const { idUser, content, username, idTweetOriginal } = req.body
 
             const result = await tweetService.createReTweet({
-                idUser: idUser,
-                type: '',
                 content: content,
+                type: '',
                 authorTweet: username,
-                idTweetOriginal: idTweetOriginal
-            })
+                idUser: idUser,
+                idTweetOriginal: idTweetOriginal,
+            }
+            )
             return res.status(result.code).send(result)
         }
         catch (error: any) {
