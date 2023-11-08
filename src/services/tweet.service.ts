@@ -69,9 +69,7 @@ class TweetService {
             ok: true,
             code: 200,
             message: "Tweets listados com sucesso",
-            data: {
-                allTweets
-            }
+            data: allTweets
         }
     }
 
