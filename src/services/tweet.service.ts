@@ -33,14 +33,6 @@ class TweetService {
             }
         })
 
-        if (!tweets) {
-            return {
-                ok: true,
-                code: 200,
-                message: "Nenhum tweet para listar",
-            }
-        }
-
         return {
             ok: true,
             code: 200,
