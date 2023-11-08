@@ -25,11 +25,16 @@ class TweetService {
             where: {
                 idUser,
             }, include: {
-                user: {
-                    select: {
-                        username: true
+                user: true,
+                likes: true,
+                reTweet: true,
+                tweetOriginal: {
+                    include: {
+                        user: true
                     }
                 }
+            }, orderBy: {
+                type: "asc"
             }
         })
 
