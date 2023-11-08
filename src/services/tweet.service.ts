@@ -31,17 +31,21 @@ class TweetService {
                     }
                 }
             }
-
         })
 
+        if (!tweets) {
+            return {
+                ok: true,
+                code: 200,
+                message: "Nenhum tweet para listar",
+            }
+        }
 
         return {
             ok: true,
             code: 200,
             message: "Tweets listados com sucesso",
-            data: {
-                tweets
-            }
+            data: tweets
         }
     }
 
