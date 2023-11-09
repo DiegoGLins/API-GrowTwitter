@@ -27,16 +27,19 @@ class TweetService {
             }, include: {
                 user: true,
                 likes: true,
-                reTweet: true,
-                tweetOriginal: {
+                reTweet: {
+                    include: {
+                        user: true
+                    },
+                }, tweetOriginal: {
                     include: {
                         user: true
                     }
                 }
-            }, orderBy: {
-                type: "asc"
-            }
-        })
+            },
+
+        }
+        )
 
         return {
             ok: true,
