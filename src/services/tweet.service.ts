@@ -54,7 +54,11 @@ class TweetService {
             include: {
                 user: true,
                 likes: true,
-                reTweet: true,
+                reTweet: {
+                    include: {
+                        user: true
+                    }
+                },
                 tweetOriginal: {
                     select: {
                         user: true,
