@@ -7,6 +7,10 @@ content-type: application/json
 # }
 //0db1f4d8-b7d5-4c56-a510-e197f6b9d357
 
+# {
+# "username": "alex.mendes",
+# "password": "12345"
+# }//415a7447-88ef-4e86-b93a-03d7bbc35faf
 
 # {
 # "username": "ma.paxeco",
