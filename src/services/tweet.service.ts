@@ -54,15 +54,13 @@ class TweetService {
             include: {
                 user: true,
                 likes: true,
-                reTweet: {
-                    include: {
-                        user: {
-                            select: {
-                                username: true
-                            }
-                        }
+                reTweet: true,
+                tweetOriginal: {
+                    select: {
+                        user: true,
+                        content: true
                     }
-                },
+                }
             }
         })
 
