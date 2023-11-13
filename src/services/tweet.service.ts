@@ -56,7 +56,11 @@ class TweetService {
                 likes: true,
                 reTweet: {
                     include: {
-                        user: true
+                        user: {
+                            select: {
+                                username: true
+                            }
+                        }
                     }
                 },
             }
