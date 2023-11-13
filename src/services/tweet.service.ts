@@ -60,9 +60,8 @@ class TweetService {
                     }
                 },
                 tweetOriginal: {
-                    select: {
-                        user: true,
-                        content: true
+                    include: {
+                        user: true
                     }
                 }
             }
