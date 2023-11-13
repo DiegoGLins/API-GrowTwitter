@@ -59,11 +59,6 @@ class TweetService {
                         user: true
                     }
                 },
-                tweetOriginal: {
-                    include: {
-                        user: true
-                    }
-                }
             }
         })
 
