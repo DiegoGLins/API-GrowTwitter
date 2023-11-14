@@ -1,11 +1,10 @@
 POST http://localhost:3333/tweets HTTP/1.1
 content-type: application/json
-Authorization: 8d143e3d-d7b2-4686-b889-3e3cd3e56ef1
+Authorization: 9a3b2f76-3f0a-4fc4-b326-3f55a70ebeb8
 
-
-{
-"content": "Também achei top essa nova rede social"
-}
+# {
+# "content": "Também achei top essa nova rede social"
+# }
 
 # {
 # "content": "Oi Gustavo qu legal te encontrar aqui na rede. Me add ai. Valeu"
@@ -16,8 +15,9 @@ Authorization: 8d143e3d-d7b2-4686-b889-3e3cd3e56ef1
 # "content": "Adorei os recursos dessa plataforma"
 # }
 
+
 # {
-# "content": "Muito massa essa rede social nova"
+# "content": "Final de semana promete..."
 # }
 
 
@@ -29,9 +29,9 @@ Authorization: 8d143e3d-d7b2-4686-b889-3e3cd3e56ef1
 # "content": "Oi Paula. Legal te ver aqui na rede também. Me adiciona ai. Valeu"
 # }
 
-{
-"content": "Sabado de sol. Passeando com a nega no poise. #sabadou"
-}
+# {
+# "content": "Sabado de sol. Passeando com a nega no poise. #sabadou"
+# }
 
 # {
 # "content": "Curtindo o final de semana com uma cervejinha"
