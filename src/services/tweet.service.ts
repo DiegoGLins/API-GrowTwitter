@@ -53,17 +53,13 @@ class TweetService {
         const allTweets = await prisma.tweet.findMany({
             include: {
                 user: true,
-                likes: true,
-                reTweet: {
-                    include: {
-                        user: true
-                    }
-                },
                 tweetOriginal: {
                     include: {
                         user: true
                     }
-                }
+                },
+                reTweet: true,
+                likes: true,
             }
         })
 
@@ -253,3 +249,4 @@ class TweetService {
 }
 
 export default new TweetService()
+
