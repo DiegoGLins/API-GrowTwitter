@@ -28,11 +28,11 @@ class UserService {
         return user
     }
 
-    public async getById(id: string): Promise<ResponseDto> {
+    public async getById(idUser: string): Promise<ResponseDto> {
         try {
             const user = await prisma.user.findUnique({
                 where: {
-                    id
+                    id: idUser
                 }
             })
 
@@ -59,6 +59,36 @@ class UserService {
 
     }
 
+    public async getByToken(token: string) {
+        try {
+            const user = await prisma.user.findUnique({
+                where: {
+                    token: token
+                }
+            })
+
+            if (!user) {
+                return {
+                    ok: false,
+                    code: 404,
+                    message: "token não encontrado"
+                }
+            }
+            return {
+                ok: true,
+                code: 200,
+                message: "Usuario listado com sucesso",
+                data: user
+            }
+        } catch (error) {
+            return {
+                ok: false,
+                code: 500,
+                message: "Erro interno do servidor"
+            }
+        }
+    }
+
     public async getUserByUsername(username: string): Promise<ResponseDto> {
         const user = await prisma.user.findUnique({
             where: {
@@ -73,20 +103,6 @@ class UserService {
         }
     }
 
-
-    public async getByToken(token: string) {
-        const user = await prisma.user.findUnique({
-            where: {
-                token: token
-            }
-        })
-        return {
-            ok: true,
-            code: 200,
-            message: "Usuario listado com sucesso",
-            data: user
-        }
-    }
 
     public async createUser(data: CreateUserDto): Promise<ResponseDto> {
         if (data.name.length > 18) {
