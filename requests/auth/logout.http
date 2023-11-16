@@ -1,3 +1,3 @@
-GET  http://localhost:3333/auth/logout HTTP/1.1
-Authorization: ea69f476-36cd-4615-b1a2-26a2fdc7356b
+GET http://localhost:3333/auth/logout HTTP/1.1
+Authorization: f1ee6062-1a61-4fce-a6fd-957f0b2cb4c0
 
