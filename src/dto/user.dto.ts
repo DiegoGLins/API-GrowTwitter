@@ -9,6 +9,7 @@ export interface CreateUserDto {
 export interface UpdateUserDto {
     id?: string;
     name?: string;
+    avatar?: string;
     username?: string;
     email?: string;
     password?: string;
