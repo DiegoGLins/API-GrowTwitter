@@ -44,6 +44,7 @@ export class User implements Follow {
     public detailUser() {
         return {
             id: this._id,
+            avatar: this.avatar,
             name: this.name,
             username: this.username,
             email: this.email
