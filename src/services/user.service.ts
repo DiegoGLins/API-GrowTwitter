@@ -180,6 +180,7 @@ class UserService {
             data: {
                 name: data.name,
                 username: data.username,
+                avatar: data.avatar,
                 email: data.email,
                 password: data.password,
                 token: data.token
@@ -229,7 +230,8 @@ class UserService {
             user.name,
             user.username,
             user.email,
-            user.password
+            user.password,
+            user.avatar
         )
         return model
     }
