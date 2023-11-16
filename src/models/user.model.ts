@@ -9,6 +9,7 @@ export class User implements Follow {
         private _id: string,
         public name: string,
         public username: string,
+        public avatar: string,
         public email: string,
         private _password: string,
     ) {
