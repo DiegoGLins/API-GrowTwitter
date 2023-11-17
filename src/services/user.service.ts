@@ -191,7 +191,7 @@ class UserService {
             ok: true,
             code: 200,
             message: "Usuario atualizado com sucesso",
-            data: this.mapToModel(updated).detailUser()
+            data: updated
         }
     }
 
