@@ -4,8 +4,8 @@ import tweetService from "../services/tweet.service";
 class LikerController {
     public async createLike(req: Request, res: Response) {
         try {
-            const { idTweet } = req.params
-            const { idUser, username } = req.body
+            // const { } = req.params
+            const { idTweet, idUser, username } = req.body
             const findTweet = await tweetService.listTweetById(idTweet)
 
             if (!findTweet) {
