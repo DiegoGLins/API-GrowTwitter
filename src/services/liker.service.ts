@@ -80,14 +80,14 @@ class LikerService {
             ok: true,
             code: 200,
             message: "Tweet curtido com sucesso",
-            data: {
-                like: {
-                    idLike: createLike.idLike,
-                    idTweet: createLike.idTweet,
-                    authorLike: createLike.authorLike,
-                    contentTweetLiked: createLike.contentTweetLiked
-                }
-            }
+            // data: {
+            //     like: {
+            //         idLike: createLike.idLike,
+            //         idTweet: createLike.idTweet,
+            //         authorLike: createLike.authorLike,
+            //         contentTweetLiked: createLike.contentTweetLiked
+            //     }
+            // }
         }
     }
 
