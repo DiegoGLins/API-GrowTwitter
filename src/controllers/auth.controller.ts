@@ -40,9 +40,9 @@ class AuthController {
 
     public async logout(req: Request, res: Response) {
         try {
-            const token = req.headers.authorization
+            const { idUser } = req.body
 
-            const userLogged = await userService.getByToken(token!)
+            const userLogged = await userService.getById(idUser)
 
             const result = await userService.updateUser({ ...userLogged, token: null })
             console.log(userLogged)
