@@ -62,7 +62,7 @@ model Liker {
   idTweet String? @db.Uuid @map("id_tweet")
   idAuthorTweet String? @db.Uuid @map("id_author_Tweet")
 
-  idAuthorLike String @db.Uuid @map("id_author_like") @unique
+  idAuthorLike String @db.Uuid @map("id_author_like")
   authorLike String @map("username_author_like")
   contentTweetLiked String? @db.Text @map("content_tweet_liked")
 
