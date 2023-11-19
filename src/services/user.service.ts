@@ -140,8 +140,8 @@ class UserService {
 
         const createUser = await prisma.user.create({
             data: {
-                name: data.name,
                 avatar: data.avatar,
+                name: data.name,
                 username: data.username,
                 email: data.email,
                 password: data.password
@@ -178,9 +178,9 @@ class UserService {
                 id: data.id
             },
             data: {
+                avatar: data.avatar,
                 name: data.name,
                 username: data.username,
-                avatar: data.avatar,
                 email: data.email,
                 password: data.password,
                 token: data.token
@@ -227,11 +227,11 @@ class UserService {
     public mapToModel(user: UserPrisma): User {
         const model = new User(
             user.id,
+            user.avatar,
             user.name,
             user.username,
             user.email,
-            user.password,
-            user.avatar
+            user.password
         )
         return model
     }
