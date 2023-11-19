@@ -5,7 +5,6 @@ export class Liker {
     public authorLike: string;
     public contentTweetLiked: string
     constructor(private _idLike: string, idAuthorTweet: string, idAuthorLike: string, authorLike: string, contentTweetLiked: string, idTweet?: string) {
-        this._idLike = _idLike
         this.idTweet = idTweet;
         this.idAuthorTweet = idAuthorTweet
         this.idAuthorLike = idAuthorLike
@@ -13,7 +12,6 @@ export class Liker {
         this.contentTweetLiked = contentTweetLiked
 
     }
-
 
     public get idLike() {
         return this._idLike
