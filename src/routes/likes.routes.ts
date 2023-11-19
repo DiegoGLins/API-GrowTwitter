@@ -8,6 +8,7 @@ export const likesRoutes = () => {
 
     router.post("/", authMiddleware, controller.createLike)
     router.get("/", authMiddleware, controller.listLike)
+    router.delete('/:idLike', authMiddleware, controller.deleteLike)
 
     return router
 }
