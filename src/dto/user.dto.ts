@@ -1,6 +1,6 @@
 export interface CreateUserDto {
-    name: string;
     avatar?: string
+    name: string;
     username: string;
     email: string;
     password: string
