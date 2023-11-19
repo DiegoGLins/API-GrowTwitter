@@ -1,0 +1,7 @@
+POST http://localhost:3333/likes/ HTTP/1.1
+content-type: application/json
+Authorization: 73fca808-cccb-4115-a827-37656b94f0fd
+
+{
+    "idTweet" : "92474152-721b-430f-b9b8-32128d3d67c6"
+}
