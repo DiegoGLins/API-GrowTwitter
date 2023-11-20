@@ -101,7 +101,8 @@ class LikerService {
         return {
             ok: true,
             code: 200,
-            message: "Curtida removida com sucesso"
+            message: "Curtida removida com sucesso",
+            data: result
         }
     }
 }
