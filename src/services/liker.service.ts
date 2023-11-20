@@ -92,17 +92,29 @@ class LikerService {
     }
 
     public async deleteLike(data: DeleteLikeDto): Promise<ResponseDto> {
-        const result = await prisma.liker.delete({
+        const findLike = await prisma.liker.findUnique({
             where: {
-                idLike: data.idLike,
-                idAuthorLike: data.idAuthorLike
+                idLike: data.idLike
             }
         })
+        if (findLike) {
+            const result = await prisma.liker.delete({
+                where: {
+                    idLike: data.idLike,
+                    idAuthorLike: data.idAuthorLike
+                }
+            })
+            return {
+                ok: true,
+                code: 200,
+                message: "Curtida removida com sucesso",
+                data: result
+            }
+        }
         return {
-            ok: true,
-            code: 200,
-            message: "Curtida removida com sucesso",
-            data: result
+            ok: false,
+            code: 400,
+            message: "Curtida para remover não encontrada"
         }
     }
 }
