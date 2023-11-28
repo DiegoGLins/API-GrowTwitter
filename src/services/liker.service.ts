@@ -1,5 +1,5 @@
 import prisma from "../database/prisma.database"
-import { CreateLikeDto } from "../dto/create.like.dto";
+import { CreateLikeDto, ListLikeDto } from "../dto/like.dto";
 import { DeleteLikeDto } from "../dto/deleteLike.dto";
 import { ResponseDto } from "../dto/response.dto"
 import { Liker } from "../models/liker.model";
@@ -8,10 +8,11 @@ import userService from "./user.service";
 import { Liker as LikerPrisma } from '@prisma/client'
 
 class LikerService {
-    public async listLikesFromUser(idUser: string): Promise<ResponseDto> {
+    public async listLikesFromUser(data: ListLikeDto): Promise<ResponseDto> {
         const user = await prisma.liker.findFirst({
             where: {
-                idAuthorTweet: idUser,
+                idAuthorTweet: data.idAuthorTweet,
+                idTweet: data.idTweet
             }
         })
 
@@ -25,7 +26,7 @@ class LikerService {
 
         const likedTweets = await prisma.liker.findMany({
             where: {
-                idAuthorTweet: idUser
+                idAuthorTweet: data.idAuthorTweet
             }
         })
 
