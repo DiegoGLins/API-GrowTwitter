@@ -1,10 +1,10 @@
 POST http://localhost:3333/auth/login HTTP/1.1
 content-type: application/json
 
-{
-"username": "p@sales.paxeco",
-"password": "12345"
-}
+# {
+# "username": "p@sales.paxeco",
+# "password": "12345"
+# }
 //91ab3ab1-ecc1-460e-8779-86426c0e3864
 
 # {
