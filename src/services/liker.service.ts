@@ -2,7 +2,6 @@ import prisma from "../database/prisma.database"
 import { CreateLikeDto } from "../dto/create.like.dto";
 import { DeleteLikeDto } from "../dto/deleteLike.dto";
 import { ResponseDto } from "../dto/response.dto"
-import { Liker } from "../models/liker.model";
 import tweetService from "./tweet.service";
 import userService from "./user.service";
 
