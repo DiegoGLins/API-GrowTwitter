@@ -82,6 +82,7 @@ class TweetService {
             },
             include: {
                 likes: true,
+                reTweet: true
             }
         })
         if (!findTweet) {
