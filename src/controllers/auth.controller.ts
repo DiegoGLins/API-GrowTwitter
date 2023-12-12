@@ -42,19 +42,33 @@ class AuthController {
         try {
             const { idUser } = req.body
 
+            if (!idUser) {
+                return res.status(401).send({
+                    ok: false,
+                    code: 401,
+                    message: "Autenticação do token falhou",
+                });
+            }
+
             const userLogged = await userService.getById(idUser)
 
-            const result = await userService.updateUser({ ...userLogged, token: null })
-            console.log(userLogged)
-            return res.status(200).send(result)
+            if (userLogged) {
+                const result = await userService.updateUser({ ...userLogged.data, token: null })
+                console.log(userLogged)
+                return res.status(200).send({
+                    ok: false,
+                    code: 200,
+                    message: "Logout realizado com sucesso",
+                    data: result.data
+                })
+            }
 
-
-        } catch (error) {
-            return {
+        } catch (error: any) {
+            res.status(500).send({
                 ok: false,
                 code: 500,
-                message: "Erro interno do servidor",
-            }
+                message: "Erro interno do servidor"
+            })
         }
     }
 }
