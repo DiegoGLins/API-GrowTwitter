@@ -3,6 +3,7 @@ import { ResponseDto } from "../dto/response.dto";
 import { CreateUserDto, UpdateUserDto } from "../dto/user.dto";
 import { User } from "../models/user.model";
 import { User as UserPrisma } from "@prisma/client"
+import bcrypt from 'bcrypt'
 
 class UserService {
     public async listAllUsers(): Promise<ResponseDto> {
@@ -138,6 +139,7 @@ class UserService {
             }
         }
 
+        // const passwordHash = await bcrypt.hash(data.password, 10)
         const createUser = await prisma.user.create({
             data: {
                 avatar: data.avatar,
@@ -159,6 +161,7 @@ class UserService {
 
     public async updateUser(data: UpdateUserDto) {
 
+        // const passwordHash = await bcrypt.hash(data?.password!, 10)
         const userFind = await prisma.user.findUnique({
             where: {
                 id: data.id
