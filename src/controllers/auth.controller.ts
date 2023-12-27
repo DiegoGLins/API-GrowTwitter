@@ -1,40 +1,37 @@
 import { Request, Response } from 'express'
 import userService from '../services/user.service'
-import { ResponseDto } from '../dto/response.dto'
-import { v4 as createToken } from 'uuid'
+import authService from '../services/auth.service'
 class AuthController {
     public async login(req: Request, res: Response) {
-        const { username, password } = req.body
+        try {
+            const { username, password } = req.body
 
-        const user = await userService.getByUser(
-            username,
-            password
-        )
+            if (!username || !password) {
+                return res.status(404).json({
+                    ok: false,
+                    code: 400,
+                    message: "Campos não informados"
+                })
+            }
 
-        if (!user) {
-            return res.status(401).send({
-                ok: false,
-                code: 401,
-                message: "Usuario ou senha incorretos"
-            })
-        }
+            const result = await authService.login(username, password)
 
-        const token = createToken()
-        const update = await userService.updateUser({ ...user, token: token })
-        const logged = userService.mapToModel(user).detailUser()
-
-        const result: ResponseDto = {
-            ok: true,
-            code: 200,
-            message: "Login efetuado com sucesso",
-            data: {
-                logged,
-                token
+            if (result?.code === 200) {
+                return res.status(result.code).json({
+                    ok: true,
+                    code: result.code,
+                    message: result.message,
+                    data: result.data
+                })
             }
         }
 
-        if (update.code === 200) {
-            return res.status(result.code).send(result)
+        catch (error: any) {
+            res.status(500).send({
+                ok: false,
+                code: 500,
+                message: error.toString()
+            })
         }
     }
 
@@ -54,12 +51,16 @@ class AuthController {
 
             if (userLogged) {
                 const result = await userService.updateUser({ ...userLogged.data, token: null })
-                console.log(userLogged)
+                const logged = userService.mapToModel(result?.data!).detailUser()
+
                 return res.status(200).send({
-                    ok: false,
+                    ok: true,
                     code: 200,
                     message: "Logout realizado com sucesso",
-                    data: result.data
+                    data: {
+                        logged,
+                        token: result.data?.token
+                    }
                 })
             }
 
