@@ -2,6 +2,11 @@ POST http://localhost:3333/auth/login HTTP/1.1
 content-type: application/json
 
 # {
+# "username": "rafa.souza",
+# "password": "12345"
+# }
+
+# {
 # "username": "p@sales.paxeco",
 # "password": "12345"
 # }
@@ -37,3 +42,4 @@ content-type: application/json
 # "password": "12345"
 # }
 //117113b7-b1bb-4e9f-af27-c684e2e69187
+

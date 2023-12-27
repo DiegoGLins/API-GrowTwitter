@@ -28,3 +28,10 @@ content-type: application/json
 # "email":"estefinha@gmail.com",
 # "password": "12345"
 # }
+
+{
+"name": "Rafael Souza",
+"username": "rafa.souza",
+"email":"rfsouza@gmail.com",
+"password": "12345"  
+}
