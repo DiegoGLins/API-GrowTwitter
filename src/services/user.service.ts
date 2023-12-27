@@ -19,11 +19,10 @@ class UserService {
         }
     }
 
-    public async getByUser(username: string, password: string) {
+    public async getByUser(username: string) {
         const user = await prisma.user.findUnique({
             where: {
                 username: username,
-                password: password
             }
         })
         return user
@@ -139,14 +138,14 @@ class UserService {
             }
         }
 
-        // const passwordHash = await bcrypt.hash(data.password, 10)
+        const passwordHash = await bcrypt.hash(data.password, 10)
         const createUser = await prisma.user.create({
             data: {
                 avatar: data.avatar,
                 name: data.name,
                 username: data.username,
                 email: data.email,
-                password: data.password
+                password: passwordHash
             }
         });
 
