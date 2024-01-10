@@ -4,15 +4,16 @@ import userService from '../services/user.service'
 export class FollowController {
 
     public async list(req: Request, res: Response) {
-        const { idUser } = req.body
-        const result = await followService.listFollows(idUser)
+        const { id } = req.authUser
+        const result = await followService.listFollows(id)
         return res.status(result.code).send(result)
     }
 
     public async addFollow(req: Request, res: Response) {
         try {
             const { idUserFollowing } = req.params
-            const { usernameFollowing, username, idUser } = req.body
+            const { username, id } = req.authUser
+            const { usernameFollowing, } = req.body
             const findFollowing = await userService.getUserByUsername(usernameFollowing)
 
             if (!findFollowing) {
@@ -21,7 +22,7 @@ export class FollowController {
             const result = await followService.addFollwing({
                 usernameFollowing: usernameFollowing,
                 idUserFollowing: idUserFollowing,
-                idUserFollower: idUser,
+                idUserFollower: id,
                 usernameFollower: username
             })
 
@@ -29,11 +30,11 @@ export class FollowController {
         }
 
         catch (error: any) {
-            return {
+            res.status(500).send({
                 ok: false,
                 code: 500,
                 message: error.toString()
-            }
+            })
         }
     }
 
@@ -46,11 +47,11 @@ export class FollowController {
             return res.status(result.code).send(result)
 
         } catch (error: any) {
-            return {
-                ok: true,
+            res.status(500).send({
+                ok: false,
                 code: 500,
                 message: error.toString()
-            }
+            })
         }
     }
 }
