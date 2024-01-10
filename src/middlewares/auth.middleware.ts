@@ -1,28 +1,27 @@
 import { NextFunction, Request, Response } from "express";
-import userService from "../services/user.service";
+import jwt from 'jsonwebtoken'
 
 async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     try {
-        const token = req.headers.authorization
+        const authorization = req.headers.authorization
 
-        if (!token) {
+        if (!authorization) {
             return res.status(401).send({
                 code: 401,
                 message: "Autenticação do token falhou"
             })
         }
 
-        const user = await userService.getByToken(token)
+        const decoded = authorization.split(" ")[1]
+        const verify = jwt.verify(decoded, process.env.SECRET_WORD || "")
 
-        if (!user) {
-            return res.status(401).send({
-                code: 401,
-                message: "Autenticação do token falhou"
-            })
+        req.authUser = verify as {
+            id: string;
+            name: string;
+            username: string;
+            avatar: string;
+            email: string
         }
-
-        req.body.idUser = user.data?.id!
-        req.body.username = user.data?.username!
 
         next()
     } catch (error: any) {
