@@ -5,7 +5,8 @@ import userService from "../services/user.service";
 class LikerController {
     public async createLike(req: Request, res: Response) {
         try {
-            const { idTweet, idUser, username } = req.body
+            const { id, username } = req.authUser
+            const { idTweet } = req.body
             const findTweet = await tweetService.listTweetById(idTweet)
 
             if (!findTweet) {
@@ -14,7 +15,7 @@ class LikerController {
             const response = await likerService.createLike({
                 idTweet: findTweet?.data!.id,
                 idAuthorTweet: findTweet?.data!.idUser,
-                idAuthorLike: idUser!,
+                idAuthorLike: id,
                 authorLike: username,
                 contentTweetLiked: findTweet.data?.content!,
             })
@@ -31,10 +32,10 @@ class LikerController {
 
     public async deleteLike(req: Request, res: Response) {
         try {
-            const { idUser } = req.body
+            const { id } = req.authUser
             const { idLike } = req.params
 
-            if (!idLike || !idUser) {
+            if (!idLike || !id) {
                 return {
                     oK: false,
                     code: 400,
@@ -42,7 +43,7 @@ class LikerController {
                 }
             }
             const response = await likerService.deleteLike({
-                idAuthorLike: idUser,
+                idAuthorLike: id,
                 idLike: idLike
             })
 
@@ -57,9 +58,9 @@ class LikerController {
 
     public async listLike(req: Request, res: Response) {
         try {
-            const { idUser } = req.body
+            const { id } = req.authUser
 
-            const result = await likerService.listLikesFromUser(idUser)
+            const result = await likerService.listLikesFromUser(id)
 
             return res.status(result.code).send(result)
         }
