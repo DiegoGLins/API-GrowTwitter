@@ -1,0 +1,22 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API-GrowTwiter",
+    "description": "A api GrowTwiter é usada para realizar o cadastro, edição e login de usuarios, como também a criação, edição e curtidas de Twits",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333"
+    }
+  ],
+  "tags": [
+    {
+      "name": "usuarios",
+      "description": "Rotas para cadastro, listagem e edição de usuários"
+    }
+  ],
+  "paths": {
+    "/auth": {}
+  }
+}
