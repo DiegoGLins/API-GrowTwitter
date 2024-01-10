@@ -35,19 +35,18 @@ class AuthService {
         const token = jwt.sign(authHeader, `${process.env.SECRET_WORD}`, {
             expiresIn: "8hr"
         })
-        const update = await userService.updateUser({ ...user, token: token })
-        if (update.code === 200) {
-            return {
-                ok: true,
-                code: 200,
-                message: "Login realizado com sucesso",
-                data: {
-                    authHeader,
-                    token
-                }
+
+        return {
+            ok: true,
+            code: 200,
+            message: "Login realizado com sucesso",
+            data: {
+                authHeader,
+                token
             }
         }
     }
+
 }
 
 export default new AuthService()
