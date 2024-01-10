@@ -59,36 +59,6 @@ class UserService {
 
     }
 
-    // public async getByToken(token: string) {
-    //     try {
-    //         const user = await prisma.user.findUnique({
-    //             where: {
-    //                 token: token
-    //             }
-    //         })
-
-    //         if (!user) {
-    //             return {
-    //                 ok: false,
-    //                 code: 404,
-    //                 message: "token não encontrado"
-    //             }
-    //         }
-    //         return {
-    //             ok: true,
-    //             code: 200,
-    //             message: "Usuario listado com sucesso",
-    //             data: user
-    //         }
-    //     } catch (error) {
-    //         return {
-    //             ok: false,
-    //             code: 500,
-    //             message: "Erro interno do servidor"
-    //         }
-    //     }
-    // }
-
     public async getUserByUsername(username: string): Promise<ResponseDto> {
         const user = await prisma.user.findUnique({
             where: {
@@ -105,22 +75,6 @@ class UserService {
 
 
     public async createUser(data: CreateUserDto): Promise<ResponseDto> {
-        if (data.name.length > 18) {
-            return {
-                ok: false,
-                code: 400,
-                message: "nome deve ter no máximo 18 caracteres."
-            };
-        }
-
-        if (data.username.length > 16) {
-            return {
-                ok: false,
-                code: 400,
-                message: "username deve ter no máximo 16 caracteres."
-            };
-        }
-
         const findUser = await prisma.user.findFirst({
             where: {
                 OR: [
