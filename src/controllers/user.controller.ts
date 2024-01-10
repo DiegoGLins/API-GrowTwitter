@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import userService from '../services/user.service'
-import { ResponseDto } from '../dto/response.dto'
 export class UserController {
 
     public async list(req: Request, res: Response) {
