@@ -51,18 +51,10 @@ class TweetService {
     public async listAllTweets(): Promise<ResponseDto> {
         const allTweets = await prisma.tweet.findMany({
             include: {
-                user: true,
+                // user: true,
                 likes: true,
-                reTweet: {
-                    include: {
-                        user: true
-                    }
-                },
-                tweetOriginal: {
-                    include: {
-                        user: true
-                    }
-                }
+                reTweet: true,
+                tweetOriginal: true
             }
         })
 
