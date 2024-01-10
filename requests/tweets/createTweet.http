@@ -1,6 +1,6 @@
 POST http://localhost:3333/tweets HTTP/1.1
 content-type: application/json
-Authorization: 9a3b2f76-3f0a-4fc4-b326-3f55a70ebeb8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDkwOTc3MSwiZXhwIjoxNzA0OTM4NTcxfQ.LxWwmcDYP--0HMOLavb88b3ODRkiW1gex7wuahdditw
 
 # {
 # "content": "Também achei top essa nova rede social"
@@ -11,9 +11,9 @@ Authorization: 9a3b2f76-3f0a-4fc4-b326-3f55a70ebeb8
 # }
 
 
-# {
-# "content": "Adorei os recursos dessa plataforma"
-# }
+{
+"content": "Adorei os recursos dessa plataforma"
+}
 
 
 # {

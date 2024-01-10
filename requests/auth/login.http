@@ -7,16 +7,10 @@ content-type: application/json
 # }
 
 # {
-# "username": "p@sales.paxeco",
-# "password": "12345"
-# }
-//9d0c93f1-0e9b-4a1c-93a7-d72305d1ce33
-
-# {
 # "username": "alex.mendes",
 # "password": "12345"
 # }
-//2e330530-54e1-4c05-b87d-47519fceddc5
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ3NjFhNTM2LWU5NGUtNGZhYy05NDllLWE1NDUyYWRiMWQzOSIsIm5hbWUiOiJBbGV4IE1lbmRlcyIsInVzZXJuYW1lIjoiYWxleC5tZW5kZXMiLCJhdmF0YXIiOiI5YzQ2NWIxOC0zODIxLTRkZmEtYmI0NC0xNDA3ODMzYzVhMWMiLCJlbWFpbCI6ImFsZU1lbmRlc0BnbWFpbC5jb20iLCJpYXQiOjE3MDQ5MTMyODksImV4cCI6MTcwNDk0MjA4OX0.k6Me_xt190Q4o7C_ApSg70nkjM5bAIrhcZlaWjdrsSU
 
 # {
 # "username": "ma.lima",
@@ -28,8 +22,7 @@ content-type: application/json
 # "username": "estef.santos",
 # "password": "12345"
 # }
-//9a3b2f76-3f0a-4fc4-b326-3f55a70ebeb8
-
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDkwOTc3MSwiZXhwIjoxNzA0OTM4NTcxfQ.LxWwmcDYP--0HMOLavb88b3ODRkiW1gex7wuahdditw
 
 # {
 # "username": "guga@lima",

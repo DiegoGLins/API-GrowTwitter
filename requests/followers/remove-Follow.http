@@ -1,8 +1,7 @@
-DELETE  http://localhost:3333/follows/5173206b-e5c4-456b-9059-b94f1f277b69 HTTP/1.1
+DELETE  http://localhost:3333/follows/d761a536-e94e-4fac-949e-a5452adb1d39 HTTP/1.1
 content-type: application/json
-Authorization: f598ee1e-49a6-4d6d-95ad-550ab487375d 
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDkwOTc3MSwiZXhwIjoxNzA0OTM4NTcxfQ.LxWwmcDYP--0HMOLavb88b3ODRkiW1gex7wuahdditw
 
 {
-    "usernameFollowing":"hg@goncalves"
+    "usernameFollowing":"alex.mendes"
 }

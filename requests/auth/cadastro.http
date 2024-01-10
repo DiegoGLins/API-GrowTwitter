@@ -35,3 +35,17 @@ content-type: application/json
 # "email":"rfsouza@gmail.com",
 # "password": "12345"  
 # }
+
+# {
+# "name": "Bianca Silva",
+# "username": "bianca",
+# "email": "biSilva@gmail.com",
+# "password": "12345"
+# }
+
+# {
+# "name":"Alex Mendes", 
+# "username": "alex.mendes",
+# "email":"aleMendes@gmail.com", 
+# "password": "12345"
+# }

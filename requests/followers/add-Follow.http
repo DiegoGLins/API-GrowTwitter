@@ -1,10 +1,10 @@
-POST http://localhost:3333/follows/03d09dd0-4aa5-46b0-bff0-9f7014ad6d1c HTTP/1.1
+POST http://localhost:3333/follows/d761a536-e94e-4fac-949e-a5452adb1d39 HTTP/1.1
 content-type: application/json
-Authorization: b8d635f5-a15f-4784-a504-bd9540a5b69a
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDkwOTc3MSwiZXhwIjoxNzA0OTM4NTcxfQ.LxWwmcDYP--0HMOLavb88b3ODRkiW1gex7wuahdditw
 
-{
-    "usernameFollowing":"estef.santos"
-}
+# {
+#     "usernameFollowing":"alex.mendes"
+# }
 
 # {
 #     "usernameFollowing":"estef.santos"

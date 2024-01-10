@@ -1,10 +1,10 @@
 POST http://localhost:3333/reTweets HTTP/1.1
 content-type: application/json
-Authorization: f1ee6062-1a61-4fce-a6fd-957f0b2cb4c0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDkwOTc3MSwiZXhwIjoxNzA0OTM4NTcxfQ.LxWwmcDYP--0HMOLavb88b3ODRkiW1gex7wuahdditw
 
 {
-"idTweetOriginal": "75295f0d-0f9c-4bd2-b75f-5fd7b50d6999",
-"content": "Podemos reunir a galera do curso aqui"
+"idTweetOriginal": "d73c7f8c-0ca3-44e7-87b7-dd59c92346e7",
+"content": "Oi Alex. Td bem ? Legal te encontrar aqui. Me adiciona ai"
 }
 
 
