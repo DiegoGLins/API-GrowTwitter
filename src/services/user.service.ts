@@ -59,35 +59,35 @@ class UserService {
 
     }
 
-    public async getByToken(token: string) {
-        try {
-            const user = await prisma.user.findUnique({
-                where: {
-                    token: token
-                }
-            })
+    // public async getByToken(token: string) {
+    //     try {
+    //         const user = await prisma.user.findUnique({
+    //             where: {
+    //                 token: token
+    //             }
+    //         })
 
-            if (!user) {
-                return {
-                    ok: false,
-                    code: 404,
-                    message: "token não encontrado"
-                }
-            }
-            return {
-                ok: true,
-                code: 200,
-                message: "Usuario listado com sucesso",
-                data: user
-            }
-        } catch (error) {
-            return {
-                ok: false,
-                code: 500,
-                message: "Erro interno do servidor"
-            }
-        }
-    }
+    //         if (!user) {
+    //             return {
+    //                 ok: false,
+    //                 code: 404,
+    //                 message: "token não encontrado"
+    //             }
+    //         }
+    //         return {
+    //             ok: true,
+    //             code: 200,
+    //             message: "Usuario listado com sucesso",
+    //             data: user
+    //         }
+    //     } catch (error) {
+    //         return {
+    //             ok: false,
+    //             code: 500,
+    //             message: "Erro interno do servidor"
+    //         }
+    //     }
+    // }
 
     public async getUserByUsername(username: string): Promise<ResponseDto> {
         const user = await prisma.user.findUnique({
@@ -159,8 +159,6 @@ class UserService {
 
 
     public async updateUser(data: UpdateUserDto) {
-
-        // const passwordHash = await bcrypt.hash(data?.password!, 10)
         const userFind = await prisma.user.findUnique({
             where: {
                 id: data.id
@@ -184,8 +182,7 @@ class UserService {
                 name: data.name,
                 username: data.username,
                 email: data.email,
-                password: data.password,
-                token: data.token
+                password: data.password
             }
         })
 
