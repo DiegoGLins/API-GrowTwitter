@@ -2,7 +2,6 @@ import { Router } from "express"
 import tweetController from "../controllers/tweet.controller"
 import authMiddleware from "../middlewares/auth.middleware"
 
-
 export const tweetsRoutes = () => {
     const router = Router()
     const controller = new tweetController()
