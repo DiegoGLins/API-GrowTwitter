@@ -44,8 +44,8 @@ content-type: application/json
 # }
 
 # {
-# "name":"Alex Mendes", 
-# "username": "alex.mendes",
-# "email":"aleMendes@gmail.com", 
+# "name":"Daiane Souza", 
+# "username": "lady.daiane",
+# "email":"daisouza@gmail.com", 
 # "password": "12345"
 # }
