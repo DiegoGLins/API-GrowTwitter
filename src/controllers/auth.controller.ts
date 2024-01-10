@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import userService from '../services/user.service'
 import authService from '../services/auth.service'
 class AuthController {
     public async login(req: Request, res: Response) {
@@ -30,41 +29,41 @@ class AuthController {
         }
     }
 
-    public async logout(req: Request, res: Response) {
-        try {
-            const { idUser } = req.body
+    // public async logout(req: Request, res: Response) {
+    //     try {
+    //         const { idUser } = req.body
 
-            if (!idUser) {
-                return res.status(401).send({
-                    ok: false,
-                    code: 401,
-                    message: "Autenticação do token falhou",
-                });
-            }
+    //         if (!idUser) {
+    //             return res.status(401).send({
+    //                 ok: false,
+    //                 code: 401,
+    //                 message: "Autenticação do token falhou",
+    //             });
+    //         }
 
-            const userLogged = await userService.getById(idUser)
+    //         const userLogged = await userService.getById(idUser)
 
-            if (userLogged) {
-                const logged = userService.mapToModel(userLogged.data).detailUser()
+    //         if (userLogged) {
+    //             const logged = userService.mapToModel(userLogged.data).detailUser()
 
-                return res.status(200).send({
-                    ok: true,
-                    code: 200,
-                    message: "Logout realizado com sucesso",
-                    data: {
-                        logged
-                    }
-                })
-            }
+    //             return res.status(200).send({
+    //                 ok: true,
+    //                 code: 200,
+    //                 message: "Logout realizado com sucesso",
+    //                 data: {
+    //                     logged
+    //                 }
+    //             })
+    //         }
 
-        } catch (error: any) {
-            res.status(500).send({
-                ok: false,
-                code: 500,
-                message: "Erro interno do servidor"
-            })
-        }
-    }
+    //     } catch (error: any) {
+    //         res.status(500).send({
+    //             ok: false,
+    //             code: 500,
+    //             message: "Erro interno do servidor"
+    //         })
+    //     }
+    // }
 }
 
 export default AuthController
