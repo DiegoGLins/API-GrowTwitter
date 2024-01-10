@@ -19,15 +19,15 @@ export class UserController {
                 password,
             })
 
-            return res.status(result.code).send(result)
+            return res.status(result.code).send(result.data)
         }
 
         catch (error: any) {
-            return {
+            return res.status(500).send({
                 ok: false,
                 code: 500,
                 message: error.toString()
-            }
+            })
         }
     }
 
@@ -46,11 +46,11 @@ export class UserController {
 
             return res.status(result.code).send(result)
         } catch (error: any) {
-            return {
+            return res.status(500).send({
                 ok: false,
                 code: 500,
                 message: error.toString()
-            }
+            })
         }
     }
 
@@ -62,11 +62,11 @@ export class UserController {
             return res.status(result.code).send(result)
 
         } catch (error: any) {
-            return {
-                ok: true,
+            return res.status(500).send({
+                ok: false,
                 code: 500,
                 message: error.toString()
-            }
+            })
         }
     }
 
@@ -78,11 +78,11 @@ export class UserController {
             return res.status(result.code).send(result)
 
         } catch (error: any) {
-            return {
-                ok: true,
+            return res.status(500).send({
+                ok: false,
                 code: 500,
                 message: error.toString()
-            }
+            })
         }
     }
 
