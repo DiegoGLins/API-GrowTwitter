@@ -18,7 +18,6 @@ name String @db.VarChar(18)
 username String @db.VarChar(16) @unique
 email String @db.VarChar(100) @unique
 password String @db.VarChar(64)
-token String? @unique
 following Follow[] @relation("user_following")
 followers Follow[] @relation("user_followers")
 tweets Tweet[]
