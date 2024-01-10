@@ -17,12 +17,7 @@ class AuthController {
             const result = await authService.login(username, password)
 
             if (result?.code === 200) {
-                return res.status(result.code).json({
-                    ok: true,
-                    code: result.code,
-                    message: result.message,
-                    data: result.data
-                })
+                return res.status(result.code).json(result.data)
             }
         }
 
@@ -50,16 +45,14 @@ class AuthController {
             const userLogged = await userService.getById(idUser)
 
             if (userLogged) {
-                const result = await userService.updateUser({ ...userLogged.data, token: null })
-                const logged = userService.mapToModel(result?.data!).detailUser()
+                const logged = userService.mapToModel(userLogged.data).detailUser()
 
                 return res.status(200).send({
                     ok: true,
                     code: 200,
                     message: "Logout realizado com sucesso",
                     data: {
-                        logged,
-                        token: result.data?.token
+                        logged
                     }
                 })
             }
