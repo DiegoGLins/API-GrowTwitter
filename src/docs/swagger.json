@@ -443,11 +443,50 @@
           "content": { "type": "string" },
           "idUser": { "type": "string" },
           "authorTweet": { "type": "string" },
-          "type": { "type": "string" },
+          "type": { "type": "string", "enum": ["N", "R"] },
           "idTweetOriginal": { "type": "string" },
-          "likes": { "type": "string" },
-          "reTweet": { "type": "string" },
-          "tweetOriginal": { "type": "string" }
+          "likes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "idLike": { "type": "string" },
+                "idTweet": { "type": "string" },
+                "idAuthorTweet": { "type": "string" },
+                "idAuthorLike": { "type": "string" },
+                "authorLike": { "type": "string" },
+                "contentTweetLiked": { "type": "string" }
+              }
+            },
+            "minItems": 0
+          },
+          "reTweet": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "content": { "type": "string" },
+                "idUser": { "type": "string" },
+                "authorTweet": { "type": "string" },
+                "type": { "type": "string", "enum": ["R"] },
+                "idTweetOriginal": { "type": "string" }
+              }
+            },
+            "minItems": 0
+          },
+          "tweetOriginal": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "content": { "type": "string" },
+              "idUser": { "type": "string" },
+              "authorTweet": { "type": "string" },
+              "type": { "type": "string", "enum": ["N", "R"] },
+              "idTweetOriginal": { "type": "string" }
+            },
+            "nullable": true
+          }
         }
       },
       "twitter-updated": {
@@ -457,8 +496,61 @@
           "content": { "type": "string" },
           "idUser": { "type": "string" },
           "authorTweet": { "type": "string" },
-          "type": { "type": "string" },
+          "type": { "type": "string", "enum": ["N", "R"] },
           "idTweetOriginal": { "type": "string" }
+        }
+      },
+      "tweet-create": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "content": { "type": "string" },
+          "idUser": { "type": "string" },
+          "authorTweet": { "type": "string" },
+          "type": { "type": "string", "enum": ["N"] },
+          "idTweetOriginal": { "type": "string" },
+          "likes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "idLike": { "type": "string" },
+                "idTweet": { "type": "string" },
+                "idAuthorTweet": { "type": "string" },
+                "idAuthorLike": { "type": "string" },
+                "authorLike": { "type": "string" },
+                "contentTweetLiked": { "type": "string" }
+              }
+            },
+            "minItems": 0
+          },
+          "reTweet": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "content": { "type": "string" },
+                "idUser": { "type": "string" },
+                "authorTweet": { "type": "string" },
+                "type": { "type": "string", "enum": ["N", "R"] },
+                "idTweetOriginal": { "type": "string" }
+              }
+            },
+            "minItems": 0
+          },
+          "tweetOriginal": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "content": { "type": "string" },
+              "idUser": { "type": "string" },
+              "authorTweet": { "type": "string" },
+              "type": { "type": "string", "enum": ["N", "R"] },
+              "idTweetOriginal": { "type": "string" }
+            },
+            "nullable": true
+          }
         }
       }
     },
