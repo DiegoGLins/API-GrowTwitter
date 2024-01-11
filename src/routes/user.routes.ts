@@ -6,9 +6,8 @@ import registerMiddleware from "../middlewares/register.middleware"
 export const userRoutes = () => {
     const router = Router()
     const controller = new UserController()
-    router.get('/byId', authMiddleware, controller.listById)
+    // router.get('/:id', authMiddleware, controller.listById)
     router.post("/", registerMiddleware, controller.register)
-
     router.get("/", authMiddleware, controller.list)
     router.delete("/:id", authMiddleware, controller.delete)
     router.put("/:id", authMiddleware, controller.update)
