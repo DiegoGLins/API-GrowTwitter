@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "API-GrowTwiter",
-    "description": "A api GrowTwiter é usada para realizar o cadastro, edição e login de usuarios, como também a criação, edição e curtidas de Twits",
+    "description": "A api GrowTwiter é usada para realizar o cadastro, edição e login de usuarios, como também a criação, edição e curtidas de Twittes",
     "version": "1.0.0"
   },
   "servers": [
@@ -13,10 +13,334 @@
   "tags": [
     {
       "name": "usuarios",
-      "description": "Rotas para cadastro, listagem e edição de usuários"
+      "description": "Rotas para cadastro, listagem, exclusão e edição de usuários"
+    },
+    {
+      "name": "twittes",
+      "description": "Rotas para criar, listar, excluir e editar twittes"
     }
   ],
   "paths": {
-    "/auth": {}
+    "/auth/login": {
+      "description": "Rotas para realizar autenticação",
+      "post": {
+        "tags": ["login"],
+        "summary": "Loga o usuario no sistema",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login realizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "authHeader": {
+                          "$ref": "#/components/schemas/authHeader"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Campos não informados"
+          },
+          "401": {
+            "description": "Username ou senha incorretos"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["usuarios"],
+        "summary": "Lista todos os usuários cadastrados na aplicação ",
+        "description": "Isso só pode ser feito por um usuário logado",
+        "responses": {
+          "200": {
+            "description": "Usuarios listados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/users"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "post": {
+        "tags": ["usuarios"],
+        "summary": "Cria um novo usuário na aplicação",
+        "description": "Cria um novo usuário passando name, username, email e password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "username": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário cadastrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/register"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Username ou email já cadastrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "put": {
+        "tags": ["usuarios"],
+        "summary": "Edita um usuário cadastrado",
+        "description": "Isso só pode ser feito por um usuário logado. Edita name, username, email e password do usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "o id do usuário a ser editado deve ser passado",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "username": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                },
+                "required": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuário atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/register"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não existe"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["usuarios"],
+        "summary": "Deleta um usuário cadastrado",
+        "description": "Isso só pode ser feito por um usuário logado. Deleta o usuário passando o id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "o id do usuário a ser excluído deve ser passado",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário excluido com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/users"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/tweets": {
+      "get": {
+        "tags": ["twittes"],
+        "summary": "Lista todos os twittes ",
+        "description": "Isso só pode ser feito por um usuário logado",
+        "responses": {
+          "200": {
+            "description": "Twittes listados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/twittes"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "post": {
+        "tags": ["twittes"],
+        "summary": "Cria um novo twitter",
+        "description": "Isso só pode ser feito por um usuário logado",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": { "type": "string" }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Twitte criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/twittes"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/register"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "authHeader": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "username": { "type": "string" },
+          "avatar": { "type": "string" },
+          "email": { "type": "string" }
+        }
+      },
+      "token": { "type": "string" },
+      "users": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "username": { "type": "string" },
+          "avatar": { "type": "string" },
+          "email": { "type": "string" }
+        }
+      },
+      "register": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "avatar": { "type": "string" },
+          "name": { "type": "string" },
+          "username": { "type": "string" },
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      },
+      "twittes": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "content": { "type": "string" },
+          "idUser": { "type": "string" },
+          "authorTweet": { "type": "string" },
+          "type": { "type": "string" },
+          "idTweetOriginal": { "type": "string" },
+          "likes": { "type": "string" },
+          "reTweet": { "type": "string" },
+          "tweetOriginal": { "type": "string" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": {
+    "bearerAuth": []
   }
 }
