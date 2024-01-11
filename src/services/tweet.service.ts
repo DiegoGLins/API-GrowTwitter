@@ -102,14 +102,10 @@ class TweetService {
                 type: typeN,
                 idTweetOriginal: data.idTweetOriginal
             }, include: {
-                user: true,
+                // user: true,
                 likes: true,
                 reTweet: true,
-                tweetOriginal: {
-                    include: {
-                        user: true,
-                    }
-                }
+                tweetOriginal: true
             }
         })
         return {
