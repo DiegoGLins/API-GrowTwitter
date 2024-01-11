@@ -48,8 +48,8 @@ class TweetController {
 
     public async listTweetsFromUser(req: Request, res: Response) {
         try {
-            const { idUser } = req.body
-            const result = await tweetService.listTweetFromUser(idUser)
+            const { id } = req.authUser
+            const result = await tweetService.listTweetFromUser(id)
 
             return res.status(result.code).send(result)
         }
@@ -93,10 +93,11 @@ class TweetController {
     public async updateTweet(req: Request, res: Response) {
         try {
             const { idTweet } = req.params
-            const { idUser, content } = req.body
+            const { id } = req.authUser
+            const { content } = req.body
 
             const result = await tweetService.updateTweet({
-                idUser: idUser,
+                idUser: id,
                 idTweet: idTweet,
                 content: content
             })
@@ -113,11 +114,11 @@ class TweetController {
 
     public async deleteTweet(req: Request, res: Response) {
         try {
-            const { idUser } = req.body
+            const { id } = req.authUser
             const { idTweet } = req.params
 
             const response = await tweetService.deleteTweet({
-                idUser: idUser, idTweet: idTweet
+                idUser: id, idTweet: idTweet
             })
 
             return res.status(response.code).send(response)
