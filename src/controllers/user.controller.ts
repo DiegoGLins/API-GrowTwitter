@@ -69,21 +69,21 @@ export class UserController {
         }
     }
 
-    public async listById(req: Request, res: Response) {
-        try {
-            const { idUser } = req.body
-            const result = await userService.getById(idUser)
+    // public async listById(req: Request, res: Response) {
+    //     try {
+    //         const { idUser } = req.params
+    //         const result = await userService.getById(idUser)
 
-            return res.status(result.code).send(result)
+    //         return res.status(result.code).send(result)
 
-        } catch (error: any) {
-            return res.status(500).send({
-                ok: false,
-                code: 500,
-                message: error.toString()
-            })
-        }
-    }
+    //     } catch (error: any) {
+    //         return res.status(500).send({
+    //             ok: false,
+    //             code: 500,
+    //             message: error.toString()
+    //         })
+    //     }
+    // }
 
 }
 
