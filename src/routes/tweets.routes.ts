@@ -9,7 +9,6 @@ export const tweetsRoutes = () => {
     router.get("/fromUser", authMiddleware, controller.listTweetsFromUser)
 
     router.post("/", authMiddleware, controller.createTweet)
-
     router.get('/', authMiddleware, controller.listAllTweets)
     router.get("/:idTweet", authMiddleware, controller.listTweetByID)
     router.put("/:idTweet", authMiddleware, controller.updateTweet)
