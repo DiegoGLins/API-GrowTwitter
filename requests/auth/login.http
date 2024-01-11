@@ -1,10 +1,10 @@
 POST http://localhost:3333/auth/login HTTP/1.1
 content-type: application/json
 
-# {
-# "username": "rafa.souza",
-# "password": "12345"
-# }
+{
+"username": "rafa.souza",
+"password": "12345"
+}//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjg5MzI1LTkzODgtNDQ2YS1iOTdmLTJlZDY2NTlhNjQ4MCIsIm5hbWUiOiJSYWZhZWwgU291emEiLCJ1c2VybmFtZSI6InJhZmEuc291emEiLCJhdmF0YXIiOiJiMGQ2NGQ5Yi1mOGM0LTRiZDYtYTM4NC04NzhmM2Y3NDJkZjAiLCJlbWFpbCI6InJmc291emFAZ21haWwuY29tIiwiaWF0IjoxNzA0OTQxNTQzLCJleHAiOjE3MDQ5NzAzNDN9.FvSKfqU5cFg43fU7rnxdwFWpqMbL9kLM0bElSWOhuTU
 
 # {
 # "username": "alex.mendes",
@@ -22,7 +22,7 @@ content-type: application/json
 # "username": "estef.santos",
 # "password": "12345"
 # }
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDkwOTc3MSwiZXhwIjoxNzA0OTM4NTcxfQ.LxWwmcDYP--0HMOLavb88b3ODRkiW1gex7wuahdditw
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDkzMzg0MiwiZXhwIjoxNzA0OTYyNjQyfQ.Rvh8tbRPc4H9dcG-eSPbaJqogWwPEPd12EKQX_UmBlw
 
 # {
 # "username": "guga@lima",

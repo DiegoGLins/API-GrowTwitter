@@ -1,6 +1,6 @@
 POST http://localhost:3333/tweets HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDkwOTc3MSwiZXhwIjoxNzA0OTM4NTcxfQ.LxWwmcDYP--0HMOLavb88b3ODRkiW1gex7wuahdditw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjg5MzI1LTkzODgtNDQ2YS1iOTdmLTJlZDY2NTlhNjQ4MCIsIm5hbWUiOiJSYWZhZWwgU291emEiLCJ1c2VybmFtZSI6InJhZmEuc291emEiLCJhdmF0YXIiOiJiMGQ2NGQ5Yi1mOGM0LTRiZDYtYTM4NC04NzhmM2Y3NDJkZjAiLCJlbWFpbCI6InJmc291emFAZ21haWwuY29tIiwiaWF0IjoxNzA0OTQxNTQzLCJleHAiOjE3MDQ5NzAzNDN9.FvSKfqU5cFg43fU7rnxdwFWpqMbL9kLM0bElSWOhuTU
 
 # {
 # "content": "Também achei top essa nova rede social"
@@ -11,9 +11,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwL
 # }
 
 
-{
-"content": "Adorei os recursos dessa plataforma"
-}
+# {
+# "content": "Adorei os recursos dessa plataforma"
+# }
 
 
 # {
@@ -33,7 +33,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwL
 # "content": "Sabado de sol. Passeando com a nega no poise. #sabadou"
 # }
 
-# {
-# "content": "Curtindo o final de semana com uma cervejinha"
-# }
+{
+"content": "Curtindo o final de semana com uma cervejinha"
+}
 
