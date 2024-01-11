@@ -239,7 +239,7 @@ class TweetService {
         return {
             ok: true,
             code: 200,
-            message: `Tweet id: ${findTweet.id} deletado com sucesso`,
+            message: `Tweet deletado com sucesso`,
         }
     }
 }
