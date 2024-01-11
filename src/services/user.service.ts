@@ -106,7 +106,7 @@ class UserService {
             ok: true,
             code: 201,
             message: "Usuário cadastrado com sucesso",
-            data: createUser
+            data: this.mapToModel(createUser).detailUser()
         };
     }
 
@@ -131,6 +131,7 @@ class UserService {
                 id: data.id
             },
             data: {
+                id: data.id,
                 avatar: data.avatar,
                 name: data.name,
                 username: data.username,
@@ -143,7 +144,7 @@ class UserService {
             ok: true,
             code: 200,
             message: "Usuario atualizado com sucesso",
-            data: updated
+            data: this.mapToModel(updated).detailUser()
         }
     }
 
