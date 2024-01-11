@@ -6,7 +6,7 @@ class AuthController {
             const { username, password } = req.body
 
             if (!username || !password) {
-                return res.status(404).json({
+                return res.status(400).json({
                     ok: false,
                     code: 400,
                     message: "Campos não informados"
