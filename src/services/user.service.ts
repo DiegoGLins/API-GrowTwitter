@@ -28,36 +28,35 @@ class UserService {
         return user
     }
 
-    public async getById(idUser: string): Promise<ResponseDto> {
-        try {
-            const user = await prisma.user.findUnique({
-                where: {
-                    id: idUser
-                }
-            })
+    // public async getById(idUser: string): Promise<ResponseDto> {
+    //     try {
+    //         const user = await prisma.user.findUnique({
+    //             where: {
+    //                 id: idUser
+    //             }
+    //         })
 
-            if (!user) {
-                return {
-                    ok: false,
-                    code: 404,
-                    message: "Usuario não encontrado"
-                }
-            }
-            return {
-                ok: true,
-                code: 200,
-                message: "Usuario listado com sucesso",
-                data: user
-            }
-        } catch (error: any) {
-            return {
-                ok: false,
-                code: 500,
-                message: "Erro interno do servidor",
-            }
-        }
-
-    }
+    //         if (!user) {
+    //             return {
+    //                 ok: false,
+    //                 code: 404,
+    //                 message: "Usuario não encontrado"
+    //             }
+    //         }
+    //         return {
+    //             ok: true,
+    //             code: 200,
+    //             message: "Usuario listado com sucesso",
+    //             data: user
+    //         }
+    //     } catch (error: any) {
+    //         return {
+    //             ok: false,
+    //             code: 500,
+    //             message: "Erro interno do servidor",
+    //         }
+    //     }
+    // }
 
     public async getUserByUsername(username: string): Promise<ResponseDto> {
         const user = await prisma.user.findUnique({
