@@ -1,9 +1,9 @@
-PUT http://localhost:3333/tweets/c9fbd431-b0f7-4a93-8c73-3bd8ce8ccb37 HTTP/1.1
+PUT http://localhost:3333/tweets/7e7a0fcf-5e8a-4f2c-b7cb-501f394b4e8d HTTP/1.1
 content-type: application/json
-Authorization: 974cfaf0-928c-42cd-aca4-09d3d71a01b0
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDk4MjU5OSwiZXhwIjoxNzA1MDExMzk5fQ.dNWXsv1GOOmXYKDaSN-3dna5VXvk0u72S7hzIp2VUqE
 
 {
-"content": "Oi Paulinha td bem amiga ?"
+"content": "Essa plataforma é um máximo"
 }
 
 

@@ -24,15 +24,14 @@ content-type: application/json
 # }//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDk4MjU5OSwiZXhwIjoxNzA1MDExMzk5fQ.dNWXsv1GOOmXYKDaSN-3dna5VXvk0u72S7hzIp2VUqE
 
 
-{
-"username": "guga@lima",
-"password": "12345"
-}
+# {
+# "username": "guga@lima",
+# "password": "12345"
+# }
 //73fca808-cccb-4115-a827-37656b94f0fd
 
 # {
 # "username": "bianca",
 # "password": "12345"
 # }
-//117113b7-b1bb-4e9f-af27-c684e2e69187
-
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI5NzlhNTgxLTVlNmQtNDlhMy04MWEwLWVlMjhjMWMyYTVmOSIsIm5hbWUiOiJCaWFuY2EgU2lsdmEiLCJ1c2VybmFtZSI6ImJpYW5jYSIsImF2YXRhciI6ImJmYjg5YmY4LWExYmQtNGJmMi04Mzk0LWExYTk4MDlhYWJhZSIsImVtYWlsIjoiYmlTaWx2YUBnbWFpbC5jb20iLCJpYXQiOjE3MDQ5OTA2MTAsImV4cCI6MTcwNTAxOTQxMH0.RzHrD7D6Od89JyKfe4bH9mEF1v6BfArpMUpvKIUzQ-M
