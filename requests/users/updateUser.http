@@ -1,10 +1,14 @@
-PUT http://localhost:3333/users/7625003d-0471-43ca-b4c3-fe1f63f53870 HTTP/1.1
+PUT http://localhost:3333/users/3768f6c2-8edc-41a6-9df6-10d39f7b5518 HTTP/1.1
 content-type:  application/json
-Authorization: 2d9586aa-f2f5-4bbc-a6af-545b5ff0d969
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM3NjhmNmMyLThlZGMtNDFhNi05ZGY2LTEwZDM5ZjdiNTUxOCIsIm5hbWUiOiJBbGFuIFR1cmluZyIsInVzZXJuYW1lIjoiYWxhbi50dXJpbmciLCJhdmF0YXIiOiIzODU1MjRhMC1iOTI5LTQzNmMtYWMzYi1jNjA3NzhiYWZhNWMiLCJlbWFpbCI6ImFsLnR1cmluZ0BnbWFpbC5jb20iLCJpYXQiOjE3MDQ5ODQ3NTQsImV4cCI6MTcwNTAxMzU1NH0.yyPUYuleaTwkSt4_HD_O9-MWRCWbqD1hAHil2tZM0mc
 
-{
-    "name": "Fernando Gomes Almeida",
-    "username": "FeAlmeida",
-    "email": "fg.nando@gmail.com",
-    "password": "12345"
-}
+# {
+#     "name": "Fernando Gomes Almeida",
+#     "username": "FeAlmeida",
+#     "email": "fg.nando@gmail.com",
+#     "password": "12345"
+# }
+
+# {
+# "email":"turingMaster@gmail.com"
+# }
