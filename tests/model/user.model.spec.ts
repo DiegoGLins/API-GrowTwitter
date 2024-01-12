@@ -39,7 +39,7 @@ describe("User Model", () => {
 
     })
 
-    test('Deve retornar o todas as informações do usuário exceto a senha', () => {
+    test('Deve retornar todas as informações do usuário exceto a senha', () => {
         const sut = createSut()
 
         const result = sut.detailUser()
