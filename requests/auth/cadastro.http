@@ -2,12 +2,12 @@ POST http://localhost:3333/users HTTP/1.1
 content-type: application/json
 
 
-{
-"name": "Tatiane Pereira",
-"username": "tati.pereira.com",
-"email":"tatip@gmail.com",
-"password": "12345"
-}
+# {
+# "name":"Tatiane Pereira",
+# "username":"tati.pereira.com",
+# "email":"tatip@gmail.com",
+# "password": "12345"
+# }
 
 # {
 # "name": "Gustavo Lima",
@@ -37,12 +37,12 @@ content-type: application/json
 # "password": "12345"
 # }
 
-{
-"name": "Rafael Souza",
-"username": "rafa.souza",
-"email":"rfsouza@gmail.com",
-"password": "12345"  
-}
+# {
+# "name": "Rafael Souza",
+# "username": "rafa.souza",
+# "email":"rfsouza@gmail.com",
+# "password": "12345"  
+# }
 
 # {
 # "name": "Bianca Silva",

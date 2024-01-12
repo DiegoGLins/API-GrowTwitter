@@ -1,6 +1,6 @@
 POST http://localhost:3333/tweets HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI5NzlhNTgxLTVlNmQtNDlhMy04MWEwLWVlMjhjMWMyYTVmOSIsIm5hbWUiOiJCaWFuY2EgU2lsdmEiLCJ1c2VybmFtZSI6ImJpYW5jYSIsImF2YXRhciI6ImJmYjg5YmY4LWExYmQtNGJmMi04Mzk0LWExYTk4MDlhYWJhZSIsImVtYWlsIjoiYmlTaWx2YUBnbWFpbC5jb20iLCJpYXQiOjE3MDQ5OTA2MTAsImV4cCI6MTcwNTAxOTQxMH0.RzHrD7D6Od89JyKfe4bH9mEF1v6BfArpMUpvKIUzQ-M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNTA4MjQ5MCwiZXhwIjoxNzA1MTExMjkwfQ.ZHjLsS8a364d7iGfyx7ws6B12pQjyztpRPdADugPHfU
 
 
 # "content": "Também achei top essa nova rede social"
@@ -15,9 +15,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI5NzlhNTgxL
 # "content": "Adorei os recursos dessa plataforma"
 # }
 
-{
-"content": "Oi Estefani. Legal te encontrar aqui amiga"
-}
+# {
+# "content": "Oi Estefani. Legal te encontrar aqui amiga"
+# }
 
 # {
 # "content": "Oi Henrique. Legal te encontrar aqui na rede. Me adiciona ai. Valeu"
@@ -27,9 +27,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI5NzlhNTgxL
 # "content": "Oi Paula. Legal te ver aqui na rede também. Me adiciona ai. Valeu"
 # }
 
-# {
-# "content": "Sabado de sol. Passeando com a nega no poise. #sabadou"
-# }
+{
+"content": "Sabado de sol. Passeando com meu dog. #sabadou"
+}
 
 # {
 # "content": "Final de semana vou ter que fazer extra. sniff"
