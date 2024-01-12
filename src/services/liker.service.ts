@@ -54,7 +54,7 @@ class LikerService {
             }
         }
 
-        const user = await userService.getUserByUsername(data.authorLike)
+        const user = await userService.getByUser(data.authorLike)
 
         if (!user) {
             return {
