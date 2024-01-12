@@ -16,7 +16,7 @@ class Tweet {
         this.idUser = idUser;
         this.type = type
     }
-    public get id() {
+    public getId() {
         return this._id;
     }
 }
