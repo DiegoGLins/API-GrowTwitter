@@ -21,21 +21,21 @@ export class User implements Follow {
 
     //------ getters------
 
-    public get id(): string {
+    public getId(): string {
         return this._id;
     }
 
-    public get password(): string {
+    public getPassword(): string {
         return this._password;
     }
 
     //------ setters --------
 
-    public set id(id: string) {
+    public setId(id: string) {
         this._id = id;
     }
 
-    public set password(password: string) {
+    public setPassword(password: string) {
         this._password = password;
     }
 
