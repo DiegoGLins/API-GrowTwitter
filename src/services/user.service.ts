@@ -127,7 +127,7 @@ class UserService {
         return {
             ok: true,
             code: 200,
-            message: "usuario excluido com sucesso",
+            message: "Usuario excluido com sucesso",
             data: this.mapToModel(deleted).detailUser()
         }
     }
