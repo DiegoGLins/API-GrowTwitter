@@ -14,7 +14,7 @@ class AuthService {
             }
         }
 
-        const validatePassword = await compare(password, user.data?.password!)
+        const validatePassword = await compare(password, user.password)
 
         if (!validatePassword) {
             return {
@@ -25,11 +25,11 @@ class AuthService {
         }
 
         const authHeader = {
-            id: user.data?.id,
-            name: user.data?.name,
-            username: user.data?.username,
-            avatar: user.data?.avatar,
-            email: user.data?.email,
+            id: user.id,
+            name: user.name,
+            username: user.username,
+            avatar: user.avatar,
+            email: user.email,
         }
 
         const token = jwt.sign(authHeader, `${process.env.SECRET_WORD}`, {

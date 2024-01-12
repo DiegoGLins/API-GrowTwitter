@@ -1,6 +1,7 @@
 import { User } from '@prisma/client'
 import UserService from '../../src/services/user.service'
 import { prismaMock } from '../config/prisma.mock'
+import { v4 as createUuid } from 'uuid'
 
 describe('User service', () => {
     const createSut = () => {
@@ -34,24 +35,45 @@ describe('User service', () => {
                 expect(item).toHaveProperty("email", "any_email")
             })
         })
+    })
+    describe('getByUser', () => {
+        test.only('Deve retornar um usuário com o username passado como parâmetro', async () => {
+            const sut = createSut()
+            prismaMock.user.findUnique.mockResolvedValue({
+                id: createUuid(),
+                avatar: "any_avatar",
+                name: "any_name",
+                username: "username",
+                email: "any_email",
+                password: "any_password"
+            } as User)
 
-        describe('getByUser', () => {
-            test.only('Deve retornar um usuário com o username passado como parâmetro', async () => {
-                const sut = createSut()
+            const result = await sut.getByUser("any_username")
 
-                prismaMock.user.findUnique.mockResolvedValue({
-                    id: "any_uuid",
-                    avatar: "any_avatar",
-                    name: "any_name",
-                    username: "username",
-                    email: "any_email",
-                    password: "any_password"
-                } as User)
-
-                const result = await sut.getByUser("any_username")
-
-                expect(result).toHaveProperty("username", expect.any(String))
-            })
+            expect(result).toHaveProperty("username", expect.any(String))
         })
     })
+
+    describe('createUser', () => {
+        test.only('Deve retornar a mensagem: "Username ou email já cadastrado", quando já houver um usuario cadastrado com email ou username passado ', async () => {
+            const sut = createSut()
+
+            prismaMock.user.findFirst.mockResolvedValue({
+                id: "any_id",
+                avatar: "any_avatar",
+                name: "any_name",
+                username: "any_username",
+                email: "any_email",
+                password: "any_password"
+            })
+
+            await expect(sut.createUser({
+                email: "any_email",
+                name: "any_name",
+                password: "any_password",
+                username: "any_username"
+            })).rejects.toThrow("Username ou email já cadastrado")
+        })
+    })
+
 })

@@ -70,8 +70,8 @@ class LikerService {
                 data: {
                     idTweet: findTweet.data?.id!,
                     idAuthorTweet: findTweet.data?.idUser!,
-                    idAuthorLike: user.data?.id!,
-                    authorLike: user.data?.username!,
+                    idAuthorLike: user.id,
+                    authorLike: user.username,
                     contentTweetLiked: findTweet.data?.content!
                 }
             })

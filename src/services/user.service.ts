@@ -25,12 +25,7 @@ class UserService {
                 username: username,
             }
         })
-        return {
-            ok: true,
-            code: 200,
-            message: 'Usuario listado com sucesso',
-            data: user
-        }
+        return user
     }
 
     // public async getById(idUser: string): Promise<ResponseDto> {
