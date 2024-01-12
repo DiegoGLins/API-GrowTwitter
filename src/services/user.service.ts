@@ -28,36 +28,6 @@ class UserService {
         return user
     }
 
-    // public async getById(idUser: string): Promise<ResponseDto> {
-    //     try {
-    //         const user = await prisma.user.findUnique({
-    //             where: {
-    //                 id: idUser
-    //             }
-    //         })
-
-    //         if (!user) {
-    //             return {
-    //                 ok: false,
-    //                 code: 404,
-    //                 message: "Usuario não encontrado"
-    //             }
-    //         }
-    //         return {
-    //             ok: true,
-    //             code: 200,
-    //             message: "Usuario listado com sucesso",
-    //             data: user
-    //         }
-    //     } catch (error: any) {
-    //         return {
-    //             ok: false,
-    //             code: 500,
-    //             message: "Erro interno do servidor",
-    //         }
-    //     }
-    // }
-
     public async createUser(data: CreateUserDto): Promise<ResponseDto> {
         const findUser = await prisma.user.findFirst({
             where: {
@@ -72,7 +42,7 @@ class UserService {
             return {
                 ok: false,
                 code: 400,
-                message: "Username ou email já cadastrado."
+                message: "Username ou email já cadastrado"
             }
         }
 
