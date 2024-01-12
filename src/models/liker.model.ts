@@ -13,7 +13,7 @@ export class Liker {
 
     }
 
-    public get idLike() {
+    public getIdLike() {
         return this._idLike
     }
 
@@ -27,5 +27,4 @@ export class Liker {
             contentTweetLiked: this.contentTweetLiked,
         }
     }
-
 }
