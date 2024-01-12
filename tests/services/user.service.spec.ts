@@ -2,6 +2,7 @@ import { User } from '@prisma/client'
 import UserService from '../../src/services/user.service'
 import { prismaMock } from '../config/prisma.mock'
 import { v4 as createUuid } from 'uuid'
+import bcrypt from 'bcrypt'
 
 describe('User service', () => {
     const createSut = () => {
@@ -37,7 +38,7 @@ describe('User service', () => {
         })
     })
     describe('getByUser', () => {
-        test.only('Deve retornar um usuário com o username passado como parâmetro', async () => {
+        test('Deve retornar um usuário com o username passado como parâmetro', async () => {
             const sut = createSut()
             prismaMock.user.findUnique.mockResolvedValue({
                 id: createUuid(),
@@ -55,7 +56,7 @@ describe('User service', () => {
     })
 
     describe('createUser', () => {
-        test.only('Deve retornar a mensagem: "Username ou email já cadastrado", quando já houver um usuario cadastrado com email ou username passado ', async () => {
+        test('Deve retornar a mensagem: "Username ou email já cadastrado", quando já houver um usuario cadastrado com email ou username passado ', async () => {
             const sut = createSut()
 
             prismaMock.user.findFirst.mockResolvedValue({
@@ -67,13 +68,120 @@ describe('User service', () => {
                 password: "any_password"
             })
 
-            await expect(sut.createUser({
+            prismaMock.user.create.mockResolvedValue({
+                id: "any_id",
+                avatar: "any_avatar",
+                email: "any_email",
+                name: "any_name",
+                username: "any_username",
+                password: "any_password"
+            })
+
+            const result = await sut.createUser({
                 email: "any_email",
                 name: "any_name",
                 password: "any_password",
                 username: "any_username"
-            })).rejects.toThrow("Username ou email já cadastrado")
+            })
+
+            expect(result.code).toEqual(400)
+            expect(result.ok).toBeFalsy()
+            expect(result.message).toEqual("Username ou email já cadastrado")
+        })
+
+        test('Deve retornar o usuario criado caso não exista nenhum email ou username igual cadastrado', async () => {
+            const sut = createSut()
+
+            prismaMock.user.findFirst.mockResolvedValue(null)
+            const mockBcrypt = jest.fn().mockReturnValue("")
+
+            bcrypt.hash = mockBcrypt
+            prismaMock.user.create.mockResolvedValue({
+                id: "any_id",
+                avatar: "any_avatar",
+                email: "any_email",
+                name: "any_name",
+                username: "any_username",
+                password: "any_password"
+            })
+
+            const result = await sut.createUser({
+                email: "any_email",
+                name: "any_name",
+                username: "any_username",
+                password: "any_password"
+            })
+
+            expect(result.ok).toBeTruthy()
+            expect(result.code).toEqual(201)
+            expect(result.data).toHaveProperty("id", expect.any(String))
+            expect(result.data).toHaveProperty("email", "any_email")
+            expect(result.data).toHaveProperty("avatar", "any_avatar")
+            expect(result.data).toHaveProperty("name", "any_name")
+            expect(result.data).toHaveProperty("username", "any_username")
+
         })
     })
 
+    describe('updateUser', () => {
+        test('Deve retornar a mensagem "Usuario não existe" ao tentar buscar um usuario pelo id', async () => {
+            const sut = createSut()
+
+            prismaMock.user.findUnique.mockResolvedValue(null);
+
+            const result = await sut.updateUser({
+                id: "nonexistent_id",
+                avatar: "any_avatar",
+                name: "any_name",
+                username: "username",
+                email: "any_email",
+                password: "any_password"
+            })
+
+            expect(result).toEqual({
+                ok: false,
+                code: 404,
+                message: 'Usuario não existe',
+            });
+        })
+
+        test.only('Deve retornar o usuario editado com a mensagem: "Usuario atualizado com sucesso"', async () => {
+            const sut = createSut()
+            prismaMock.user.findUnique.mockResolvedValue({
+                id: "existent_id",
+                avatar: "any_avatar",
+                name: "any_name",
+                username: "any_username",
+                email: "any_email",
+                password: "any_password"
+            });
+
+            prismaMock.user.update.mockResolvedValue({
+                id: "existent_id",
+                avatar: "any_avatar",
+                name: "any_name",
+                username: "any_username",
+                email: "any_email",
+                password: "any_password"
+            })
+
+            const result = await sut.updateUser({
+                name: "new_name",
+                email: "new_email",
+            })
+
+            expect(result).toEqual({
+                ok: true,
+                code: 200,
+                message: "Usuario atualizado com sucesso",
+                data: {
+                    id: expect.any(String),
+                    avatar: expect.any(String),
+                    name: expect.any(String),
+                    username: expect.any(String),
+                    email: expect.any(String),
+                }
+            })
+        })
+    })
 })
