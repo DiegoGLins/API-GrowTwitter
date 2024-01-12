@@ -17,8 +17,10 @@ export class UserController {
                 email,
                 password,
             })
-
-            return res.status(result.code).send(result.data)
+            if (result?.code === 201) {
+                return res.status(result.code).send(result.data)
+            }
+            return res.status(result.code).send(result.message)
         }
 
         catch (error: any) {

@@ -6,7 +6,7 @@ class AuthController {
             const { username, password } = req.body
 
             if (!username || !password) {
-                return res.status(400).json({
+                return res.status(400).send({
                     ok: false,
                     code: 400,
                     message: "Campos não informados"
@@ -16,7 +16,7 @@ class AuthController {
             const result = await authService.login(username, password)
 
             if (result?.code === 200) {
-                return res.status(result.code).json(result.data)
+                return res.status(result.code).send(result.data)
             }
         }
 
