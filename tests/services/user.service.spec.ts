@@ -145,7 +145,7 @@ describe('User service', () => {
             });
         })
 
-        test.only('Deve retornar o usuario editado com a mensagem: "Usuario atualizado com sucesso"', async () => {
+        test('Deve retornar o usuario editado com a mensagem: "Usuario atualizado com sucesso"', async () => {
             const sut = createSut()
             prismaMock.user.findUnique.mockResolvedValue({
                 id: "existent_id",
@@ -180,6 +180,66 @@ describe('User service', () => {
                     name: expect.any(String),
                     username: expect.any(String),
                     email: expect.any(String),
+                }
+            })
+        })
+    })
+    describe('deleteUser', () => {
+        test('Deve retornar a mensagem: "Usuario não encontrado" ao passar um id que não existe', async () => {
+            const sut = createSut()
+
+            prismaMock.user.findUnique.mockResolvedValue(null)
+
+            prismaMock.user.delete.mockResolvedValue({
+                id: "any_id",
+                avatar: "any_avatar",
+                email: "any_email",
+                name: "any_name",
+                username: "any_username",
+                password: "any_password"
+            })
+
+            const result = await sut.deleteUser('nonexistent_id')
+
+            expect(result).toEqual({
+                ok: false,
+                code: 404,
+                message: "Usuario não encontrado"
+            })
+        })
+
+        test('Deve retornar as informações do usuario excluido com a mensagem: "Usuario excluído com sucesso"', async () => {
+            const sut = createSut()
+
+            prismaMock.user.findUnique.mockResolvedValue({
+                id: "any_id",
+                avatar: "any_avatar",
+                email: "any_email",
+                name: "any_name",
+                username: "any_username",
+                password: "any_password"
+            })
+
+            prismaMock.user.delete.mockResolvedValue({
+                id: "any_id",
+                avatar: "any_avatar",
+                email: "any_email",
+                name: "any_name",
+                username: "any_username",
+                password: "any_password"
+            })
+
+            const result = await sut.deleteUser("any_id")
+            expect(result).toEqual({
+                ok: true,
+                code: 200,
+                message: "Usuario excluido com sucesso",
+                data: {
+                    id: "any_id",
+                    avatar: "any_avatar",
+                    name: "any_name",
+                    username: "any_username",
+                    email: "any_email"
                 }
             })
         })
