@@ -25,7 +25,12 @@ class UserService {
                 username: username,
             }
         })
-        return user
+        return {
+            ok: true,
+            code: 200,
+            message: 'Usuario listado com sucesso',
+            data: user
+        }
     }
 
     // public async getById(idUser: string): Promise<ResponseDto> {
@@ -57,21 +62,6 @@ class UserService {
     //         }
     //     }
     // }
-
-    public async getUserByUsername(username: string): Promise<ResponseDto> {
-        const user = await prisma.user.findUnique({
-            where: {
-                username: username,
-            }
-        })
-        return {
-            ok: true,
-            code: 200,
-            message: 'Usuario listado com sucesso',
-            data: user
-        }
-    }
-
 
     public async createUser(data: CreateUserDto): Promise<ResponseDto> {
         const findUser = await prisma.user.findFirst({
