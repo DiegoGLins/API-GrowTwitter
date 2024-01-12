@@ -20,7 +20,7 @@ export class UserController {
             if (result?.code === 201) {
                 return res.status(result.code).send(result.data)
             }
-            return res.status(result.code).send(result.message)
+            return res.status(result.code).send(result)
         }
 
         catch (error: any) {
