@@ -14,7 +14,7 @@ export class FollowController {
             const { idUserFollowing } = req.params
             const { username, id } = req.authUser
             const { usernameFollowing, } = req.body
-            const findFollowing = await userService.getUserByUsername(usernameFollowing)
+            const findFollowing = await userService.getByUser(usernameFollowing)
 
             if (!findFollowing) {
                 return res.status(404).send({ message: "Usuario não encontrado" })
