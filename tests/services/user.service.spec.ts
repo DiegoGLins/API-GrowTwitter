@@ -124,10 +124,19 @@ describe('User service', () => {
     })
 
     describe('updateUser', () => {
-        test('Deve retornar a mensagem "Usuario não existe" ao tentar buscar um usuario pelo id', async () => {
+        test('Deve retornar a mensagem "Usuario não existe" ao tentar buscar um usuario não cadastrado pelo id', async () => {
             const sut = createSut()
 
             prismaMock.user.findUnique.mockResolvedValue(null);
+
+            prismaMock.user.update.mockResolvedValue({
+                id: "existent_id",
+                avatar: "any_avatar",
+                name: "any_name",
+                username: "any_username",
+                email: "any_email",
+                password: "any_password"
+            })
 
             const result = await sut.updateUser({
                 id: "nonexistent_id",
