@@ -3,7 +3,7 @@ import { Tweet } from '@prisma/client'
 import TweetService from '../../src/services/tweet.service'
 import { prismaMock } from '../config/prisma.mock'
 import { TweetType } from '../../src/types/TweetType'
-import { CreateTweetDto } from '../../src/dto/tweet.dto'
+import { CreateTweetDto, FoundTweetDto, UpdateTweetDto } from '../../src/dto/tweet.dto'
 
 describe('TweetService', () => {
     const createSut = () => {
@@ -157,7 +157,7 @@ describe('TweetService', () => {
             const tweetData = {
                 id: "any_id",
                 content: "any_content",
-                idUser: "any-idUser",
+                idUser: "any_idUser",
                 authorTweet: "any_authorTweet",
                 type: TweetType.reTweet,
                 idTweetOriginal: "any_idTweetOriginal"
@@ -186,10 +186,147 @@ describe('TweetService', () => {
     })
 
     describe('updateTweet', () => {
+        test('Deve retornar a mensagem: "Você não tem permissão para editar esse tweet" caso o id do autor do tweet seja diferente do id do usuario passado', async () => {
+            const sut = createSut()
 
+            const tweetData = {
+                idUser: "any_idUser",
+                idTweet: "any_idTweet",
+                content: "any_content"
+            }
+
+            prismaMock.tweet.findUnique.mockResolvedValue({
+                id: "any_id",
+                content: "any_content",
+                idUser: "other_idUser",
+                authorTweet: "any_authorTweet",
+                type: TweetType.normal,
+                idTweetOriginal: "any_idTweetOriginal"
+            })
+
+            const result = await sut.updateTweet(tweetData)
+
+            expect(result).toEqual({
+                ok: false,
+                code: 403,
+                message: "Você não tem permissão para editar esse tweet",
+            })
+        })
+
+        test('Deve retornar a mensagem : "Tweet para editar não encontrado" caso seja passado o id de um tweet inexistente', async () => {
+            const sut = createSut()
+
+            prismaMock.tweet.findUnique.mockResolvedValue(null)
+
+            prismaMock.tweet.update.mockRejectedValue({} as Tweet)
+
+            const result = await sut.updateTweet({} as UpdateTweetDto)
+
+            expect(result).toEqual({
+                ok: false,
+                code: 404,
+                message: "Tweet para editar não encontrado"
+            })
+
+        })
+
+        test('Deve retornar o tweet editado ao passar o id do tweet a ser editado', async () => {
+            const sut = createSut()
+
+            prismaMock.tweet.findUnique.mockResolvedValue({
+                id: "any_id",
+                content: "any_content",
+                idUser: "any_idUser",
+                authorTweet: "any_authorTweet",
+                type: TweetType.normal,
+                idTweetOriginal: "any_idTweetOriginal"
+            })
+
+            prismaMock.tweet.update.mockResolvedValue({} as Tweet)
+
+            const result = await sut.updateTweet({
+                idTweet: "any_id",
+                idUser: "any_idUser",
+                content: 'tweet_updated',
+            })
+
+            expect(result).toEqual({
+                ok: true,
+                code: 200,
+                message: "Tweet atualizado com sucesso",
+                data: {} as UpdateTweetDto
+            })
+        })
     })
 
     describe('deleteTweet', () => {
+        test('Deve retornar a mensagem: "Você não tem permissão para deletar esse tweet" caso o id do autor do tweet seja diferente do id do usuario passado', async () => {
+            const sut = createSut()
 
+            const tweetData = {
+                idUser: "any_idUser",
+                idTweet: "any_idTweet",
+                content: "any_content"
+            }
+
+            prismaMock.tweet.findUnique.mockResolvedValue({
+                id: "any_id",
+                content: "any_content",
+                idUser: "other_idUser",
+                authorTweet: "any_authorTweet",
+                type: TweetType.normal,
+                idTweetOriginal: "any_idTweetOriginal"
+            })
+
+            const result = await sut.deleteTweet(tweetData)
+
+            expect(result).toEqual({
+                ok: false,
+                code: 403,
+                message: "Você não tem permissão para deletar esse tweet",
+            })
+        })
+
+        test('Deve retornar a mensagem: "Tweet não encontrado" caso seja passado o id de um Tweet inexistente para excluir', async () => {
+            const sut = createSut()
+
+            prismaMock.tweet.findUnique.mockResolvedValue(null)
+
+            prismaMock.tweet.update.mockRejectedValue({} as Tweet)
+
+            const result = await sut.deleteTweet({} as FoundTweetDto)
+
+            expect(result).toEqual({
+                ok: false,
+                code: 404,
+                message: "Tweet não encontrado"
+            })
+        })
+
+        test('Deve retornar a mensagem: "Tweet deletado com sucesso" ao passar o id de um Tweet a ser deletado', async () => {
+            const sut = createSut()
+            prismaMock.tweet.findUnique.mockResolvedValue({
+                id: "any_id",
+                content: "any_content",
+                idUser: "any_idUser",
+                authorTweet: "any_authorTweet",
+                type: TweetType.normal,
+                idTweetOriginal: "any_idTweetOriginal"
+            })
+
+            prismaMock.tweet.delete.mockResolvedValue({} as Tweet)
+
+            const result = await sut.deleteTweet({
+                idTweet: "any_id",
+                idUser: "any_idUser"
+            })
+
+            expect(result).toEqual({
+                ok: true,
+                code: 200,
+                message: "Tweet deletado com sucesso",
+            })
+        })
     })
 })
+
