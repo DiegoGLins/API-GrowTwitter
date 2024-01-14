@@ -45,15 +45,6 @@ class LikerService {
     }
 
     public async createLike(data: CreateLikeDto): Promise<ResponseDto> {
-
-        if (!data.idTweet) {
-            return {
-                ok: false,
-                code: 404,
-                message: "Tweet para curtir não selecionado"
-            }
-        }
-
         const user = await userService.getByUser(data.authorLike)
 
         if (!user) {
@@ -70,8 +61,8 @@ class LikerService {
                 data: {
                     idTweet: findTweet.data?.id!,
                     idAuthorTweet: findTweet.data?.idUser!,
-                    idAuthorLike: user.id,
-                    authorLike: user.username,
+                    idAuthorLike: user?.id!,
+                    authorLike: user?.username!,
                     contentTweetLiked: findTweet.data?.content!
                 }
             })
