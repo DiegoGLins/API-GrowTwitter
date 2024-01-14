@@ -4,6 +4,7 @@ import TweetService from '../../src/services/tweet.service'
 import UserService from '../../src/services/user.service'
 import { prismaMock } from '../config/prisma.mock'
 import { CreateLikeDto } from '../../src/dto/create.like.dto'
+import { DeleteLikeDto } from '../../src/dto/deleteLike.dto'
 
 describe('LikerService', () => {
     const createSut = () => {
@@ -80,7 +81,7 @@ describe('LikerService', () => {
             });
         })
 
-        test.only('Deve retornar o tweet curtido com os dados da curtida ao passar o id do Tweet a ser curtido', async () => {
+        test('Deve retornar o tweet curtido com os dados da curtida ao passar o id do Tweet a ser curtido', async () => {
             const sut = createSut()
 
             prismaMock.user.findUnique.mockResolvedValue({
@@ -131,14 +132,76 @@ describe('LikerService', () => {
             )
         })
 
-        test('', () => {
+        test('Deve retornar a mensagem: "Tweet para curtir não encontrado" ', async () => {
+            const sut = createSut()
 
+            prismaMock.user.findUnique.mockResolvedValue({} as User);
+
+            prismaMock.tweet.findUnique.mockRejectedValue(null)
+
+            const result = await sut.LikerService.createLike({} as CreateLikeDto)
+
+            expect(result).toEqual({
+                ok: false,
+                code: 404,
+                message: "Tweet para curtir não encontrado"
+            })
         })
     })
 
     describe('deleteLike', () => {
-        test('', () => {
+        test('Deve retornar a mensagem: "Curtida removida com sucesso" e os dados da curtida removida ao informar o id da curtida', async () => {
 
+            const sut = createSut()
+
+            prismaMock.liker.findUnique.mockResolvedValue({
+                idLike: "any_idLike",
+                idTweet: "any_idTweet",
+                idAuthorTweet: "any_idAuthorTweet",
+                idAuthorLike: "any_AuthorLike",
+                authorLike: "any_authorLike",
+                contentTweetLiked: "any_contentLiked"
+            })
+            prismaMock.liker.delete.mockResolvedValue({
+                idLike: "any_idLike",
+                idTweet: "any_idTweet",
+                idAuthorTweet: "any_idAuthorTweet",
+                idAuthorLike: "any_AuthorLike",
+                authorLike: "any_authorLike",
+                contentTweetLiked: "any_contentLiked"
+            })
+
+            const result = await sut.LikerService.deleteLike({} as DeleteLikeDto)
+
+            expect(result).toEqual({
+                ok: true,
+                code: 200,
+                message: "Curtida removida com sucesso",
+                data: {
+                    idLike: "any_idLike",
+                    idTweet: "any_idTweet",
+                    idAuthorTweet: "any_idAuthorTweet",
+                    idAuthorLike: "any_AuthorLike",
+                    authorLike: "any_authorLike",
+                    contentTweetLiked: "any_contentLiked"
+                }
+            })
+        })
+
+        test('Deve retornar a mensagem: "Curtida para remover não encontrada" caso o id do like passado não exista', async () => {
+            const sut = createSut()
+
+            prismaMock.liker.findUnique.mockResolvedValue(null)
+
+            prismaMock.liker.delete.mockRejectedValue({} as DeleteLikeDto)
+
+            const result = await sut.LikerService.deleteLike({} as DeleteLikeDto)
+
+            expect(result).toEqual({
+                ok: false,
+                code: 400,
+                message: "Curtida para remover não encontrada"
+            })
         })
     })
 })
