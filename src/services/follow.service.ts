@@ -10,13 +10,6 @@ class Follow {
             }
         })
 
-        if (!data) {
-            return {
-                ok: false,
-                code: 404,
-                message: "Usuario não foi informado"
-            }
-        }
         return {
             ok: true,
             code: 200,
