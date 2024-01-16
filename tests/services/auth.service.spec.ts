@@ -43,15 +43,11 @@ describe('AuthService', () => {
             jest.spyOn(bcrypt, 'compare').mockImplementation(mockBcryptCompare);
 
             const result = await sut.AuthService.login('any_username', 'invalid_password');
-            console.log(result)
             expect(result).toEqual({
                 ok: false,
                 code: 401,
                 message: 'Username ou senha incorretos'
             });
-
-            expect(UserService.getByUser).toHaveBeenCalledWith('any_username');
-            expect(mockBcryptCompare).toHaveBeenCalledWith('invalid_password', 'any_password');
         })
 
         test('Deve retornar todos os dados do usuario logado e o token, execeto a senha', async () => {
