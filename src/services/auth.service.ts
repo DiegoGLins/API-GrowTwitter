@@ -10,7 +10,7 @@ class AuthService {
             return {
                 ok: false,
                 code: 404,
-                message: "usuario não encontrado"
+                message: "Usuario não encontrado"
             }
         }
 
@@ -20,7 +20,7 @@ class AuthService {
             return {
                 ok: false,
                 code: 401,
-                message: "username ou senha incorretos"
+                message: "Username ou senha incorretos"
             }
         }
 
@@ -45,7 +45,6 @@ class AuthService {
             }
         }
     }
-
 }
 
 export default new AuthService()
