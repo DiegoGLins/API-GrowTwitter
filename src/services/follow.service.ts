@@ -18,7 +18,7 @@ class Follow {
         }
     }
 
-    public async addFollwing(data: CreateFollowDto): Promise<ResponseDto> {
+    public async addFollowing(data: CreateFollowDto): Promise<ResponseDto> {
         const checkUser = await prisma.user.findUnique({
             where: {
                 id: data.idUserFollowing,
@@ -30,13 +30,11 @@ class Follow {
             return {
                 ok: false,
                 code: 404,
-                message: "Usuario não encontado"
+                message: "Usuario não encontrado"
             }
         }
 
-        const compareUser = checkUser.id === data.idUserFollower
-
-        if (compareUser) {
+        if (checkUser.id === data.idUserFollower) {
             return {
                 ok: false,
                 code: 400,
@@ -62,7 +60,7 @@ class Follow {
             })
             return {
                 ok: true,
-                code: 201,
+                code: 200,
                 message: `Você começou seguir o usuario ${data.usernameFollowing}`,
                 data: addFollowing
             }
