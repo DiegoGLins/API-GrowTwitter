@@ -1,6 +1,5 @@
-POST http://localhost:3333/users HTTP/1.1
+POST http://localhost:3000/users HTTP/1.1
 content-type: application/json
-
 
 # {
 # "name":"Tatiane Pereira",
@@ -18,7 +17,7 @@ content-type: application/json
 
 # {
 # "name": "Cristian Alves",
-# "username": "crisAlves",
+# "username": "cris.alves",
 # "email":"crisAlves@gmail.com",
 # "password": "12345"
 # }
@@ -30,12 +29,12 @@ content-type: application/json
 # "password": "12345"
 # }
 
-# {
-# "name": "Estefani Santos",
-# "username": "estef.santos",
-# "email":"estefinha@gmail.com",
-# "password": "12345"
-# }
+{
+"name": "Estefani Santos",
+"username": "estef.santos",
+"email":"estefinha@gmail.com",
+"password": "12345"
+}
 
 # {
 # "name": "Rafael Souza",
