@@ -27,7 +27,7 @@ describe('LikerService', () => {
             })
         })
 
-        test('Deve retornar a lista de likes recebidos do autor do tweet', async () => {
+        test('Deve retornar a lista de likes recebidos pelo autor do tweet', async () => {
             const sut = createSut()
 
             const likeData = [{
