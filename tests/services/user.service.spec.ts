@@ -47,7 +47,7 @@ describe('User service', () => {
                 username: "username",
                 email: "any_email",
                 password: "any_password"
-            } as User)
+            })
 
             const result = await sut.getByUser("any_username")
 
