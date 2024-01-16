@@ -13,7 +13,7 @@ describe('Liker Model', () => {
         expect(result).toBe("any_idLike")
     })
 
-    test.only('Deve retornar todas as informações do tweet curtido', () => {
+    test('Deve retornar todas as informações do tweet curtido', () => {
         const sut = createSut()
 
         const result = sut.detailLike()
