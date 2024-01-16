@@ -19,7 +19,7 @@ export class FollowController {
             if (!findFollowing) {
                 return res.status(404).send({ message: "Usuario não encontrado" })
             }
-            const result = await followService.addFollwing({
+            const result = await followService.addFollowing({
                 usernameFollowing: usernameFollowing,
                 idUserFollowing: idUserFollowing,
                 idUserFollower: id,
