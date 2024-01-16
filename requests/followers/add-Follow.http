@@ -1,10 +1,10 @@
-POST http://localhost:3333/follows/d761a536-e94e-4fac-949e-a5452adb1d39 HTTP/1.1
+POST http://localhost:3333/follows/8cae47bd-48c3-495c-9d30-74ed3efb3bf1 HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzMxNGMwLTUxOWEtNDBmMy1iMzFkLWE4ODhkYTc3N2U5OCIsIm5hbWUiOiJFc3RlZmFuaSBTYW50b3MiLCJ1c2VybmFtZSI6ImVzdGVmLnNhbnRvcyIsImF2YXRhciI6IjFhNWNiNzZjLTc3NDctNDI0YS05MGRkLTZiY2JjMjNmOGI5YiIsImVtYWlsIjoiZXN0ZWZpbmhhQGdtYWlsLmNvbSIsImlhdCI6MTcwNDkwOTc3MSwiZXhwIjoxNzA0OTM4NTcxfQ.LxWwmcDYP--0HMOLavb88b3ODRkiW1gex7wuahdditw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI5NzlhNTgxLTVlNmQtNDlhMy04MWEwLWVlMjhjMWMyYTVmOSIsIm5hbWUiOiJCaWFuY2EgU2lsdmEiLCJ1c2VybmFtZSI6ImJpYW5jYSIsImF2YXRhciI6ImJmYjg5YmY4LWExYmQtNGJmMi04Mzk0LWExYTk4MDlhYWJhZSIsImVtYWlsIjoiYmlTaWx2YUBnbWFpbC5jb20iLCJpYXQiOjE3MDUzMjUzNjIsImV4cCI6MTcwNTM1NDE2Mn0.h0eKTEA8SljXIQIEZLL3YnvY4CQRoYmqQegy5SXpIMQ
 
-# {
-#     "usernameFollowing":"alex.mendes"
-# }
+{
+    "usernameFollowing":"bob.dilan"
+}
 
 # {
 #     "usernameFollowing":"estef.santos"
