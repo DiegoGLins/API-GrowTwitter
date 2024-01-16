@@ -22,7 +22,6 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction) {
             avatar: string;
             email: string
         }
-
         next()
     } catch (error: any) {
         return res.status(500).send({
