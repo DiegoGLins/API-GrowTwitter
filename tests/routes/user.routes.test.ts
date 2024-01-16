@@ -25,10 +25,10 @@ describe('User Routes ', () => {
         await prisma.tweet.deleteMany()
     })
 
-    // afterAll(async () => {
-    //     await prisma.user.deleteMany()
-    //     await prisma.tweet.deleteMany()
-    // })
+    afterAll(async () => {
+        await prisma.user.deleteMany()
+        await prisma.tweet.deleteMany()
+    })
 
     describe('List - GET', () => {
         test('Deve retornar Autenticação do token falhou, quando não for informado token', async () => {
