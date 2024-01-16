@@ -20,6 +20,7 @@
     "@types/jest": "^29.5.11",
     "@types/md5": "^2.3.4",
     "@types/node": "^20.8.5",
+    "@types/supertest": "^6.0.2",
     "@types/uuid": "^9.0.5",
     "prisma": "^5.8.0",
     "ts-jest": "^29.1.1",
@@ -42,6 +43,7 @@
     "jest-mock-extended": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "md5": "^2.3.0",
+    "supertest": "^6.3.4",
     "swagger-ui": "^5.11.0",
     "swagger-ui-express": "^5.0.0",
     "uuid": "^9.0.1"
