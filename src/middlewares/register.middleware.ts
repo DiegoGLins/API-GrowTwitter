@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 async function registerMiddleware(req: Request, res: Response, next: NextFunction) {
 
     const { username, password, name, email } = req.body
-
+    console.log(req.body)
     if (!username || !password || !name || !email) {
         return res.status(400).send({
             ok: false,
