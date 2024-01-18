@@ -1,5 +1,11 @@
-POST http://localhost:3333/auth/login HTTP/1.1
+POST http://localhost:3000/auth/login HTTP/1.1
 content-type: application/json
+
+
+{
+"username":"tati.pereira.com",
+"password": "12345"
+}//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhiMTRiNzNiLTA2Y2UtNDZhZC1hY2E0LWFlYzgzYjMzN2U4OSIsIm5hbWUiOiJUYXRpYW5lIFBlcmVpcmEiLCJ1c2VybmFtZSI6InRhdGkucGVyZWlyYS5jb20iLCJhdmF0YXIiOiJlN2VlODExNy1jYjBlLTRhZTktYTNmOC0zMDk5ZDQxOTI3Y2QiLCJlbWFpbCI6InRhdGlwQGdtYWlsLmNvbSIsImlhdCI6MTcwNTU5MzgwMSwiZXhwIjoxNzA1NjIyNjAxfQ.jRnFH0uTyBJIGy8chYrwy6vSEhirR81sW7mLKME2mtI
 
 # {
 # "username": "rafa.souza",
