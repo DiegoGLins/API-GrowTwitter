@@ -3,7 +3,6 @@ import prisma from '../../src/database/prisma.database'
 import request from 'supertest'
 import { createServer } from '../../src/express.server'
 import { TweetType } from '../../src/types/TweetType'
-import { v4 as createUuid } from 'uuid'
 import { randomUUID } from 'crypto'
 
 const makeUser = async () => {
@@ -47,7 +46,7 @@ const makeToken = async () => {
 const makeTweet = async (idUser: string, authorTweet: string) => {
     const tweet = await prisma.tweet.create({
         data: {
-            id: createUuid(),
+            id: randomUUID(),
             content: "any_content",
             idUser,
             authorTweet,
