@@ -47,14 +47,6 @@ class LikerService {
     public async createLike(data: CreateLikeDto): Promise<ResponseDto> {
         const user = await userService.getByUser(data.authorLike)
 
-        if (!user) {
-            return {
-                ok: false,
-                code: 404,
-                message: "Usuario não está logado"
-            }
-        }
-
         if (data.idTweet) {
             const findTweet = await tweetService.listTweetById(data.idTweet)
             const create = await prisma.liker.create({
