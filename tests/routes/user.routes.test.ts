@@ -132,7 +132,7 @@ describe('User Routes ', () => {
         test('Deve retornar "Usuario não encontrado" caso seja passado um id inexistente', async () => {
             const token = makeToken()
 
-            const response = await request(server).delete(`/users/${randomUUID()}`).set("Authorization", `Beare ${token}`)
+            const response = await request(server).delete(`/users/${randomUUID()}`).set("Authorization", `Bearer ${token}`)
 
             expect(response.status).toBe(404)
             expect(response.body).toEqual({
@@ -176,7 +176,7 @@ describe('User Routes ', () => {
         test('Deve retornar "Usuario não existe" caso seja passado um id inexistente', async () => {
             const token = makeToken()
 
-            const response = await request(server).put(`/users/${randomUUID()}`).set("Authorization", `Beare ${token}`)
+            const response = await request(server).put(`/users/${randomUUID()}`).set("Authorization", `Bearer ${token}`)
 
             expect(response.status).toBe(404)
             expect(response.body).toEqual({
@@ -196,7 +196,7 @@ describe('User Routes ', () => {
                 username: "edited_username",
             }
 
-            const response = await request(server).put(`/users/${createdUser.id}`).send(user).set("Authorization", `Beare ${token}`)
+            const response = await request(server).put(`/users/${createdUser.id}`).send(user).set("Authorization", `Bearer ${token}`)
 
             expect(response.status).toBe(200)
             expect(response.body).toEqual({
