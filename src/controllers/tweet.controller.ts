@@ -13,7 +13,15 @@ class TweetController {
                 idUser: id,
                 type: '',
             })
-            return res.status(result.code).send(result)
+            if (result.ok) {
+                return res.status(result.code).send(result)
+            }
+            else {
+                return res.status(500).send({
+                    ok: false,
+                    message: "Error creating tweet",
+                });
+            }
         }
         catch (error: any) {
             res.status(500).send({
