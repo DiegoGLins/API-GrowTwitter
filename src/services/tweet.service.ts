@@ -67,28 +67,35 @@ class TweetService {
     }
 
     public async listTweetById(idTweet: string) {
-        const findTweet = await prisma.tweet.findUnique({
-            where: {
-                id: idTweet,
-            },
-            include: {
-                likes: true,
-                reTweet: true
+        try {
+            const findTweet = await prisma.tweet.findUnique({
+                where: {
+                    id: idTweet,
+                },
+                include: {
+                    likes: true,
+                    reTweet: true
+                }
+            })
+            if (!findTweet) {
+                return {
+                    ok: false,
+                    code: 404,
+                    message: "Tweet não encontrado"
+                }
             }
-        })
-        if (!findTweet) {
+            return {
+                ok: true,
+                code: 200,
+                message: "Tweet listado com sucesso",
+                data: findTweet
+            }
+        } catch (error: any) {
             return {
                 ok: false,
-                code: 404,
-                message: "Tweet não encontrado"
+                code: 500,
+                message: error.toString()
             }
-        }
-
-        return {
-            ok: true,
-            code: 200,
-            message: "Tweet listado com sucesso",
-            data: findTweet
         }
     }
 
