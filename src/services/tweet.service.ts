@@ -168,19 +168,19 @@ class TweetService {
             }
         })
 
-        if (findTweet?.idUser !== data.idUser) {
-            return {
-                ok: false,
-                code: 403,
-                message: "Você não tem permissão para editar esse tweet"
-            }
-        }
-
         if (!findTweet) {
             return {
                 ok: false,
                 code: 404,
                 message: "Tweet para editar não encontrado"
+            }
+        }
+
+        if (findTweet?.idUser !== data.idUser) {
+            return {
+                ok: false,
+                code: 403,
+                message: "Você não tem permissão para editar esse tweet"
             }
         }
 
@@ -206,23 +206,22 @@ class TweetService {
         const findTweet = await prisma.tweet.findUnique({
             where: {
                 id: data.idTweet,
-                idUser: data.idUser
             }
         })
-
-        if (findTweet?.idUser !== data.idUser) {
-            return {
-                ok: false,
-                code: 403,
-                message: "Você não tem permissão para deletar esse tweet"
-            }
-        }
 
         if (!findTweet) {
             return {
                 ok: false,
                 code: 404,
                 message: "Tweet não encontrado"
+            }
+        }
+
+        if (findTweet?.idUser !== data.idUser) {
+            return {
+                ok: false,
+                code: 403,
+                message: "Você não tem permissão para deletar esse tweet"
             }
         }
 
@@ -235,7 +234,7 @@ class TweetService {
         return {
             ok: true,
             code: 200,
-            message: `Tweet deletado com sucesso`,
+            message: 'Tweet deletado com sucesso',
         }
     }
 }
