@@ -45,30 +45,38 @@ class LikerService {
     }
 
     public async createLike(data: CreateLikeDto): Promise<ResponseDto> {
-        const user = await userService.getByUser(data.authorLike)
+        const user = await userService.getByUser(data.usernameAuthorLike)
 
-        if (data.idTweet) {
-            const findTweet = await tweetService.listTweetById(data.idTweet)
-            const create = await prisma.liker.create({
-                data: {
-                    idTweet: findTweet.data?.id!,
-                    idAuthorTweet: findTweet.data?.idUser!,
-                    idAuthorLike: user?.id!,
-                    authorLike: user?.username!,
-                    contentTweetLiked: findTweet.data?.content!
-                }
-            })
+        if (!user) {
             return {
-                ok: true,
-                code: 201,
-                message: "Tweet curtido com sucesso",
-                data: create
+                ok: false,
+                code: 404,
+                message: "Usuario não encontrado"
             }
         }
+        const findTweet = await tweetService.listTweetById(data.idTweet)
+
+        if (!findTweet.ok) {
+            return {
+                ok: false,
+                code: 404,
+                message: "Tweet não encontrado"
+            }
+        }
+        const create = await prisma.liker.create({
+            data: {
+                idTweet: findTweet.data?.id!,
+                idAuthorTweet: findTweet.data?.idUser!,
+                idAuthorLike: user?.id!,
+                authorLike: user?.username!,
+                contentTweetLiked: findTweet.data?.content!
+            }
+        })
         return {
-            ok: false,
-            code: 404,
-            message: "Tweet para curtir não encontrado"
+            ok: true,
+            code: 201,
+            message: "Tweet curtido com sucesso",
+            data: create
         }
     }
 
