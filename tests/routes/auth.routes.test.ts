@@ -53,6 +53,17 @@ describe('Auth Routes', () => {
             })
         })
 
+        test('Deve retornar "Username ou senha incorretos" caso seja passado password errado', async () => {
+            await makeUser()
+            const response = await request(server).post(`/auth/login`).send({ username: "any_username", password: "other_password" })
+            expect(response.status).toBe(401)
+            expect(response.body).toEqual({
+                ok: false,
+                code: 401,
+                message: "Username ou senha incorretos"
+            })
+        })
+
         test('Deve retornar "Login realizado com sucesso" e os dados do usuario logado + o token', async () => {
             const createdUser = await makeUser()
             const response = await request(server).post(`/auth/login`).send({ username: "any_username", password: "any_password" })
