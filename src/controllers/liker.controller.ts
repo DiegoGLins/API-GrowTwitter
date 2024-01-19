@@ -1,23 +1,14 @@
 import { Request, Response } from "express";
 import likerService from "../services/liker.service";
-import tweetService from "../services/tweet.service";
-import userService from "../services/user.service";
 class LikerController {
     public async createLike(req: Request, res: Response) {
         try {
-            const { id, username } = req.authUser
+            const { username } = req.authUser
             const { idTweet } = req.body
-            const findTweet = await tweetService.listTweetById(idTweet)
 
-            if (!findTweet) {
-                return res.status(404).send({ message: "Tweet não encontrado" })
-            }
             const response = await likerService.createLike({
-                idTweet: findTweet?.data!.id,
-                idAuthorTweet: findTweet?.data!.idUser,
-                idAuthorLike: id,
-                authorLike: username,
-                contentTweetLiked: findTweet.data?.content!,
+                idTweet: idTweet,
+                usernameAuthorLike: username
             })
             return res.status(response.code).send(response)
         }
