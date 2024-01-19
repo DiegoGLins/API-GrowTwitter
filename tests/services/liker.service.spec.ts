@@ -66,18 +66,17 @@ describe('LikerService', () => {
     })
 
     describe('createLike', () => {
-        test('Deve retornar a mensagem: "Usuario não está logado" caso o autor do like não seja encontrado', async () => {
+        test('Deve retornar a mensagem: "Usuario não encontrado" caso o autor do like não seja encontrado', async () => {
             const sut = createSut();
 
             prismaMock.user.findUnique.mockResolvedValue(null);
 
-            prismaMock.liker.create.mockResolvedValue({} as Liker)
             const result = await sut.LikerService.createLike({} as CreateLikeDto);
 
             expect(result).toEqual({
                 ok: false,
                 code: 404,
-                message: "Usuario não está logado",
+                message: "Usuario não encontrado",
             });
         })
 
@@ -110,10 +109,7 @@ describe('LikerService', () => {
 
             const result = await sut.LikerService.createLike({
                 idTweet: "any_idTweet",
-                idAuthorTweet: "any_idAuthorTweet",
-                idAuthorLike: user?.id!,
-                authorLike: user?.username!,
-                contentTweetLiked: "any_contentTweetLiked"
+                usernameAuthorLike: "any_username"
             } as CreateLikeDto)
 
             expect(result).toEqual({
@@ -132,19 +128,19 @@ describe('LikerService', () => {
             )
         })
 
-        test('Deve retornar a mensagem: "Tweet para curtir não encontrado" ', async () => {
+        test('Deve retornar a mensagem: "Tweet não encontrado" ', async () => {
             const sut = createSut()
 
             prismaMock.user.findUnique.mockResolvedValue({} as User);
 
-            prismaMock.tweet.findUnique.mockRejectedValue(null)
+            prismaMock.tweet.findUnique.mockResolvedValue(null)
 
             const result = await sut.LikerService.createLike({} as CreateLikeDto)
 
             expect(result).toEqual({
                 ok: false,
                 code: 404,
-                message: "Tweet para curtir não encontrado"
+                message: "Tweet não encontrado"
             })
         })
     })
