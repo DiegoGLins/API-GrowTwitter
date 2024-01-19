@@ -17,9 +17,6 @@ export class UserController {
                 email,
                 password,
             })
-            if (result?.code === 201) {
-                return res.status(result.code).send(result.data)
-            }
             return res.status(result.code).send(result)
         }
 
