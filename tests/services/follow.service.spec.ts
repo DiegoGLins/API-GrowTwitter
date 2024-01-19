@@ -66,7 +66,7 @@ describe('FollowService', () => {
                 idUserFollower: "any_id",
                 usernameFollower: "any_username",
             })
-            console.log("Result:", result)
+
             expect(result).toEqual({
                 ok: false,
                 code: 400,
