@@ -31,7 +31,7 @@ const makeUser = async () => {
 }
 
 describe('User Routes ', () => {
-    const server = createServer()
+    let server: any = createServer()
 
     beforeEach(async () => {
         await prisma.user.deleteMany()
@@ -84,7 +84,7 @@ describe('User Routes ', () => {
         })
     })
     describe('Register - POST', () => {
-        test('Deve retornar: Por favor informe todos os campos caso algum campo não seja passado', async () => {
+        test('Deve retornar: "Por favor informe todos os campos" caso algum campo não seja passado', async () => {
             const user = {
                 name: "any_name",
                 username: "any_username",
