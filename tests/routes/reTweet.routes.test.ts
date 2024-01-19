@@ -57,66 +57,68 @@ const makeToken = async () => {
     return { createdUser, token }
 }
 
-describe('createReTweet - POST', () => {
-    const server = createServer()
-
+describe('ReTweets Routes', () => {
+    let server: any = createServer()
     beforeEach(async () => {
         await prisma.tweet.deleteMany()
         await prisma.user.deleteMany()
+        await prisma.$disconnect()
     })
 
     afterAll(async () => {
         await prisma.tweet.deleteMany()
         await prisma.user.deleteMany()
+        await prisma.$disconnect()
     })
 
-    test('Deve retornar Autenticação do token falhou, quando não for informado token', async () => {
-        const response = await request(server).post(`/reTweets`).send()
+    describe('createReTweet - POST', () => {
+        test('Deve retornar Autenticação do token falhou, quando não for informado token', async () => {
+            const response = await request(server).post(`/reTweets`).send()
 
-        expect(response.status).toBe(401)
-        expect(response.body).toEqual({
-            code: 401,
-            message: "Autenticação do token falhou"
+            expect(response.status).toBe(401)
+            expect(response.body).toEqual({
+                code: 401,
+                message: "Autenticação do token falhou"
+            })
         })
-    })
 
-    test('Deve retornar "Tweet para responder não encontrado" caso seja passado o id de um tweet inexistente', async () => {
-        const { token } = await makeToken()
+        test('Deve retornar "Tweet para responder não encontrado" caso seja passado o id de um tweet inexistente', async () => {
+            const { token } = await makeToken()
 
-        const response = await request(server).post('/reTweets').send({ content: "any_content", idTweetOriginal: randomUUID() }).set("Authorization", `Bearer ${token}`)
+            const response = await request(server).post('/reTweets').send({ content: "any_content", idTweetOriginal: randomUUID() }).set("Authorization", `Bearer ${token}`)
 
-        console.log(response)
-        expect(response.status).toBe(404)
-        expect(response.body).toEqual({
-            ok: false,
-            code: 404,
-            message: "Tweet para responder não encontrado"
+            expect(response.status).toBe(404)
+            expect(response.body).toEqual({
+                ok: false,
+                code: 404,
+                message: "Tweet para responder não encontrado"
+            })
         })
-    })
 
-    test('Deve criar um Retweet no banco', async () => {
-        const { token, createdUser } = await makeToken()
-        const otherUser = await makeOtherUser()
-        const otherTweet = await makeTweet(otherUser.id, otherUser.username)
+        test('Deve criar um Retweet no banco', async () => {
+            const { token, createdUser } = await makeToken()
+            const otherUser = await makeOtherUser()
+            const otherTweet = await makeTweet(otherUser.id, otherUser.username)
 
-        const response = await request(server).post('/reTweets').send({ content: "any_content", idTweetOriginal: otherTweet.id }).set("Authorization", `Bearer ${token}`)
-        expect(response.status).toBe(201)
-        expect(response.body).toEqual({
-            ok: true,
-            code: 201,
-            message: "Tweet criado com sucesso",
-            data: {
-                id: expect.any(String),
-                content: expect.any(String),
-                idUser: createdUser.id,
-                authorTweet: expect.any(String),
-                type: TweetType.reTweet,
-                idTweetOriginal: otherTweet.id,
-                likes: [],
-                reTweet: [],
-                tweetOriginal: expect.any(Object),
-                user: expect.any(Object)
-            }
+            const response = await request(server).post('/reTweets').send({ content: "any_content", idTweetOriginal: otherTweet.id }).set("Authorization", `Bearer ${token}`)
+            expect(response.status).toBe(201)
+            expect(response.body).toEqual({
+                ok: true,
+                code: 201,
+                message: "Tweet criado com sucesso",
+                data: {
+                    id: expect.any(String),
+                    content: expect.any(String),
+                    idUser: createdUser.id,
+                    authorTweet: expect.any(String),
+                    type: TweetType.reTweet,
+                    idTweetOriginal: otherTweet.id,
+                    likes: [],
+                    reTweet: [],
+                    tweetOriginal: expect.any(Object),
+                    user: expect.any(Object)
+                }
+            })
         })
     })
 })
