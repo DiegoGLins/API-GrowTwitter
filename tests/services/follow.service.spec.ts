@@ -1,4 +1,4 @@
-import { Follow, User } from '@prisma/client'
+import { Follow } from '@prisma/client'
 import FollowService from '../../src/services/follow.service'
 import UserService from '../../src/services/user.service'
 import { prismaMock } from '../config/prisma.mock'
