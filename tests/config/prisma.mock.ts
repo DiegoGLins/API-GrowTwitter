@@ -8,7 +8,6 @@ jest.mock("../../src/database/prisma.database", () => ({
 }));
 
 beforeEach(() => {
-    console.log("executou o mock reset - prisma mock");
     mockReset(prismaMock);
 });
 
