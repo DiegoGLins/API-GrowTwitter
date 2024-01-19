@@ -126,6 +126,17 @@ describe('Follow Routes', () => {
             })
         })
 
+        test.only('Deve retornar "Você já está seguindo o usuário "nome_do_usuário_seguido" caso o usuario logado tente seguir o mesmo usuario"', async () => {
+            const { following, userLogged } = await makeFollow()
+            const response = await request(server).post(`/follows/${following.idUserFollowing}`).send({ usernameFollowing: following.usernameFollowing }).set("Authorization", `Bearer ${userLogged.token}`)
+            expect(response.status).toBe(400)
+            expect(response.body).toEqual({
+                ok: false,
+                code: 400,
+                message: `Você já está seguindo o usuário ${following.usernameFollowing}`
+            })
+        })
+
         test('Deve retornar "Você não pode seguir a si mesmo" caso o id do usuário a seguir seja igual ao id do usuário logado', async () => {
             const { token, createdUser } = await makeToken()
 
@@ -185,7 +196,7 @@ describe('Follow Routes', () => {
             })
         })
 
-        test('Deve retornar "Você deixou de seguir "nome_do_usuario_seguido" e os dados do usuario que deixou de seguir"', async () => {
+        test('Deve retornar "Você deixou de seguir "nome_do_usuario_seguido"" e os dados do usuario que deixou de seguir"', async () => {
             const { following, userLogged } = await makeFollow()
             const response = await request(server).delete(`/follows/${following.idUserFollowing}`).send({ usernameFollowing: following.usernameFollowing }).set("Authorization", `Bearer ${userLogged.token}`)
 
