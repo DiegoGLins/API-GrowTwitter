@@ -28,6 +28,7 @@ class UserService {
         return user
     }
 
+
     public async createUser(data: CreateUserDto): Promise<ResponseDto> {
         const findUser = await prisma.user.findFirst({
             where: {
