@@ -61,8 +61,8 @@ const makeLike = async () => {
     return { like, createdUser, token }
 }
 
-describe('LikerService', () => {
-    const server = createServer()
+describe('Liker Routes', () => {
+    let server: any = createServer()
 
     beforeEach(async () => {
         await prisma.liker.deleteMany()
@@ -76,8 +76,7 @@ describe('LikerService', () => {
         await prisma.user.deleteMany()
     })
 
-
-    describe('listLikesFromUser', () => {
+    describe('listLikesFromUser - GET', () => {
         test('Deve retornar Autenticação do token falhou, quando não for informado token', async () => {
             const response = await request(server).get("/likes")
 
@@ -119,7 +118,7 @@ describe('LikerService', () => {
         })
     })
 
-    describe('createLike', () => {
+    describe('createLike - POST', () => {
         test('Deve retornar Autenticação do token falhou, quando não for informado token', async () => {
             const response = await request(server).post("/likes")
 
@@ -151,8 +150,7 @@ describe('LikerService', () => {
             })
         })
 
-        //revisar metodo
-        test.skip('Deve retornar "Tweet para curtir não encontrado" caso seja passado o id de um tweet inexistente', async () => {
+        test('Deve retornar "Tweet não encontrado" caso seja passado o id de um tweet inexistente', async () => {
             const { token } = await makeToken()
 
             const response = await request(server).post(`/likes`).send({ idTweet: randomUUID() }).set("Authorization", `Bearer ${token}`)
@@ -160,12 +158,12 @@ describe('LikerService', () => {
             expect(response.body).toEqual({
                 ok: false,
                 code: 404,
-                message: "Tweet para curtir não encontrado"
+                message: "Tweet não encontrado"
             })
         })
     })
 
-    describe('deleteLike', () => {
+    describe('deleteLike - DELETE', () => {
         test('Deve retornar "Curtida removida com sucesso" com os dados do like removido', async () => {
             const { token, like } = await makeLike()
 
