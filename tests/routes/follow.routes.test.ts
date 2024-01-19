@@ -126,7 +126,7 @@ describe('Follow Routes', () => {
             })
         })
 
-        test.only('Deve retornar "Você já está seguindo o usuário "nome_do_usuário_seguido" caso o usuario logado tente seguir o mesmo usuario"', async () => {
+        test('Deve retornar "Você já está seguindo o usuário "nome_do_usuário_seguido" caso o usuario logado tente seguir o mesmo usuario"', async () => {
             const { following, userLogged } = await makeFollow()
             const response = await request(server).post(`/follows/${following.idUserFollowing}`).send({ usernameFollowing: following.usernameFollowing }).set("Authorization", `Bearer ${userLogged.token}`)
             expect(response.status).toBe(400)
