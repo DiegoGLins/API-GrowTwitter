@@ -58,7 +58,7 @@ const makeTweet = async (idUser: string, authorTweet: string) => {
 }
 
 describe('Tweets Routes', () => {
-    const server = createServer()
+    let server: any = createServer()
 
     beforeEach(async () => {
         await prisma.tweet.deleteMany()
