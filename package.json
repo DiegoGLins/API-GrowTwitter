@@ -7,12 +7,12 @@
     "start": "node ./build",
     "build": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
-    "test": "jest --noStackTrace --runInBand",
+    "test": "npm run test:unit && npm run test:int",
     "test:verbose": "jest --verbose --runInBand --detectOpenHandles",
     "test:coverage": "jest --runInBand --coverage",
     "test:watch": "jest --silent --noStackTrace --runInBand --watchAll",
-    "test:unit": "jest -c jest.unit.config.ts --verbose --noStackTrace",
-    "test:int": "jest -c jest.int.config.ts --verbose --noStackTrace --runInBand"
+    "test:unit": "jest -c jest.unit.config.ts --verbose --noStackTrace --coverage",
+    "test:int": "jest -c jest.int.config.ts --verbose --noStackTrace --runInBand --coverage"
   },
   "keywords": [],
   "author": "",
