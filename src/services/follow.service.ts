@@ -49,26 +49,26 @@ class Follow {
             }
         })
 
-        if (!checkFollowing) {
-            const addFollowing = await prisma.follow.create({
-                data: {
-                    idUserFollowing: data.idUserFollowing,
-                    usernameFollowing: data.usernameFollowing,
-                    idUserFollower: data.idUserFollower,
-                    usernameFollower: data.usernameFollower
-                }
-            })
+        if (checkFollowing) {
             return {
-                ok: true,
-                code: 200,
-                message: `Você começou seguir o usuario ${data.usernameFollowing}`,
-                data: addFollowing
+                ok: false,
+                code: 400,
+                message: `Você já está seguindo o usuário ${checkFollowing.usernameFollowing}`
             }
         }
+        const addFollowing = await prisma.follow.create({
+            data: {
+                idUserFollowing: data.idUserFollowing,
+                usernameFollowing: data.usernameFollowing,
+                idUserFollower: data.idUserFollower,
+                usernameFollower: data.usernameFollower
+            }
+        })
         return {
-            ok: false,
-            code: 400,
-            message: `Você já está seguindo o usuário ${checkFollowing.usernameFollowing}`
+            ok: true,
+            code: 200,
+            message: `Você começou seguir o usuario ${data.usernameFollowing}`,
+            data: addFollowing
         }
     }
 
