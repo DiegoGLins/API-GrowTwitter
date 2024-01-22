@@ -97,7 +97,6 @@ class TweetController {
         }
     }
 
-
     public async updateTweet(req: Request, res: Response) {
         try {
             const { idTweet } = req.params
