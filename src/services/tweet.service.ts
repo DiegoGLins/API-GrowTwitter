@@ -24,8 +24,8 @@ class TweetService {
         const tweets = await prisma.tweet.findMany({
             where: {
                 idUser,
-            }, include: {
-                user: true,
+            },
+            include: {
                 likes: true,
                 reTweet: {
                     include: {
