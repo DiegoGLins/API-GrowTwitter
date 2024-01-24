@@ -40,9 +40,7 @@ class AuthService {
             ok: true,
             code: 200,
             message: "Login realizado com sucesso",
-            data: {
-                authHeader, token
-            }
+            data: authHeader, token
         }
     }
 }
