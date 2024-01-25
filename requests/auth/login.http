@@ -6,6 +6,11 @@ content-type: application/json
 #  "password": "12345"
 # }//
 
+{
+"username": "maycon.andrade",
+"password": "12345"
+}
+
 # {
 # "username": "rafa.souza",
 # "password": "12345"
